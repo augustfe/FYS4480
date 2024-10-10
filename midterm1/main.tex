@@ -11,6 +11,8 @@
 \DeclarePairedDelimiter\ket{\lvert}{\rangle}
 \DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\,\delimsize\vert\,\mathopen{}#2}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
+\DeclarePairedDelimiterX\expval[3]{\langle}{\rangle}%
+{#1\,\delimsize\vert\,\mathopen{}#2\,\delimsize\vert\,\mathopen{}#3}
 
 \usepackage{hyperref}
 \usepackage{xcolor}
@@ -36,74 +38,67 @@
 
 In this midterm we will develop two simple models for studying the helium atom (with two electrons) and the beryllium atom with four electrons.
 
-After having introduced the  Born-Oppenheimer approximation which effectively freezes out the nucleonic degrees of freedom, the Hamiltonian for $N$ electrons takes the following form
+After having introduced the  Born-Oppenheimer approximation which effectively freezes out the nucleonic degrees of freedom, the Hamiltonian for \(N\) electrons takes the following form
 \begin{equation*}
-  \hat{H} = \sum_{i=1}^{N} t(x_i) - \sum_{i=1}^{N} k\frac{Ze^2}{r_i} + \sum_{i<j}^{N} \frac{ke^2}{r_{ij}},
+    \hat{H} = \sum_{i=1}^{N} t(x_i) - \sum_{i=1}^{N} k\frac{Ze^2}{r_i} + \sum_{i<j}^{N} \frac{ke^2}{r_{ij}},
 \end{equation*}
-with $k=1.44$ eVnm.
-Throughout this work we will use atomic units, this means that $\hbar = c = e = m_e = 1$.
-The constant $k$ becomes also equal 1. 
-The resulting energies have to be multiplied by $2 \times 13.6$ eV in order to obtain energies in eletronvolts.
+with \(k=1.44\) eVnm.
+Throughout this work we will use atomic units, this means that \(\hbar = c = e = m_e = 1\).
+The constant \(k\) becomes also equal 1.
+The resulting energies have to be multiplied by \(2 \times 13.6\) eV in order to obtain energies in eletronvolts.
 
 We can rewrite our Hamiltonians as
 \begin{equation}
-    \hat{H} = \hat{H_0} + \hat{H_I} 
+    \hat{H} = \hat{H_0} + \hat{H_I}
     = \sum_{i=1}^{N}\hat{h}_0(x_i) + \sum_{i<j}^{N}\frac{1}{r_{ij}},
-\label{eq:H1H2}
+    \label{eq:H1H2}
 \end{equation}
-where  we have defined $r_{ij} = |\bm{r}_i - \bm{r}_j|$ and $\hat{h}_0(x_i) =  \hat{t}(x_i) - \frac{Z}{r_i}$.
+where  we have defined \(r_{ij} = |\bm{r}_i - \bm{r}_j|\) and \(\hat{h}_0(x_i) =  \hat{t}(x_i) - \frac{Z}{r_i}\).
 
-The variable $x$ contains both the spatial coordinates and the spin
-values.
-The first term of Eq. \eqref{eq:H1H2}, $H_0$, is the sum of the $N$ \emph{one-body} Hamiltonians $\hat{h}_0$.
-Each individual Hamiltonian $\hat{h}_0$ contains the kinetic energy operator of an electron and
-its potential energy due to the attraction of the nucleus.
-The second term, $H_I$, is the sum of the $N(N-1)/2$ two-body interactions between each pair of electrons.
-Note that the double sum carries a
-restriction $i<j$.
+The variable \(x\) contains both the spatial coordinates and the spin values.
+The first term of Eq.~\eqref{eq:H1H2}, \(H_0\), is the sum of the \(N\) \emph{one-body} Hamiltonians \(\hat{h}_0\).
+Each individual Hamiltonian \(\hat{h}_0\) contains the kinetic energy operator of an electron and its potential energy due to the attraction of the nucleus.
+The second term, \(H_I\), is the sum of the \(N(N-1)/2\) two-body interactions between each pair of electrons.
+Note that the double sum carries a restriction \(i<j\).
 
 As basis functions for our calculations we will use hydrogen-like single-particle functions.
-This means the onebody operator is diagonal in this basis for states $i,j$ with quantum numbers
-$nlm_lsm_s$ with energies
+This means the onebody operator is diagonal in this basis for states \(i,j\) with quantum numbers
+\(n,l,m_l,s,m_s\) with energies
 \begin{equation*}
-    \bra{i} \hat{h}_0 \ket{j} = -\frac{Z^2}{2n^2}\delta_{ij}.
+    \expval{i}{\hat{h}_0}{j} = -\frac{Z^2}{2n^2}\delta_{ij}.
 \end{equation*}
 
-The quantum number $n$ refers to the number of nodes of the wave function.
+The quantum number \(n\) refers to the number of nodes of the wave function.
 Observe that this expectation value is independent of spin.
 
-We will in all calculations here restrict ourselves to only so-called $s$-waves, that is the orbital momentum $l$ is zero.
-We will also limit the quantum number $n$ to $n \le 3$.
-It means that every $ns$ state can accommodate two electrons due to the spin degeneracy.
+We will in all calculations here restrict ourselves to only so-called \(s\)-waves, that is the orbital momentum \(l\) is zero.
+We will also limit the quantum number \(n\) to \(n \le 3\).
+It means that every \(ns\) state can accommodate two electrons due to the spin degeneracy.
 
-In the calculations you will need the Coulomb interaction with matrix elements involving single-particle wave functions with $l = 0$ only, the
-so-called $s$-waves.
-We need only the radial part since the spherical harmonics for the $s$-waves are rather simple.
-We omit single-particle states with $l > 0$.
+In the calculations you will need the Coulomb interaction with matrix elements involving single-particle wave functions with \(l = 0\) only, the
+so-called \(s\)-waves.
+We need only the radial part since the spherical harmonics for the \(s\)-waves are rather simple.
+We omit single-particle states with \(l > 0\).
 The actual integrals we need, are tabulated at the end.
 Our radial wave functions are
 \begin{equation*}
     R_{n0}(r) = \left( \frac{2Z}{n} \right)^{3/2} \sqrt{\frac{(n-1)!}{2n\times n!}} L_{n-1}^1 \left( \frac{2Zr}{n} \right) \exp{\left( -\frac{Zr}{n} \right)},
 \end{equation*}
-where $L_{n-1}^1(r)$ are the so-called Laguerre polynomials.
+where \(L_{n-1}^1(r)\) are the so-called Laguerre polynomials.
 These wave functions can then be used to compute the direct part of the Coulomb interaction
 \begin{equation*}
-    \bra{\alpha\beta} V \ket{\gamma\delta}
-    = \int r_1^2 dr_1
-    \int r_2^2 dr_2 R_{n_{\alpha} 0}^*(r_1) R_{n_{\beta} 0}^*(r_2) \frac{1}{r_{12}}R_{n_{\gamma} 0}(r_1) R_{n_{\delta} 0}(r_2).
+    \expval*{\alpha\beta}{V}{\gamma\delta} = \int r_1^2 dr_1 \int r_2^2 dr_2 R_{n_{\alpha} 0}^*(r_1) R_{n_{\beta} 0}^*(r_2) \frac{1}{r_{12}}R_{n_{\gamma} 0}(r_1) R_{n_{\delta} 0}(r_2).
 \end{equation*}
 
-Observe that this is only the radial integral and that the labels $\alpha,\beta,\gamma,\delta$ refer only to the quantum numbers $n,l,m_l$, with $m_l$ the projection of the orbital momentum $l$.
+Observe that this is only the radial integral and that the labels \( \alpha,\beta,\gamma,\delta \) refer only to the quantum numbers \(n,l,m_l\), with \(m_l\) the projection of the orbital momentum \(l\).
 A similar expression can be found for the exchange part.
-Since we have restricted ourselves to only $s$-waves, these integrals are straightforward but tedious to calculate.
-As an addendum to this midterm we list all closed-form expressions for the relevant matrix
-elements.
+Since we have restricted ourselves to only \(s\)-waves, these integrals are straightforward but tedious to calculate.
+As an addendum to this midterm we list all closed-form expressions for the relevant matrix elements.
 Note well that these matrix elements do not include spin.
 When setting up the final antisymmetrized matrix elements you need to consider the spin degrees of freedom as well.
 Please pay in particular attention to the exchange part and the pertinent spin values of the single-particle states.
 
-We will also, for both helium and beryllium assume that the many-particle states we construct have always the same total spin
-projection $M_S = 0$.
+We will also, for both helium and beryllium assume that the many-particle states we construct have always the same total spin projection \(M_S = 0\).
 This means that if we excite one or two particles from the ground state, the spins of the various single-particle states should always sum up to zero.
 
 \end{document}
