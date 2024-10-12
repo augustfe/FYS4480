@@ -2,20 +2,20 @@ We start with the helium atom and define our single-particle Hilbert
 space to consist of the single-particle orbits \(1s\), \(2s\) and \(3s\),
 with their corresponding spin degeneracies.
 
-Set up the ansatz for the ground state \(\ket{c} = \ket{\Phi_0}\) in second quantization.
+Set up the ansatz for the ground state \(\ket*{c} = \ket*{\Phi_0}\) in second quantization.
 Define the second quantization and define a table of single-particle states.
 Construct thereafter all possible one-particle-one-hole
-excitations \(\ket{\Phi_i^a}\) where \(i\) refer to levels below the Fermi level (define this level) and \(a\) refers to particle states.
+excitations \(\ket*{\Phi_i^a}\) where \(i\) refer to levels below the Fermi level (define this level) and \(a\) refers to particle states.
 Define particles and holes.
 The Slater determinants have to be written in terms of the respective creation and annihilation operators.
 The states you construct should all have total spin projection \(M_S=0\).
-Construct also all possible two-particle-two-hole states \(\ket{\Phi_{ij}^{ab}}\) in a second quantization
+Construct also all possible two-particle-two-hole states \(\ket*{\Phi_{ij}^{ab}}\) in a second quantization
 representation.
 
 \subsection{}
 We define the Fermi level as \(1s\), such that the ground state is given by
 \begin{equation}
-    \ket{\Phi_0} = \ket{c} = a_{1\sigma_1}^\dagger a_{1\sigma_2}^\dagger \ket{0},
+    \ket*{\Phi_0} = \ket*{c} = a_{1\sigma_1}^\dagger a_{1\sigma_2}^\dagger \ket*{0},
 \end{equation}
 where we define $\sigma_1 = \ \uparrow \ = +1/2$ and $\sigma_2 = \ \downarrow \ = -1/2$.
 Here, we define particles as electrons (?) above the Fermi level, and holes as the lack of electrons in slots below the Fermi level.
@@ -23,19 +23,19 @@ Here, we define particles as electrons (?) above the Fermi level, and holes as t
 In order to have a one-particle-one-hole excitation, the spin in the hole and particle states must match.
 All possible one-particle-one-hole (1p1h) excitations are then
 \begin{align*}
-    \ket{\Phi_{1\sigma_1}^{2\sigma_1}} &= a_{2\sigma_1}^\dagger a_{1\sigma_1} \ket{\Phi_0}, &
-    \ket{\Phi_{1\sigma_1}^{3\sigma_1}} &= a_{3\sigma_1}^\dagger a_{1\sigma_1} \ket{\Phi_0}, \\
-    \ket{\Phi_{1\sigma_2}^{2\sigma_2}} &= a_{2\sigma_2}^\dagger a_{1\sigma_2} \ket{\Phi_0}, &
-    \ket{\Phi_{1\sigma_2}^{3\sigma_2}} &= a_{3\sigma_2}^\dagger a_{1\sigma_2} \ket{\Phi_0},
+    \ket*{\Phi_{1\sigma_1}^{2\sigma_1}} &= a_{2\sigma_1}^\dagger a_{1\sigma_1} \ket*{\Phi_0}, &
+    \ket*{\Phi_{1\sigma_1}^{3\sigma_1}} &= a_{3\sigma_1}^\dagger a_{1\sigma_1} \ket*{\Phi_0}, \\
+    \ket*{\Phi_{1\sigma_2}^{2\sigma_2}} &= a_{2\sigma_2}^\dagger a_{1\sigma_2} \ket*{\Phi_0}, &
+    \ket*{\Phi_{1\sigma_2}^{3\sigma_2}} &= a_{3\sigma_2}^\dagger a_{1\sigma_2} \ket*{\Phi_0},
 \end{align*}
 where we always excite a particle from the $1s$ state, to the higher states, with the same spin such that $M_S = 0$.
 
-For the possible two-particle-two-hole (2p2h) excitations $\ket{\Phi_{ij}^{ab}}$, we have that both electrons below the Fermi level excite, and that the particles above the Fermi level have opposite spins.
+For the possible two-particle-two-hole (2p2h) excitations $\ket*{\Phi_{ij}^{ab}}$, we have that both electrons below the Fermi level excite, and that the particles above the Fermi level have opposite spins.
 We then have that the possible configurations are
 \begin{align*}
-    \ket{\Phi_{1\sigma_1, 1\sigma_2}^{2\sigma_1, 2\sigma_2}} &= a_{2\sigma_1}^\dagger a_{2\sigma_2}^\dagger a_{1\sigma_2} a_{1\sigma_1} \ket{\Phi_0}, &
-    \ket{\Phi_{1\sigma_1, 1\sigma_2}^{2\sigma_1, 3\sigma_2}} &= a_{2\sigma_1}^\dagger a_{3\sigma_2}^\dagger a_{1\sigma_2} a_{1\sigma_1} \ket{\Phi_0}, \\
-    \ket{\Phi_{1\sigma_1, 1\sigma_2}^{3\sigma_1, 2\sigma_2}} &= a_{3\sigma_1}^\dagger a_{2\sigma_2}^\dagger a_{1\sigma_2} a_{1\sigma_1} \ket{\Phi_0}, &
-    \ket{\Phi_{1\sigma_1, 1\sigma_2}^{3\sigma_1, 3\sigma_2}} &= a_{3\sigma_1}^\dagger a_{3\sigma_2}^\dagger a_{1\sigma_2} a_{1\sigma_1} \ket{\Phi_0}.
+    \ket*{\Phi_{1\sigma_1, 1\sigma_2}^{2\sigma_1, 2\sigma_2}} &= a_{2\sigma_1}^\dagger a_{2\sigma_2}^\dagger a_{1\sigma_2} a_{1\sigma_1} \ket*{\Phi_0}, &
+    \ket*{\Phi_{1\sigma_1, 1\sigma_2}^{2\sigma_1, 3\sigma_2}} &= a_{2\sigma_1}^\dagger a_{3\sigma_2}^\dagger a_{1\sigma_2} a_{1\sigma_1} \ket*{\Phi_0}, \\
+    \ket*{\Phi_{1\sigma_1, 1\sigma_2}^{3\sigma_1, 2\sigma_2}} &= a_{3\sigma_1}^\dagger a_{2\sigma_2}^\dagger a_{1\sigma_2} a_{1\sigma_1} \ket*{\Phi_0}, &
+    \ket*{\Phi_{1\sigma_1, 1\sigma_2}^{3\sigma_1, 3\sigma_2}} &= a_{3\sigma_1}^\dagger a_{3\sigma_2}^\dagger a_{1\sigma_2} a_{1\sigma_1} \ket*{\Phi_0}.
 \end{align*}
 

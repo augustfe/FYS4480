@@ -2,9 +2,94 @@ Define the Hamiltonian in a second-quantized form and use this to compute the ex
 the helium atom.
 Show that it is given by
 \begin{equation}
-    E[\Phi_0] = \expval{c}{\hat{H}}{c} = \sum_{i} \expval{i}{\hat{h}_0}{i} + \frac{1}{2}\sum_{ij}\left[\expval*{ij}{\tfrac{1}{r}}{ij} - \expval*{ij}{\tfrac{1}{r}}{ji}\right].
+    E[\Phi_0] = \expval{c}{\hat{H}}{c} = \sum_{i} \expval{i}{\hat{h}_0}{i} + \frac{1}{2} \sum_{ij} \left[\expval*{ij}{\frac{1}{r_{ij}}}{ij} - \expval*{ij}{\frac{1}{r_{ij}}}{ji}\right].
 \end{equation}
 Define properly the sums keeping in mind that the states $ij$ refer to all quantum numbers $n, l, m_l, s, m_s$.
 Use the values for the various matrix elements listed at the end of the midterm to find the value of $E$ as function of $Z$ and compute $E$ as function of $Z$.
 
 \subsection{}
+We consider the Hamiltonian $\hat{H} = \hat{H}_0 + \hat{H}_I$, where $\hat{H}_0$ is the one-body part and $\hat{H}_I$ is the two-body part, given by
+\begin{align*}
+    \hat{H}_0 &= \sum_{i=1}^{N}\hat{h}_0(x_i), &
+    \hat{H}_I &= \sum_{i<j}^{N}\frac{1}{r_{ij}}.
+\end{align*}
+In second quantization, we rewrite the one-body part as
+\begin{equation}
+    \hat{H}_0 = \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} a_\alpha^\dagger a_\beta.
+\end{equation}
+Then, the expectation value of the ground state with the one-body part is given by
+\begin{equation*}
+    \expval{\Phi_0}{\hat{H}_0}{\Phi_0} = \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} \expval{\Phi_0}{a_\alpha^\dagger a_\beta}{\Phi_0}.
+\end{equation*}
+For all states where either $\alpha > F, \beta > F$, we have that $\expval{\Phi_0}{a_\alpha^\dagger a_\beta}{\Phi_0} = 0$.
+Thus, the sum is restricted to $i,j \le F$,
+\begin{align*}
+    \expval{\Phi_0}{\hat{H}_0}{\Phi_0} &= \sum_{ij} \expval{i}{\hat{h}_0}{j} \expval{\Phi_0}{a_i^\dagger a_j}{\Phi_0} \\
+    &= \sum_{ij} \expval{i}{\hat{h}_0}{j} \delta_{ij} \\
+    &= \sum_{i} \expval{i}{\hat{h}_0}{i},
+\end{align*}
+where we utilized the orthonormality of the single-particle states.
+
+The two-body part is rewritten in second quantization as
+\begin{align*}
+    \hat{H}_I = \frac{1}{2} \sum_{\alpha\beta} \Big[ &\expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\alpha\beta} a_\alpha^\dagger a_\beta^\dagger a_\beta a_\alpha \\
+    + &\expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\beta\alpha} a_\alpha^\dagger a_\beta^\dagger a_\alpha a_\beta \Big].
+\end{align*}
+Using the anti-commutation rule for the annihilation operators, i.e.\ that ${a_\alpha a_\beta = -a_\beta a_\alpha}$, we can simplify the expression to
+\begin{equation*}
+    \hat{H}_I = \frac{1}{2} \sum_{\alpha\beta} \left[\expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\alpha\beta} - \expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\beta\alpha}\right] a_\alpha^\dagger a_\beta^\dagger a_\beta a_\alpha,
+\end{equation*}
+which we recognize as the anti-symmetrized matrix element.
+
+Then, the expectation value of the ground state with the two-body part is
+\begin{equation*}
+    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \frac{1}{2} \sum_{\alpha\beta} \left[\expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\alpha\beta} - \expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\beta\alpha}\right] \expval{\Phi_0}{a_\alpha^\dagger a_\beta^\dagger a_\beta a_\alpha}{\Phi_0}.
+\end{equation*}
+Again, if either $\alpha > F$ or $\beta > F$, the expectation value vanishes, and we have that the sum is restricted to $i,j \le F$. If $i = j$, the term also vanishes.
+We are then left with
+\begin{equation*}
+    \expval{\Phi_0}{\hat{H}_I}{\Phi_0}
+    = \frac{1}{2} \sum_{\substack{ij\\i \neq j}} \expval*{ij}{\frac{1}{r_{ij}}}{ij} - \expval*{ij}{\frac{1}{r_{ij}}}{ji}.
+\end{equation*}
+
+Gather this, we get that the complete expectation value of the ground state is
+\begin{equation}
+    E[\Phi_0]
+    = \expval{c}{\hat{H}}{c}
+    = \sum_{i} \expval{i}{\hat{h}_0}{i} + \frac{1}{2} \sum_{\substack{ij \\ i \neq j}} \expval*{ij}{\frac{1}{r_{ij}}}{ij} - \expval*{ij}{\frac{1}{r_{ij}}}{ji},
+\end{equation}
+as we wanted to show.
+
+In the case of the electrons in the helium atom, we only have $n = 1$, $l = 0$, differing only in the spin quantum number $m_s = \pm 1/2$.
+The expectation value of the one-body part is then
+\begin{equation*}
+    \expval{\Phi_0}{\hat{h}_0}{\Phi_0} = \sum_{\sigma \in \{\pm 1/2\}} \expval{1\sigma}{\hat{h}_0}{1\sigma} = -\frac{Z^2}{n^2},
+\end{equation*}
+and the expectation value of the two-body part is, writing just $\sigma_1$ and $\sigma_2$ for the spins,
+\begin{equation*}
+    \expval{\Phi_0}{\hat{H}_I}{\Phi_0}
+    = \frac{1}{2} \sum_{\substack{\sigma_1\sigma_2\\ \sigma_1 \neq \sigma_2}}
+    \underbrace{\expval*{\sigma_1 \sigma_2}{\frac{1}{r_{\sigma_1\sigma_2}}}{\sigma_1 \sigma_2}}_{\textnormal{Direct term}}
+    - \underbrace{\expval*{\sigma_1 \sigma_2}{\frac{1}{r_{\sigma_1\sigma_2}}}{\sigma_2\sigma_1}}_{\textnormal{Exchange term}}.
+\end{equation*}
+The exchange term vanishes since the states are orthogonal, and we are left with the direct term.
+We are then just left with
+\begin{equation*}
+    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \frac{1}{2}\left[ \expval*{\sigma_1 \sigma_2}{\frac{1}{r_{\sigma_1 \sigma_2}}}{\sigma_1 \sigma_2} + \expval*{\sigma_2 \sigma_1}{\frac{1}{r_{\sigma_1 \sigma_2}}}{\sigma_2 \sigma_1}\right].
+\end{equation*}
+As $\hat{H}_I$ is invariant under the change of label $\sigma$, we can simplify this to
+\begin{equation*}
+    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \expval*{\sigma_1 \sigma_2}{\frac{1}{r_{\sigma_1 \sigma_2}}}{\sigma_1 \sigma_2}.
+\end{equation*}
+
+Computing this, we find that the expectation value of the ground state is
+\begin{equation}
+    E[\Phi_0] = -\tfrac{1}{3}Z^2 + \tfrac{5}{8}Z,
+\end{equation}
+which as a function of $Z$ is shown in \autoref{fig:energy}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/energy_plot.pdf}
+    \caption{The expectation value of the ground states of an atom with two electrons as a fucntion of the nuclear charge $Z$.\label{fig:energy}}
+\end{figure}
