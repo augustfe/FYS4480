@@ -65,21 +65,21 @@ The expectation value of the one-body part is then
 \begin{equation*}
     \expval{\Phi_0}{\hat{h}_0}{\Phi_0} = \sum_{\sigma \in \{\pm 1/2\}} \expval{1\sigma}{\hat{h}_0}{1\sigma} = -\frac{Z^2}{n^2},
 \end{equation*}
-and the expectation value of the two-body part is, writing just $\sigma_1$ and $\sigma_2$ for the spins,
+and the expectation value of the two-body part is, writing just $\sigma_{+}$ and $\sigma_{-}$ for the spins,
 \begin{equation*}
     \expval{\Phi_0}{\hat{H}_I}{\Phi_0}
-    = \frac{1}{2} \sum_{\substack{\sigma_1\sigma_2\\ \sigma_1 \neq \sigma_2}}
-    \underbrace{\expval*{\sigma_1 \sigma_2}{\frac{1}{r_{\sigma_1\sigma_2}}}{\sigma_1 \sigma_2}}_{\textnormal{Direct term}}
-    - \underbrace{\expval*{\sigma_1 \sigma_2}{\frac{1}{r_{\sigma_1\sigma_2}}}{\sigma_2\sigma_1}}_{\textnormal{Exchange term}}.
+    = \frac{1}{2} \sum_{\substack{\sigma_{+}\sigma_{-}\\ \sigma_{+} \neq \sigma_{-}}}
+    \underbrace{\expval*{\sigma_{+} \sigma_{-}}{\frac{1}{r_{\sigma_{+}\sigma_{-}}}}{\sigma_{+} \sigma_{-}}}_{\textnormal{Direct term}}
+    - \underbrace{\expval*{\sigma_{+} \sigma_{-}}{\frac{1}{r_{\sigma_{+}\sigma_{-}}}}{\sigma_{-}\sigma_{+}}}_{\textnormal{Exchange term}}.
 \end{equation*}
 The exchange term vanishes since the states are orthogonal, and we are left with the direct term.
 We are then just left with
 \begin{equation*}
-    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \frac{1}{2}\left[ \expval*{\sigma_1 \sigma_2}{\frac{1}{r_{\sigma_1 \sigma_2}}}{\sigma_1 \sigma_2} + \expval*{\sigma_2 \sigma_1}{\frac{1}{r_{\sigma_1 \sigma_2}}}{\sigma_2 \sigma_1}\right].
+    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \frac{1}{2}\left[ \expval*{\sigma_{+} \sigma_{-}}{\frac{1}{r_{\sigma_{+} \sigma_{-}}}}{\sigma_{+} \sigma_{-}} + \expval*{\sigma_{-} \sigma_{+}}{\frac{1}{r_{\sigma_{+} \sigma_{-}}}}{\sigma_{-} \sigma_{+}}\right].
 \end{equation*}
 As $\hat{H}_I$ is invariant under the change of label $\sigma$, we can simplify this to
 \begin{equation*}
-    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \expval*{\sigma_1 \sigma_2}{\frac{1}{r_{\sigma_1 \sigma_2}}}{\sigma_1 \sigma_2}.
+    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \expval*{\sigma_{+} \sigma_{-}}{\frac{1}{r_{\sigma_{+} \sigma_{-}}}}{\sigma_{+} \sigma_{-}}.
 \end{equation*}
 
 Computing this, we find that the expectation value of the ground state is
