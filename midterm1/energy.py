@@ -41,18 +41,18 @@ def read_line(s: str) -> tuple[tuple[int, int, int, int], sp.Expr]:
     return indicies, value
 
 
-def read_elements(n: int = 3) -> np.ndarray:
+def read_elements(n_max: int = 3) -> np.ndarray:
     """Read the matrix elements from the file
 
     Args:
-        n (int, optional): The size of the matrix. Defaults to 3.
+        n_max (int, optional): The size of the matrix. Defaults to 3.
 
     Returns:
         np.ndarray: The matrix elements
     """
     path = Path(__file__).parent / "matrix_elements.txt"
 
-    values = np.zeros((n, n, n, n), dtype=object)
+    values = np.zeros((n_max, n_max, n_max, n_max), dtype=object)
 
     with open(path) as infile:
         for line in infile:
@@ -62,22 +62,20 @@ def read_elements(n: int = 3) -> np.ndarray:
     return values
 
 
-def one_body_energy(F: int, n: int = 3) -> sp.Expr:
+def one_body_energy(F: int, n: int = 1) -> sp.Expr:
     """Compute the one-body energy
 
     Args:
         F (int): The Fermi-level
+        n (int, optional): The energy level. Defaults to 1.
 
     Returns:
         sp.Expr: The one-body energy
     """
     energy = 0
     # Matching energy level n with the index
-    for i in range(1, F + 1):
+    for _ in range(1, F + 1):
         energy += -(Z**2) / (2 * n**2)
-
-    # Double the energy for the spin-up and spin-down states
-    energy *= 2
 
     return energy
 
@@ -87,6 +85,7 @@ def two_body_energy(values: np.ndarray, F: int, n: int = 3) -> sp.Expr:
 
     Args:
         values (np.ndarray): The matrix elements
+        F (int): The Fermi-level
         n (int, optional): The size of the matrix. Defaults to 3.
 
     Returns:
@@ -103,16 +102,18 @@ def two_body_energy(values: np.ndarray, F: int, n: int = 3) -> sp.Expr:
     return energy
 
 
-def compute_groundstate_energy(F: int = 1, n: int = 3) -> sp.Expr:
+def compute_groundstate_energy(F: int = 1, n: int = 1, n_max: int = 3) -> sp.Expr:
     """Compute the groundstate energy
 
     Args:
+        F (int, optional): The Fermi-level. Defaults to 1.
         n (int, optional): The size of the matrix. Defaults to 3.
+        n_max (int, optional): The size of the matrix. Defaults to 3.
 
     Returns:
         sp.Expr: The groundstate energy
     """
-    values = read_elements(n)
+    values = read_elements(n_max)
 
     energy = one_body_energy(n) + two_body_energy(values, F, n)
 
@@ -160,3 +161,4 @@ def plot_energy(save_path: Path) -> None:
 if __name__ == "__main__":
     save_path = Path(__file__).parent / "figs"
     plot_energy(save_path)
+    plt.show()
