@@ -115,7 +115,7 @@ def compute_groundstate_energy(F: int = 1, n: int = 1, n_max: int = 3) -> sp.Exp
     """
     values = read_elements(n_max)
 
-    energy = one_body_energy(n) + two_body_energy(values, F, n)
+    energy = 2*one_body_energy(n) + two_body_energy(values, F, n)
 
     return energy
 
