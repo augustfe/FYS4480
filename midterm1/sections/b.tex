@@ -31,28 +31,25 @@ Thus, the sum is restricted to $i,j \le F$,
 where we utilized the orthonormality of the single-particle states.
 
 The two-body part is rewritten in second quantization as
+\begin{equation*}
+    \hat{H}_I = \frac{1}{2} \sum_{\alpha \beta \gamma \delta} \expval{\alpha \beta}{V}{\gamma \delta} a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma.
+\end{equation*}
+The expectation value of the ground state with the two-body part is then
+\begin{equation*}
+    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{\Phi_0}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma}{\Phi_0}.
+\end{equation*}
+The possible contributing contractions are
 \begin{align*}
-    \hat{H}_I = \frac{1}{2} \sum_{\alpha\beta} \Big[ &\expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\alpha\beta} a_\alpha^\dagger a_\beta^\dagger a_\beta a_\alpha \\
-    + &\expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\beta\alpha} a_\alpha^\dagger a_\beta^\dagger a_\alpha a_\beta \Big].
+    \wick{\c2 a_\alpha^\dagger \c1 a_\beta^\dagger \c1 a_\delta \c2 a_\gamma} &= \delta_{\alpha\gamma} \delta_{\beta\delta}, &
+    \wick{\c1 a_\alpha^\dagger \c2 a_\beta^\dagger \c1 a_\delta \c2 a_\gamma} &= -\delta_{\alpha\delta} \delta_{\beta\gamma}. \\
 \end{align*}
-Using the anti-commutation rule for the annihilation operators, i.e.\ that ${a_\alpha a_\beta = -a_\beta a_\alpha}$, we can simplify the expression to
-\begin{equation*}
-    \hat{H}_I = \frac{1}{2} \sum_{\alpha\beta} \left[\expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\alpha\beta} - \expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\beta\alpha}\right] a_\alpha^\dagger a_\beta^\dagger a_\beta a_\alpha,
-\end{equation*}
-which we recognize as the anti-symmetrized matrix element.
-
-Then, the expectation value of the ground state with the two-body part is
-\begin{equation*}
-    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \frac{1}{2} \sum_{\alpha\beta} \left[\expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\alpha\beta} - \expval*{\alpha\beta}{\frac{1}{r_{\alpha\beta}}}{\beta\alpha}\right] \expval{\Phi_0}{a_\alpha^\dagger a_\beta^\dagger a_\beta a_\alpha}{\Phi_0}.
-\end{equation*}
-Again, if either $\alpha > F$ or $\beta > F$, the expectation value vanishes, and we have that the sum is restricted to $i,j \le F$. If $i = j$, the term also vanishes.
+Whenever $\alpha > F$ or $\beta > F$, the expectation value vanishes, so we relabel the summation to $i, j$. The terms also vanish if $i = j$. % TODO: Reword maybe
 We are then left with
 \begin{equation*}
-    \expval{\Phi_0}{\hat{H}_I}{\Phi_0}
-    = \frac{1}{2} \sum_{\substack{ij\\i \neq j}} \expval*{ij}{\frac{1}{r_{ij}}}{ij} - \expval*{ij}{\frac{1}{r_{ij}}}{ji}.
+    \expval{\Phi_0}{\hat{H}_0}{\Phi_0} = \frac{1}{2} \sum_{\substack{ij \\ i \neq j}} \expval*{ij}{V}{ij} - \expval*{ij}{V}{ji}.
 \end{equation*}
 
-Gather this, we get that the complete expectation value of the ground state is
+Gathering this, we get that the complete expectation value of the ground state is
 \begin{equation}
     E[\Phi_0]
     = \expval{c}{\hat{H}}{c}

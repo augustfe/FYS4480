@@ -111,27 +111,91 @@ The final expression for the expectation value of the Hamiltonian between the gr
 
 Inserting the values for all 1p1h excitations:
 
-\subsubsection*{a) $\expval{c}{\hat{H}}{\Phi_{1\sigma_{+}}^{2\sigma_{+}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
+\subsubsection{$\expval{c}{\hat{H}}{\Phi_{1\sigma_{+}}^{2\sigma_{+}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
 The only value that $\alpha$ can be, is $1\sigma_{-}$.
 \begin{equation*}
     \expval{1\sigma_{-} 1\sigma_{+}}{V}{1\sigma_{-} 2\sigma_{+}} - \expval{1\sigma_{-} 1\sigma_{+}}{V}{2\sigma_{+} 1\sigma_{-}}
 \end{equation*}
 
-\subsubsection*{b) $\expval{c}{\hat{H}}{\Phi_{1\sigma_{+}}^{3\sigma_{+}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
+\subsubsection{$\expval{c}{\hat{H}}{\Phi_{1\sigma_{+}}^{3\sigma_{+}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
 The only value that $\alpha$ can be, is $1\sigma_{-}$.
 \begin{equation*}
     \expval{1\sigma_{-} 1\sigma_{+}}{V}{1\sigma_{-} 3\sigma_{+}} - \expval{1\sigma_{-} 1\sigma_{+}}{V}{3\sigma_{+} 1\sigma_{-}}
 \end{equation*}
 
-\subsubsection*{c) $\expval{c}{\hat{H}}{\Phi_{1\sigma_{-}}^{2\sigma_{-}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
+\subsubsection{$\expval{c}{\hat{H}}{\Phi_{1\sigma_{-}}^{2\sigma_{-}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
 The only value that $\alpha$ can be, is $1\sigma_{+}$.
 \begin{equation*}
     \expval{1\sigma_{+} 1\sigma_{-}}{V}{1\sigma_{+} 2\sigma_{-}} - \expval{1\sigma_{+} 1\sigma_{-}}{V}{2\sigma_{-} 1\sigma_{+}}
 \end{equation*}
 
-\subsubsection*{d) $\expval{c}{\hat{H}}{\Phi_{1\sigma_{-}}^{3\sigma_{-}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
+\subsubsection{$\expval{c}{\hat{H}}{\Phi_{1\sigma_{-}}^{3\sigma_{-}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
 The only value that $\alpha$ can be, is $1\sigma_{+}$.
 \begin{equation*}
     \expval{1\sigma_{+} 1\sigma_{-}}{V}{1\sigma_{+} 3\sigma_{-}} - \expval{1\sigma_{+} 1\sigma_{-}}{V}{3\sigma_{-} 1\sigma_{+}}
 \end{equation*}
+
+Next, we find the expectation value of the Hamiltonian between two one-particle-one-hole excitations.
+Considering the one-body part, we have
+\begin{align*}
+    \expval{\Phi_i^a}{\hat{H}_0}{\Phi_j^b} &= \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} \expval{\Phi_i^a}{a_\alpha^\dagger a_\beta}{\Phi_j^b} \\
+    &= \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} \expval{c}{a_i^\dagger a_a  a_\alpha^\dagger a_\beta a_b^\dagger a_j}{c}.
+\end{align*}
+Note that if $\alpha > F$ or $\beta > F$, the expectation value vanishes.
+
+The contractions are then
+\begin{equation*}
+    \begin{array}{rlrcr}
+        \expval{\alpha}{\hat{h}_0}{\beta}
+        \langle
+        \wick{
+            c
+            \vert
+            \c2 a_i^\dagger \c1 a_a \c1 a_\alpha^\dagger \c1 a_\beta \c1 a_b^\dagger \c2 a_j
+            \vert
+            c
+        }
+        \rangle
+        &=& \delta_{ij} \delta_{a \alpha} \delta_{b \beta} \expval{\alpha}{\hat{h}_0}{\beta}
+        &=& \delta_{ij} \expval{a}{\hat{h}_0}{b} \,
+        \\
+        \expval{\alpha}{\hat{h}_0}{\beta}
+        \langle
+        \wick{
+            c
+            \vert
+            \c1 a_i^\dagger \c2 a_a \c3 a_\alpha^\dagger \c1 a_\beta \c2 a_b^\dagger \c3 a_j
+            \vert
+            c
+        }
+        \rangle
+        &= &- \delta_{i \beta} \delta_{a b} \delta_{\alpha j} \expval{\alpha}{\hat{h}_0}{\beta}
+        &=& -\delta_{ab} \expval{j}{\hat{h}_0}{i} \;  \\
+        \expval{\alpha}{\hat{h}_0}{\beta}
+        \langle
+        \wick{
+            c
+            \vert
+            \c3 a_i^\dagger \c2 a_a \c1 a_\alpha^\dagger \c1 a_\beta \c2 a_b^\dagger \c3 a_j
+            \vert
+            c
+        }
+        \rangle
+        &=& \delta_{i j} \delta_{a b} \delta_{\alpha \beta} \expval{\alpha}{\hat{h}_0}{\beta}
+        &=& \delta_{i j} \delta_{a b} \expval{\alpha}{\hat{h}_0}{\alpha} \\
+    \end{array}
+\end{equation*}
+meaning that the expectation value of the one-body part is
+\begin{equation*}
+    \expval{\Phi_i^a}{\hat{H}_0}{\Phi_j^b} = \delta_{ij} \expval{a}{\hat{h}_0}{b} - \delta_{ab} \expval{j}{\hat{h}_0}{i} + \delta_{ij} \delta_{ab} \sum_{\alpha \leq F} \expval{\alpha}{\hat{h}_0}{\alpha},
+\end{equation*}
+where we recognize the right-most term as the expectation value of the one-body operator in the ground state, known as the reference energy $\mathcal{E}_0^{\text{Ref}}$.
+The term then vanishes whenever $i \neq j$ or $a \neq b$.
+
+For the two-body part, we have
+\begin{align*}
+    \expval{\Phi_i^a}{\hat{H}_I}{\Phi_j^b} &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{\Phi_i^a}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma}{\Phi_j^b} \\
+    &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{c}{a_i^\dagger a_a a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma a_b^\dagger a_j}{c}.  \\
+\end{align*}
+The possible contractions are then
 
