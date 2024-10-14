@@ -9,6 +9,19 @@ from pathlib import Path
 matplotlib.rcParams["text.usetex"] = True
 matplotlib.rcParams["font.family"] = "serif"
 matplotlib.rcParams["font.serif"] = "Computer Modern"
+SMALL_SIZE = 8
+MEDIUM_SIZE = 10
+BIGGER_SIZE = 12
+
+
+matplotlib.rcParams["font.size"] = SMALL_SIZE  # controls default text sizes
+matplotlib.rcParams["axes.titlesize"] = BIGGER_SIZE  # fontsize of the axes title
+matplotlib.rcParams["axes.labelsize"] = MEDIUM_SIZE  # fontsize of the x and y labels
+matplotlib.rcParams["xtick.labelsize"] = SMALL_SIZE  # fontsize of the tick labels
+matplotlib.rcParams["ytick.labelsize"] = SMALL_SIZE  # fontsize of the tick labels
+matplotlib.rcParams["legend.fontsize"] = SMALL_SIZE  # legend fontsize
+matplotlib.rcParams["figure.titlesize"] = BIGGER_SIZE  # fontsize of the figure title
+
 
 Z = sp.symbols("Z")
 
@@ -115,7 +128,7 @@ def compute_groundstate_energy(F: int = 1, n: int = 1, n_max: int = 3) -> sp.Exp
     """
     values = read_elements(n_max)
 
-    energy = 2*one_body_energy(n) + two_body_energy(values, F, n)
+    energy = 2 * one_body_energy(n) + two_body_energy(values, F, n)
 
     return energy
 
@@ -129,9 +142,11 @@ def plot_energy(save_path: Path) -> None:
 
     Z_vals = np.arange(1, 11)
     energies = energy_func(Z_vals)
+    plt.figure(figsize=(4, 3))
+
     # Plot the energy at the discrete points, with red crosses and green line
     plt.plot(Z_vals, energies, "k--", lw=2)
-    plt.plot(Z_vals, energies, "rx", ms=10)
+    plt.plot(Z_vals, energies, "rx", ms=7)
     plt.xlabel("$Z$")
     plt.ylabel("Potential energy")
     plt.title("Ground state energy")
@@ -149,8 +164,12 @@ def plot_energy(save_path: Path) -> None:
             ha="center",
         )
 
-    plt.ylim(min(energies) - 2, max(energies) + 3)
+    bottom, top = min(energies), max(energies)
+    scaling = 0.15 * (top - bottom)
+
+    plt.ylim(bottom - scaling, top + scaling)
     plt.xticks(Z_vals, [f"${Z}$" for Z in Z_vals])
+    plt.xlim(0, 11)
     ax = plt.gca()
     ax.set_box_aspect(1)
     plt.tight_layout()
@@ -161,4 +180,10 @@ def plot_energy(save_path: Path) -> None:
 if __name__ == "__main__":
     save_path = Path(__file__).parent / "figs"
     plot_energy(save_path)
-    plt.show()
+    # plt.show()
+
+    [
+        [1, 0, 0],
+        [1, 0, 0],
+    ]
+    [2, 0, 0]
