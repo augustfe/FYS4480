@@ -9,10 +9,10 @@
 \usepackage{mathtools}
 \DeclarePairedDelimiter\bra{\langle}{\rvert}
 \DeclarePairedDelimiter\ket{\lvert}{\rangle}
-\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\,\delimsize\vert\,\mathopen{}#2}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1\delimsize\vert\,\mathopen{}#2}
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
 \DeclarePairedDelimiterX\expval[3]{\langle}{\rangle}%
-{#1\,\delimsize\vert\,\mathopen{}#2\,\delimsize\vert\,\mathopen{}#3}
+{#1\delimsize\vert\mathopen{}#2\delimsize\vert\mathopen{}#3}
 
 \usepackage{hyperref}
 \usepackage{xcolor}
@@ -24,6 +24,9 @@
 }
 
 \usepackage{simpler-wick}
+
+\usepackage{enumerate}
+\usepackage[shortlabels]{enumitem}
 
 \renewcommand\thesection{Part \alph{section})}  % chktex 9 % chktex 10 % tex-fmt: skip
 \renewcommand\thesubsection{Solution} % tex-fmt: skip

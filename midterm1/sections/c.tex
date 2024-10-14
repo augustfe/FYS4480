@@ -23,29 +23,72 @@ Writing out the terms, we have
     &= \expval{c}{\hat{H}_0}{\Phi_i^a} + \expval{c}{\hat{H}_I}{\Phi_i^a}. \\
 \end{align*}
 
-Considering the one-body part, we have
-\begin{align*}
-    \expval{c}{\hat{H}_0}{\Phi_i^a} &= \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} \expval{c}{a_\alpha^\dagger a_\beta}{\Phi_i^a} \\
-    &= \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} \expval{c}{a_\alpha^\dagger a_\beta a_a^\dagger a_i}{c}. \\
-\end{align*}
-The only possible contraction is
+We can now read from Eq.~\eqref{eq:H0_second_quant} that the one-body part of the Hamiltonian is
 \begin{equation*}
+    \expval{c}{\hat{H}_0}{\Phi_i^a} = \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} - \mathcal{E}_0^{\text{Ref}},
+\end{equation*}
+where $\mathcal{E}_0^{\text{Ref}} = \expval{c}{\hat{H}_0}{c}$ is the reference energy of the ground state.
+
+\begin{comment}
+    Considering the one-body part, we have
+    \begin{align*}
+        \expval{c}{\hat{H}_0}{\Phi_i^a} &= \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} \expval{c}{a_\alpha^\dagger a_\beta}{\Phi_i^a} \\
+        &= \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} \expval{c}{a_\alpha^\dagger a_\beta a_a^\dagger a_i}{c}. \\
+    \end{align*}
+    The only possible contraction is
+    \begin{equation*}
+        \langle
+        \wick{
+            c
+            \vert
+            \c2 a_\alpha^\dagger \c1 a_\beta \c1 a_a^\dagger \c2 a_i
+            \vert
+            c
+        }
+        \rangle,
+    \end{equation*}
+    such that $\alpha = i$ and $\beta = a$.
+    The expectation value of the one-body part is then
+    \begin{equation*}
+        \expval{c}{\hat{H}_0}{\Phi_i^a} = \sum_{\alpha \beta} \expval{\alpha}{\hat{h}_0}{\beta} \delta_{\alpha i} \delta_{\beta a} = \expval{i}{\hat{h}_0}{a} = 0,
+    \end{equation*}
+    which vanishes due to the $\delta_{ij}$ term of Eq.~\eqref{eq:onebody}.
+\end{comment}
+
+In order to make sure the number of annihilation and creation terms are correct, the contributing terms from $H_I$ are those with two more annihilation operators than creation operators, while also matching the number holes and particles created.
+Those are
+\begin{gather*}
+    \frac{1}{4} \sum_{aijk} \expval{ji}{V}{ak} b_k^\dagger b_j b_i b_a,\\
+    \frac{1}{2} \sum_{aij} \expval{ji}{V}{ai} {\color{red} b_j b_a} - \expval{ji}{V}{ia} b_j b_a.
+\end{gather*}
+
+Computing the contractions, we find for the first term
+\begin{comment}
+    Dobbelt sjekk her du August
+    https://en.wikipedia.org/wiki/Wick%27s_theorem
+\end{comment}
+\begin{align*}
     \langle
     \wick{
         c
         \vert
-        \c2 a_\alpha^\dagger \c1 a_\beta \c1 a_a^\dagger \c2 a_i
+        \c2 b_k^\dagger \c2 b_j \c2 b_i \c1 b_a \c1 b_b^\dagger \c2 b_l^\dagger
         \vert
         c
     }
-    \rangle,
-\end{equation*}
-such that $\alpha = i$ and $\beta = a$.
-The expectation value of the one-body part is then
-\begin{equation*}
-    \expval{c}{\hat{H}_0}{\Phi_i^a} = \sum_{\alpha \beta} \expval{\alpha}{\hat{h}_0}{\beta} \delta_{\alpha i} \delta_{\beta a} = \expval{i}{\hat{h}_0}{a} = 0,
-\end{equation*}
-which vanishes due to the $\delta_{ij}$ term of Eq.~\eqref{eq:onebody}.
+    \rangle & \\
+    \langle
+    \wick{
+        c
+        \vert
+        \c3 b_k^\dagger \c2 b_j \c3 b_i \c1 b_a \c1 b_b^\dagger \c2 b_l^\dagger
+        \vert
+        c
+    }
+    \rangle &
+\end{align*}
+
+\newpage
 
 For the two-body part, writing $V$ for the two-particle operator, we have
 \begin{align*}
@@ -145,6 +188,7 @@ Note that if $\alpha > F$ or $\beta > F$, the expectation value vanishes.
 
 The contractions are then
 \begin{equation*}
+    \arraycolsep=1.4pt
     \begin{array}{rlrcr}
         \expval{\alpha}{\hat{h}_0}{\beta}
         \langle

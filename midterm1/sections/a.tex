@@ -18,7 +18,7 @@ We define the Fermi level as \(1s\), such that the ground state is given by
     \ket*{\Phi_0} = \ket*{c} = a_{1\sigma_{+}}^\dagger a_{1\sigma_{-}}^\dagger \ket*{0},
 \end{equation}
 where we define $\sigma_{+} = \ \uparrow \ = +1/2$ and $\sigma_{-} = \ \downarrow \ = -1/2$.
-Here, we define particles as electrons (?) above the Fermi level, and holes as the lack of electrons in slots below the Fermi level.
+Here, we define particles as electrons above the Fermi level, and holes as the lack of electrons in slots below the Fermi level.
 
 In order to have a one-particle-one-hole excitation, the spin in the hole and particle states must match.
 All possible one-particle-one-hole (1p1h) excitations are then
@@ -39,3 +39,31 @@ We then have that the possible configurations are
     \ket*{\Phi_{1\sigma_{+}, 1\sigma_{-}}^{3\sigma_{+}, 3\sigma_{-}}} &= a_{3\sigma_{+}}^\dagger a_{3\sigma_{-}}^\dagger a_{1\sigma_{-}} a_{1\sigma_{+}} \ket*{\Phi_0}.
 \end{align*}
 
+We now redefine the annihlation and creation operators with respect to the new vaccuum state $\ket*{\Phi_0}$, i.e.,
+\begin{align*}
+    b^\dagger_\alpha =
+    \begin{cases}
+        a^\dagger_\alpha & \text{if } \alpha > F, \\
+        a_\alpha & \text{if } \alpha \leq F,
+    \end{cases}
+    \quad \text{and} \quad
+    b_\alpha =
+    \begin{cases}
+        a_\alpha & \text{if } \alpha > F, \\
+        a^\dagger_\alpha & \text{if } \alpha \leq F.
+    \end{cases}
+\end{align*}
+We then get
+\begin{align*}
+    \ket*{\Phi_{1\sigma_{+}}^{2\sigma_{+}}} &= b_{2\sigma_{+}}^\dagger b_{1\sigma_{+}}^\dagger \ket*{\Phi_0}, &
+    \ket*{\Phi_{1\sigma_{+}}^{3\sigma_{+}}} &= b_{3\sigma_{+}}^\dagger b_{1\sigma_{+}}^\dagger \ket*{\Phi_0}, \\
+    \ket*{\Phi_{1\sigma_{-}}^{2\sigma_{-}}} &= b_{2\sigma_{-}}^\dagger b_{1\sigma_{-}}^\dagger \ket*{\Phi_0}, &
+    \ket*{\Phi_{1\sigma_{-}}^{3\sigma_{-}}} &= b_{3\sigma_{-}}^\dagger b_{1\sigma_{-}}^\dagger \ket*{\Phi_0},
+\end{align*}
+and
+\begin{align*}
+    \ket*{\Phi_{1\sigma_{+}, 1\sigma_{-}}^{2\sigma_{+}, 2\sigma_{-}}} &= b_{2\sigma_{+}}^\dagger b_{2\sigma_{-}}^\dagger b_{1\sigma_{-}}^\dagger b_{1\sigma_{+}}^\dagger \ket*{\Phi_0}, &
+    \ket*{\Phi_{1\sigma_{+}, 1\sigma_{-}}^{2\sigma_{+}, 3\sigma_{-}}} &= b_{2\sigma_{+}}^\dagger b_{3\sigma_{-}}^\dagger b_{1\sigma_{-}}^\dagger b_{1\sigma_{+}}^\dagger \ket*{\Phi_0}, \\
+    \ket*{\Phi_{1\sigma_{+}, 1\sigma_{-}}^{3\sigma_{+}, 2\sigma_{-}}} &= b_{3\sigma_{+}}^\dagger b_{2\sigma_{-}}^\dagger b_{1\sigma_{-}}^\dagger b_{1\sigma_{+}}^\dagger \ket*{\Phi_0}, &
+    \ket*{\Phi_{1\sigma_{+}, 1\sigma_{-}}^{3\sigma_{+}, 3\sigma_{-}}} &= b_{3\sigma_{+}}^\dagger b_{3\sigma_{-}}^\dagger b_{1\sigma_{-}}^\dagger b_{1\sigma_{+}}^\dagger \ket*{\Phi_0}.
+\end{align*}
