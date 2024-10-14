@@ -47,14 +47,14 @@ The expectation value of the one-body part is then
 \end{equation*}
 which vanishes due to the $\delta_{ij}$ term of Eq.~\eqref{eq:onebody}.
 
-For the two-body part, writing $\hat{g}$ for the two-particle operator, we have
+For the two-body part, writing $V$ for the two-particle operator, we have
 \begin{align*}
-    \expval{c}{\hat{H}_I}{\Phi_i^a} &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{\hat{g}}{\gamma\delta} \expval{c}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma}{\Phi_i^a} \\
-    &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{\hat{g}}{\gamma\delta} \expval{c}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma a_a^\dagger a_i}{c}.
+    \expval{c}{\hat{H}_I}{\Phi_i^a} &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{c}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma}{\Phi_i^a} \\
+    &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{c}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma a_a^\dagger a_i}{c}.
 \end{align*}
 The possible contractions are then
 \begin{align*}
-    \expval{\alpha\beta}{\hat{g}}{\gamma\delta} \langle
+    \expval{\alpha\beta}{V}{\gamma\delta} \langle
     \wick{
         c
         \vert
@@ -63,9 +63,9 @@ The possible contractions are then
         c
     }
     \rangle
-    &= \delta_{\alpha \gamma} \delta_{\beta i} \delta_{\delta a} \expval{\alpha\beta}{\hat{g}}{\gamma\delta}
-    = \expval{\alpha i}{\hat{g}}{\alpha a}, \\
-    \expval{\alpha\beta}{\hat{g}}{\gamma\delta} \langle
+    &= \delta_{\alpha \gamma} \delta_{\beta i} \delta_{\delta a} \expval{\alpha\beta}{V}{\gamma\delta}
+    = \expval{\alpha i}{V}{\alpha a}, \\
+    \expval{\alpha\beta}{V}{\gamma\delta} \langle
     \wick{
         c
         \vert
@@ -74,8 +74,8 @@ The possible contractions are then
         c
     }
     \rangle
-    &= -\delta_{\alpha \delta} \delta_{\beta i} \delta_{\gamma a} \expval{\alpha\beta}{\hat{g}}{\gamma\delta} = -\expval{\alpha i}{\hat{g}}{a \alpha}, \\
-    \expval{\alpha\beta}{\hat{g}}{\gamma\delta} \langle
+    &= -\delta_{\alpha \delta} \delta_{\beta i} \delta_{\gamma a} \expval{\alpha\beta}{V}{\gamma\delta} = -\expval{\alpha i}{V}{a \alpha}, \\
+    \expval{\alpha\beta}{V}{\gamma\delta} \langle
     \wick{
         c
         \vert
@@ -84,8 +84,8 @@ The possible contractions are then
         c
     }
     \rangle
-    &= -\delta_{\alpha i} \delta_{\beta \gamma} \delta_{a \delta} \expval{\alpha\beta}{\hat{g}}{\gamma\delta} = -\expval{i \beta}{\hat{g}}{\beta a}, \\
-    \expval{\alpha\beta}{\hat{g}}{\gamma\delta} \langle
+    &= -\delta_{\alpha i} \delta_{\beta \gamma} \delta_{a \delta} \expval{\alpha\beta}{V}{\gamma\delta} = -\expval{i \beta}{V}{\beta a}, \\
+    \expval{\alpha\beta}{V}{\gamma\delta} \langle
     \wick{
         c
         \vert
@@ -94,44 +94,44 @@ The possible contractions are then
         c
     }
     \rangle
-    &= \delta_{\alpha i} \delta_{\beta \delta} \delta_{\gamma a} \expval{\alpha\beta}{\hat{g}}{\gamma\delta} = \expval{i \beta}{\hat{g}}{a \beta}.
+    &= \delta_{\alpha i} \delta_{\beta \delta} \delta_{\gamma a} \expval{\alpha\beta}{V}{\gamma\delta} = \expval{i \beta}{V}{a \beta}.
 \end{align*}
-Using the general fact that $\expval{\alpha \beta}{\hat{g}}{\gamma \delta} = \expval{\beta \alpha}{\hat{g}}{\delta \gamma}$, we can gather these terms into a single term
+Using the general fact that $\expval{\alpha \beta}{V}{\gamma \delta} = \expval{\beta \alpha}{V}{\delta \gamma}$, we can gather these terms into a single term
 % TODO: FIX OSKAR, gjør greia di
 % TODO: Commutation relations
 % TODO: Diagrams
 \begin{equation*}
-    \expval{c}{\hat{H}_I}{\Phi_i^a} = \sum_{\alpha} \expval{\alpha i}{\hat{g}}{\alpha a} - \expval{\alpha i}{\hat{g}}{a \alpha}.
+    \expval{c}{\hat{H}_I}{\Phi_i^a} = \sum_{\alpha} \expval{\alpha i}{V}{\alpha a} - \expval{\alpha i}{V}{a \alpha}.
 \end{equation*}
 
 The final expression for the expectation value of the Hamiltonian between the ground state and a one-particle-one-hole excitation is then
 \begin{equation*}
-    \expval{c}{\hat{H}}{\Phi_i^a} = \expval{c}{\hat{H}_0}{\Phi_i^a} + \expval{c}{\hat{H}_I}{\Phi_i^a} = 0 + \sum_{\alpha} \expval{\alpha i}{\hat{g}}{\alpha a} - \expval{\alpha i}{\hat{g}}{a \alpha}.
+    \expval{c}{\hat{H}}{\Phi_i^a} = \expval{c}{\hat{H}_0}{\Phi_i^a} + \expval{c}{\hat{H}_I}{\Phi_i^a} = 0 + \sum_{\alpha} \expval{\alpha i}{V}{\alpha a} - \expval{\alpha i}{V}{a \alpha}.
 \end{equation*}
 
-Inste†ıng †he values for all 1p1h excitations:
+Inserting the values for all 1p1h excitations:
 
 \subsubsection*{a) $\expval{c}{\hat{H}}{\Phi_{1\sigma_{+}}^{2\sigma_{+}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
 The only value that $\alpha$ can be, is $1\sigma_{-}$.
 \begin{equation*}
-    \expval{1\sigma_{-} 1\sigma_{+}}{\hat{g}}{1\sigma_{-} 2\sigma_{+}} - \expval{1\sigma_{-} 1\sigma_{+}}{\hat{g}}{2\sigma_{+} 1\sigma_{-}}
+    \expval{1\sigma_{-} 1\sigma_{+}}{V}{1\sigma_{-} 2\sigma_{+}} - \expval{1\sigma_{-} 1\sigma_{+}}{V}{2\sigma_{+} 1\sigma_{-}}
 \end{equation*}
 
 \subsubsection*{b) $\expval{c}{\hat{H}}{\Phi_{1\sigma_{+}}^{3\sigma_{+}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
 The only value that $\alpha$ can be, is $1\sigma_{-}$.
 \begin{equation*}
-    \expval{1\sigma_{-} 1\sigma_{+}}{\hat{g}}{1\sigma_{-} 3\sigma_{+}} - \expval{1\sigma_{-} 1\sigma_{+}}{\hat{g}}{3\sigma_{+} 1\sigma_{-}}
+    \expval{1\sigma_{-} 1\sigma_{+}}{V}{1\sigma_{-} 3\sigma_{+}} - \expval{1\sigma_{-} 1\sigma_{+}}{V}{3\sigma_{+} 1\sigma_{-}}
 \end{equation*}
 
 \subsubsection*{c) $\expval{c}{\hat{H}}{\Phi_{1\sigma_{-}}^{2\sigma_{-}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
 The only value that $\alpha$ can be, is $1\sigma_{+}$.
 \begin{equation*}
-    \expval{1\sigma_{+} 1\sigma_{-}}{\hat{g}}{1\sigma_{+} 2\sigma_{-}} - \expval{1\sigma_{+} 1\sigma_{-}}{\hat{g}}{2\sigma_{-} 1\sigma_{+}}
+    \expval{1\sigma_{+} 1\sigma_{-}}{V}{1\sigma_{+} 2\sigma_{-}} - \expval{1\sigma_{+} 1\sigma_{-}}{V}{2\sigma_{-} 1\sigma_{+}}
 \end{equation*}
 
 \subsubsection*{d) $\expval{c}{\hat{H}}{\Phi_{1\sigma_{-}}^{3\sigma_{-}}}$} % chktex 9 % chktex 10 % tex-fmt: skip
 The only value that $\alpha$ can be, is $1\sigma_{+}$.
 \begin{equation*}
-    \expval{1\sigma_{+} 1\sigma_{-}}{\hat{g}}{1\sigma_{+} 3\sigma_{-}} - \expval{1\sigma_{+} 1\sigma_{-}}{\hat{g}}{3\sigma_{-} 1\sigma_{+}}
+    \expval{1\sigma_{+} 1\sigma_{-}}{V}{1\sigma_{+} 3\sigma_{-}} - \expval{1\sigma_{+} 1\sigma_{-}}{V}{3\sigma_{-} 1\sigma_{+}}
 \end{equation*}
 
