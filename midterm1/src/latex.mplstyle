@@ -1,0 +1,12 @@
+text.usetex : True
+
+font.family : serif
+font.serif : Computer Modern
+font.size : 8
+
+axes.titlesize : 12
+axes.labelsize : 10
+xtick.labelsize : 8
+ytick.labelsize : 8
+legend.fontsize : 8
+figure.titlesize : 12
