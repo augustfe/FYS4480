@@ -85,15 +85,15 @@ Combining Eqs.~\eqref{eq:1p1h-ground-onebody}~and~\eqref{eq:1p1h-ground-twobody}
 Finally, taking into account spin, the values we get for the one-particle-one-hole excitations are listed in Eq.~\eqref{eq:1p1h-ground-list}, with the only possible value for $j$ in each case of Eq.~\eqref{eq:1p1h-ground} listed to the far left.
 For brevity, we write $j\sigma_{\pm}$ as just $j_{\pm}$ here.
 \begin{equation}\label{eq:1p1h-ground-list}
-    \arraycolsep=1.4pt % TODO: Fiks off-by-one pixel Oskar
+    \arraycolsep=1.4pt
     \begin{array}{crcl}
         j = 1_{-}: \quad
-        & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}
+        & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}\hspace{0.27pt}
         & = &
         \expval{1_{-} 1_{+}}{V}{1_{-} 2_{+}} - \expval{1_{-} 1_{+}}{V}{2_{+} 1_{-}} \\
 
         j = 1_{-}: \quad
-        & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}
+        & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}\hspace{0.27pt}
         & = &
         \expval{1_{-} 1_{+}}{V}{1_{-} 3_{+}} - \expval{1_{-} 1_{+}}{V}{3_{+} 1_{-}} \\
 
@@ -227,8 +227,20 @@ The possible contributing terms must then have an equal number of annihilation a
     \end{array}
 \end{equation*}
 
+% TODO: Bra nok formattering?
+\begin{multicols}{2}{}
+    \begin{enumerate}
+        \item  $\displaystyle\frac{1}{4} \sum_{abcd} \expval{ab}{V}{cd} b_a^\dagger b_b^\dagger b_d b_c$
+        \item  $\displaystyle\frac{1}{2} \sum_{abij} \expval{ai}{V}{bj} b_a^\dagger b_j^\dagger b_b b_i$
+        \item  $\displaystyle\frac{1}{2} \sum_{abi} \expval{ai}{V}{bi} b_a^\dagger b_b$
+        \item  $\displaystyle\frac{1}{4} \sum_{ijkl} \expval{kl}{V}{ij} b_i^\dagger b_j^\dagger b_l b_k$
+        \item  $\displaystyle\frac{1}{2} \sum_{ijk} \expval{ij}{V}{kj} b_k^\dagger b_i$
+        \item  $\displaystyle\mathcal{E}_I^\text{Ref}.$
+    \end{enumerate}
+\end{multicols}
+
 For the terms here, recall that $\wick{\langle c \vert \c1 b_\alpha^\dagger \c1 b_\beta \vert c \rangle} = \delta_{\alpha \beta}$, while $\wick{\langle c \vert \c1 b_\alpha \c1 b_\beta^\dagger \vert c \rangle} = 0$.
-The first term vanishes as $b_d b_c b_b^\dagger b_j^\dagger = 0$. % TODO: oppklaring tregns her Oskar
+The first term vanishes as $b_d b_c\ket{\Phi_j^{b}} =  \underbrace{b_d b_c b_b^\dagger b_j^†}_{0}\ket{c}= 0$, due to over-annihilation of particles.
 For the second term, relabeling $(a, b, i, j) \mapsto (c, d, k, l)$ we get
 \begin{equation*}
     \wick{
