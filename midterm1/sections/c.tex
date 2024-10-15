@@ -16,17 +16,17 @@ The exact energy with our Hamiltonian is $-2.9037$ atomic units for helium.
 This value is also close to the experimental energy.
 
 \subsection{}
-We start by finding the expectation value of the Hamiltonian between the ground state $\ket{c}$ and a one-particle-one-hole excitation $\ket{\Phi_i^a}$.
+We start by finding the value of the expression $\expval{c}{\hat{H}}{\Phi_i^a}$.
 Writing out the terms, we have
 \begin{align*}
     \expval{c}{\hat{H}}{\Phi_i^a} &= \expval{c}{\hat{H}_0 + \hat{H}_I}{\Phi_i^a} \\
     &= \expval{c}{\hat{H}_0}{\Phi_i^a} + \expval{c}{\hat{H}_I}{\Phi_i^a}.
 \end{align*}
-We can now read from Eq.~\eqref{eq:H0_second_quant} that the one-body part of the Hamiltonian is
+We can now read from Eq.~\eqref{eq:H0_second_quant} that the one-body part of the expression vanishes, either through an unmatched $b_\alpha^\dagger$ or simply $\braket{c}{\Phi_i^a} = 0$.
+This gives us
 \begin{equation}\label{eq:1p1h-ground-onebody}
-    \expval{c}{\hat{H}_0}{\Phi_i^a} = \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \mathcal{E}_0^{\text{Ref}},
+    \expval{c}{\hat{H}_0}{\Phi_i^a} = 0.
 \end{equation}
-where $\mathcal{E}_0^{\text{Ref}} = \expval{c}{\hat{H}_0}{c}$ is the reference energy of the ground state.
 
 \begin{comment}
     Considering the one-body part, we have
@@ -61,7 +61,7 @@ We can then quickly reduce the possible contributing candidates to
     \frac{1}{2} \sum_{aij} \expval{ji}{V}{ai} b_j b_a, \qquad
     \text{and} \qquad \mathcal{E}_I^\text{Ref}.
 \end{equation*}
-On closer inspection, we see that the first term vanishes, as $b_k^\dagger$ is unmatched.
+On closer inspection, we see that the first term vanishes, as $b_k^\dagger$ is unmatched, while the last term vanished due to $\braket{c}{\Phi_i^a} = 0$.
 
 We then just need to evaluate the contractions of the second term, changing the labels of the sum $(a, i, j) \mapsto (b, j, k)$ to avoid confusion with $\ket{\Phi_i^a}$, which simply is
 \begin{equation*}
@@ -74,105 +74,246 @@ We then just need to evaluate the contractions of the second term, changing the 
 \end{equation*}
 We then get
 \begin{equation}\label{eq:1p1h-ground-twobody}
-    \expval*{c}{\hat{H}_I}{\Phi_i^a} = \frac{1}{2} \sum_{j} \expval{i j}{V}{a j} + \mathcal{E}_I^{\text{Ref}},
+    \expval*{c}{\hat{H}_I}{\Phi_i^a} = \frac{1}{2} \sum_{j} \expval{i j}{V}{a j}_{AS},
 \end{equation}
 taking into account that the matrix element in the sum is antisymmetrized.
-
-Combining Eqs.~\eqref{eq:1p1h-ground-onebody}~and~\eqref{eq:1p1h-ground-twobody}, we get the final expression for the expectation value of the Hamiltonian between the ground state and a one-particle-one-hole excitation as
+Combining Eqs.~\eqref{eq:1p1h-ground-onebody}~and~\eqref{eq:1p1h-ground-twobody}, we get the final expression is
 \begin{equation}\label{eq:1p1h-ground}
-    \expval{c}{\hat{H}}{\Phi_i^a} = \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \frac{1}{2} \sum_{j} \expval{i j}{V}{a j} + \mathcal{E}_0^{\text{Ref}} + \mathcal{E}_I^{\text{Ref}}.
+    \expval{c}{\hat{H}}{\Phi_i^a} = \frac{1}{2} \sum_{j \neq i} \expval{i j}{V}{a j} - \expval{i j}{V}{j a}.
 \end{equation}
 
-\newpage
-
-For the two-body part, writing $V$ for the two-particle operator, we have
-\begin{align*}
-    \expval{c}{\hat{H}_I}{\Phi_i^a} &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{c}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma}{\Phi_i^a} \\
-    &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{c}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma a_a^\dagger a_i}{c}.
-\end{align*}
-The possible contractions are then
-\begin{align*}
-    \expval{\alpha\beta}{V}{\gamma\delta} \langle
-    \wick{
-        c
-        \vert
-        \c3 a_\alpha^\dagger \c2 a_\beta^\dagger \c1 a_\delta \c3 a_\gamma \c1 a_a^\dagger \c2 a_i
-        \vert
-        c
-    }
-    \rangle
-    &= \delta_{\alpha \gamma} \delta_{\beta i} \delta_{\delta a} \expval{\alpha\beta}{V}{\gamma\delta}
-    = \expval{\alpha i}{V}{\alpha a}, \\
-    \expval{\alpha\beta}{V}{\gamma\delta} \langle
-    \wick{
-        c
-        \vert
-        \c3 a_\alpha^\dagger \c2 a_\beta^\dagger \c3 a_\delta \c1 a_\gamma \c1 a_a^\dagger \c2 a_i
-        \vert
-        c
-    }
-    \rangle
-    &= -\delta_{\alpha \delta} \delta_{\beta i} \delta_{\gamma a} \expval{\alpha\beta}{V}{\gamma\delta} = -\expval{\alpha i}{V}{a \alpha}, \\
-    \expval{\alpha\beta}{V}{\gamma\delta} \langle
-    \wick{
-        c
-        \vert
-        \c3 a_\alpha^\dagger \c2 a_\beta^\dagger \c1 a_\delta \c2 a_\gamma \c1 a_a^\dagger \c3 a_i
-        \vert
-        c
-    }
-    \rangle
-    &= -\delta_{\alpha i} \delta_{\beta \gamma} \delta_{a \delta} \expval{\alpha\beta}{V}{\gamma\delta} = -\expval{i \beta}{V}{\beta a}, \\
-    \expval{\alpha\beta}{V}{\gamma\delta} \langle
-    \wick{
-        c
-        \vert
-        \c2 a_\alpha^\dagger \c1 a_\beta^\dagger \c1 a_\delta \c1 a_\gamma \c1 a_a^\dagger \c2 a_i
-        \vert
-        c
-    }
-    \rangle
-    &= \delta_{\alpha i} \delta_{\beta \delta} \delta_{\gamma a} \expval{\alpha\beta}{V}{\gamma\delta} = \expval{i \beta}{V}{a \beta}.
-\end{align*}
-Using the general fact that $\expval{\alpha \beta}{V}{\gamma \delta} = \expval{\beta \alpha}{V}{\delta \gamma}$, we can gather these terms into a single term
-% TODO: FIX OSKAR, gjør greia di
-% TODO: Commutation relations
-% TODO: Diagrams
-\begin{equation*}
-    \expval{c}{\hat{H}_I}{\Phi_i^a} = \sum_{\alpha} \expval{\alpha i}{V}{\alpha a} - \expval{\alpha i}{V}{a \alpha}.
-\end{equation*}
-
-The final expression for the expectation value of the Hamiltonian between the ground state and a one-particle-one-hole excitation is then
-\begin{equation}\label{eq:1p1h-exp}
-    \expval{c}{\hat{H}}{\Phi_i^a} = \expval{c}{\hat{H}_0}{\Phi_i^a} + \expval{c}{\hat{H}_I}{\Phi_i^a} = 0 + \sum_{\alpha} \expval{\alpha i}{V}{\alpha a} - \expval{\alpha i}{V}{a \alpha}.
-\end{equation}
-
-Finally, the values we get for the one-particle-one-hole excitations are listed in Eq.~\eqref{eq:1p1h-exp-list}, with the only possible value for $\alpha$ in each case of Eq.~\eqref{eq:1p1h-exp} listed to the far left.
-For brevity, we write $\beta\sigma_{\pm}$ as just $\beta_{\pm}$ here.
-\begin{equation}\label{eq:1p1h-exp-list}
-    \arraycolsep=1.4pt
+Finally, taking into account spin, the values we get for the one-particle-one-hole excitations are listed in Eq.~\eqref{eq:1p1h-ground-list}, with the only possible value for $j$ in each case of Eq.~\eqref{eq:1p1h-ground} listed to the far left.
+For brevity, we write $j\sigma_{\pm}$ as just $j_{\pm}$ here.
+\begin{equation}\label{eq:1p1h-ground-list}
+    \arraycolsep=1.4pt % TODO: Fiks off-by-one pixel Oskar
     \begin{array}{crcl}
-        \alpha = 1_{-}: \quad
+        j = 1_{-}: \quad
         & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}
         & = &
         \expval{1_{-} 1_{+}}{V}{1_{-} 2_{+}} - \expval{1_{-} 1_{+}}{V}{2_{+} 1_{-}} \\
 
-        \alpha = 1_{-}: \quad
+        j = 1_{-}: \quad
         & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}
         & = &
         \expval{1_{-} 1_{+}}{V}{1_{-} 3_{+}} - \expval{1_{-} 1_{+}}{V}{3_{+} 1_{-}} \\
 
-        \alpha = 1_{+}: \quad
+        j = 1_{+}: \quad
         & \expval*{c}{\hat{H}}{\Phi_{1_{-}}^{2_{-}}}
         & = &
         \expval{1_{+} 1_{-}}{V}{1_{+} 2_{-}} - \expval{1_{+} 1_{-}}{V}{2_{-} 1_{+}} \\
 
-        \alpha = 1_{+}: \quad
+        j = 1_{+}: \quad
         & \expval*{c}{\hat{H}}{\Phi_{1_{-}}^{3_{-}}}
         & = &
         \expval{1_{+} 1_{-}}{V}{1_{+} 3_{-}} - \expval{1_{+} 1_{-}}{V}{3_{-} 1_{+}}
     \end{array}
 \end{equation}
+
+\begin{comment}
+    \newpage
+
+    For the two-body part, writing $V$ for the two-particle operator, we have
+    \begin{align*}
+        \expval{c}{\hat{H}_I}{\Phi_i^a} &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{c}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma}{\Phi_i^a} \\
+        &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{c}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma a_a^\dagger a_i}{c}.
+    \end{align*}
+    The possible contractions are then
+    \begin{align*}
+        \expval{\alpha\beta}{V}{\gamma\delta} \langle
+        \wick{
+            c
+            \vert
+            \c3 a_\alpha^\dagger \c2 a_\beta^\dagger \c1 a_\delta \c3 a_\gamma \c1 a_a^\dagger \c2 a_i
+            \vert
+            c
+        }
+        \rangle
+        &= \delta_{\alpha \gamma} \delta_{\beta i} \delta_{\delta a} \expval{\alpha\beta}{V}{\gamma\delta}
+        = \expval{\alpha i}{V}{\alpha a}, \\
+        \expval{\alpha\beta}{V}{\gamma\delta} \langle
+        \wick{
+            c
+            \vert
+            \c3 a_\alpha^\dagger \c2 a_\beta^\dagger \c3 a_\delta \c1 a_\gamma \c1 a_a^\dagger \c2 a_i
+            \vert
+            c
+        }
+        \rangle
+        &= -\delta_{\alpha \delta} \delta_{\beta i} \delta_{\gamma a} \expval{\alpha\beta}{V}{\gamma\delta} = -\expval{\alpha i}{V}{a \alpha}, \\
+        \expval{\alpha\beta}{V}{\gamma\delta} \langle
+        \wick{
+            c
+            \vert
+            \c3 a_\alpha^\dagger \c2 a_\beta^\dagger \c1 a_\delta \c2 a_\gamma \c1 a_a^\dagger \c3 a_i
+            \vert
+            c
+        }
+        \rangle
+        &= -\delta_{\alpha i} \delta_{\beta \gamma} \delta_{a \delta} \expval{\alpha\beta}{V}{\gamma\delta} = -\expval{i \beta}{V}{\beta a}, \\
+        \expval{\alpha\beta}{V}{\gamma\delta} \langle
+        \wick{
+            c
+            \vert
+            \c2 a_\alpha^\dagger \c1 a_\beta^\dagger \c1 a_\delta \c1 a_\gamma \c1 a_a^\dagger \c2 a_i
+            \vert
+            c
+        }
+        \rangle
+        &= \delta_{\alpha i} \delta_{\beta \delta} \delta_{\gamma a} \expval{\alpha\beta}{V}{\gamma\delta} = \expval{i \beta}{V}{a \beta}.
+    \end{align*}
+    Using the general fact that $\expval{\alpha \beta}{V}{\gamma \delta} = \expval{\beta \alpha}{V}{\delta \gamma}$, we can gather these terms into a single term
+    % TODO: FIX OSKAR, gjør greia di
+    % TODO: Commutation relations
+    % TODO: Diagrams
+    \begin{equation*}
+        \expval{c}{\hat{H}_I}{\Phi_i^a} = \sum_{\alpha} \expval{\alpha i}{V}{\alpha a} - \expval{\alpha i}{V}{a \alpha}.
+    \end{equation*}
+
+    The final expression for the expectation value of the Hamiltonian between the ground state and a one-particle-one-hole excitation is then
+    \begin{equation}\label{eq:1p1h-exp}
+        \expval{c}{\hat{H}}{\Phi_i^a} = \expval{c}{\hat{H}_0}{\Phi_i^a} + \expval{c}{\hat{H}_I}{\Phi_i^a} = 0 + \sum_{\alpha} \expval{\alpha i}{V}{\alpha a} - \expval{\alpha i}{V}{a \alpha}.
+    \end{equation}
+
+    Finally, the values we get for the one-particle-one-hole excitations are listed in Eq.~\eqref{eq:1p1h-exp-list}, with the only possible value for $\alpha$ in each case of Eq.~\eqref{eq:1p1h-exp} listed to the far left.
+    For brevity, we write $\beta\sigma_{\pm}$ as just $\beta_{\pm}$ here.
+    \begin{equation}\label{eq:1p1h-exp-list}
+        \arraycolsep=1.4pt % TODO: Fiks off-by-one pixel Oskar
+        \begin{array}{crcl}
+            \alpha = 1_{-}: \quad
+            & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}
+            & = &
+            \expval{1_{-} 1_{+}}{V}{1_{-} 2_{+}} - \expval{1_{-} 1_{+}}{V}{2_{+} 1_{-}} \\
+
+            \alpha = 1_{-}: \quad
+            & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}
+            & = &
+            \expval{1_{-} 1_{+}}{V}{1_{-} 3_{+}} - \expval{1_{-} 1_{+}}{V}{3_{+} 1_{-}} \\
+
+            \alpha = 1_{+}: \quad
+            & \expval*{c}{\hat{H}}{\Phi_{1_{-}}^{2_{-}}}
+            & = &
+            \expval{1_{+} 1_{-}}{V}{1_{+} 2_{-}} - \expval{1_{+} 1_{-}}{V}{2_{-} 1_{+}} \\
+
+            \alpha = 1_{+}: \quad
+            & \expval*{c}{\hat{H}}{\Phi_{1_{-}}^{3_{-}}}
+            & = &
+            \expval{1_{+} 1_{-}}{V}{1_{+} 3_{-}} - \expval{1_{+} 1_{-}}{V}{3_{-} 1_{+}}
+        \end{array}
+    \end{equation}
+\end{comment}
+
+Next, we find a simplified expression for $\expval{\Phi_i^a}{\hat{H}}{\Phi_j^b}$,
+noting that
+\begin{equation*}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_j^b} = \expval{c}{b_i b_a \hat{H} b_b^\dagger b_j^\dagger}{c}.
+\end{equation*}
+The possible contributing terms must then have an equal number of annihilation and creation operators in order to not vanish, reducing the candidates to
+% \begin{enumerate}
+%     \item $\displaystyle\frac{1}{4} \sum_{abcd} \expval{ab}{V}{cd} b_a^\dagger b_b^\dagger b_d b_c$
+%     \item $\displaystyle\frac{1}{2} \sum_{abij} \expval{ai}{V}{bj} b_a^\dagger b_j^\dagger b_b b_i$
+%     \item $\displaystyle\frac{1}{2} \sum_{abi} \expval{ai}{V}{bi} b_a^\dagger b_b$
+%     \item $\displaystyle\frac{1}{4} \sum_{ijkl} \expval{kl}{V}{ij} b_i^\dagger b_j^\dagger b_l b_k$
+%     \item $\displaystyle\frac{1}{2} \sum_{ijkl} \expval{ij}{V}{kj} b_k^\dagger b_i$
+%     \item $\displaystyle\mathcal{E}_I^\text{Ref}$
+% \end{enumerate}
+\begin{equation*} % TODO: Fix formattering Oskar
+    \begin{array}{cccccc}
+        \displaystyle\frac{1}{4} \sum_{abcd} \expval{ab}{V}{cd} b_a^\dagger b_b^\dagger b_d b_c &, &
+        \displaystyle\frac{1}{2} \sum_{abij} \expval{ai}{V}{bj} b_a^\dagger b_j^\dagger b_b b_i &, &
+        \displaystyle\frac{1}{2} \sum_{abi} \expval{ai}{V}{bi} b_a^\dagger b_b, \\
+        \displaystyle\frac{1}{4} \sum_{ijkl} \expval{kl}{V}{ij} b_i^\dagger b_j^\dagger b_l b_k &, &
+        \displaystyle\frac{1}{2} \sum_{ijk} \expval{ij}{V}{kj} b_k^\dagger b_i &, &
+        \displaystyle\mathcal{E}_I^\text{Ref}.
+    \end{array}
+\end{equation*}
+
+For the terms here, recall that $\wick{\langle c \vert \c1 b_\alpha^\dagger \c1 b_\beta \vert c \rangle} = \delta_{\alpha \beta}$, while $\wick{\langle c \vert \c1 b_\alpha \c1 b_\beta^\dagger \vert c \rangle} = 0$.
+The first term vanishes as $b_d b_c b_b^\dagger b_j^\dagger = 0$. % TODO: oppklaring tregns her Oskar
+For the second term, relabeling $(a, b, i, j) \mapsto (c, d, k, l)$ we get
+\begin{equation*}
+    \wick{
+        \langle
+        c \vert
+        \c2 b_i
+        \c1 b_a
+        \c1 b_c^\dagger
+        \c2 b_l^\dagger
+        \c1 b_d
+        \c2 b_k
+        \c1 b_b^\dagger
+        \c2 b_j^\dagger
+        \vert c
+        \rangle
+    } = -\delta_{il} \delta_{ac} \delta_{db} \delta_{kj} \implies \frac{1}{2} \sum
+\end{equation*}
+\begin{comment}
+    \begin{align*}
+        \wick{
+            \langle
+            c \vert
+            \c2 b_i
+            \c1 b_a
+            \underbrace{
+                b_c^\dagger
+                b_l^\dagger
+                b_d
+                b_k
+            }_{\text{vanishes}}
+            \c1 b_b^\dagger
+            \c2 b_j^\dagger
+            \vert c
+            \rangle
+        } &= 0, &
+        \wick{
+            \langle
+            c \vert
+            \c2 b_i
+            \c1 b_a
+            \c1 b_c^\dagger
+            \c2 b_l^\dagger
+            \c1 b_d
+            \c2 b_k
+            \c1 b_b^\dagger
+            \c2 b_j^\dagger
+            \vert c
+            \rangle
+        } &= -\delta_{il} \delta_{ac} \delta_{db} \delta_{kj}.
+    \end{align*}
+\end{comment}
+For the third term, relabeling $(a, b, i) \mapsto (c, d, k)$, we have
+\begin{equation*}
+    \wick{
+        \langle
+        c \vert
+        \c2 b_i
+        \c1 b_a
+        \c1 b_c^\dagger
+        \c1 b_d
+        \c1 b_b^\dagger
+        \c2 b_j^\dagger
+        \vert c
+        \rangle
+    } = \delta_{ij} \delta_{ab} \delta_{cd}.
+\end{equation*}
+The fourth term vanishes as the number of hole annihilation operator to the left of the creation operators does not match.
+The fifth term, relabeling $(i, j, k) \mapsto (k, l, m)$, gives
+\begin{equation*}
+    \wick{
+        \langle
+        c \vert
+        \c1 b_i
+        \c2 b_a
+        \c1 b_m^\dagger
+        \c1 b_k
+        \c2 b_b^\dagger
+        \c1 b_j^\dagger
+        \vert c
+        \rangle
+    } = \delta_{im} \delta_{ab} \delta_{kj}.
+\end{equation*}
+The last term simply gives us $\delta_{ab} \delta_{ij}$.
+
+\newpage
 
 Next, we find the expectation value of the Hamiltonian between two one-particle-one-hole excitations.
 Considering the one-body part, we have
