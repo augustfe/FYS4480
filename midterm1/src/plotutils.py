@@ -4,7 +4,7 @@ import sympy as sp
 import matplotlib.pyplot as plt
 from pathlib import Path
 
-from energy import compute_groundstate_energy
+from energy import Energy
 from utils import Z
 
 dir_path = Path(__file__).parents[1]
@@ -22,7 +22,10 @@ def plot_energy(save_path: Path = save_path) -> None:
     """
     save_path.mkdir(exist_ok=True)
 
-    energy_expr = compute_groundstate_energy()
+    groundstate = np.array([[1, 0, 0], [1, 0, 0]])
+    energy = Energy(groundstate)
+    energy_expr = energy.E_ref
+
     print(f"Ground state energy: {energy_expr}")
     energy_func = sp.lambdify(Z, energy_expr, "numpy")
 
