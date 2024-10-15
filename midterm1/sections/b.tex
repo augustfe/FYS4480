@@ -35,7 +35,7 @@ we can simplify the expression to
 \end{equation*}
 The first and last terms vanish, as both $b_b \ket*{\Phi_0} = 0$ and $b_j \ket*{\Phi_0} = 0$, leaving us with
 \begin{equation}
-    \hat{H}_0 = \sum_{i} \expval{i}{\hat{h}_0}{i}.
+    \expval{c}{\hat{H}_0}{c} = \sum_{i} \expval{i}{\hat{h}_0}{i} = \mathcal{E}_0^{\text{Ref}}.
 \end{equation}
 
 The two-body part is rewritten in second quantization as
@@ -107,7 +107,7 @@ In order to simplify the computations later, we briefly summarize the qualitativ
 We can now quickly see that $\expval{c}{\hat{H}_I}{c}$ only gets a contribution from the last $H_I^{(5)}$ term, as the other terms vanish due to either an annihilation operator acting on the vacuum state, or orthogonality of the states created.
 We are then just left with
 \begin{equation}
-    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij}_{AS} = \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij} - \expval{ij}{V}{ji}.
+    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij}_{AS} = \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij} - \expval{ij}{V}{ji} = \mathcal{E}_I^{\text{Ref}}.
 \end{equation}
 
 Finally, combining this with the expectation value of the one-body part, we get that the complete expectation value of the ground state is
@@ -200,9 +200,9 @@ as we wanted to show.
 In the case of the electrons in the helium atom, we only have $n = 1$, $l = 0$, differing only in the spin quantum number $m_s = \pm 1/2$.
 The expectation value of the one-body part is then
 \begin{equation*}
-    \expval{\Phi_0}{\hat{h}_0}{\Phi_0} = \sum_{\sigma \in \{\pm 1/2\}} \expval{1\sigma}{\hat{h}_0}{1\sigma} = -\frac{Z^2}{n^2},
+    \expval{\Phi_0}{\hat{H}_0}{\Phi_0} = \sum_{\sigma \in \{\pm 1/2\}} \expval{1\sigma}{\hat{h}_0}{1\sigma} = -Z^2,
 \end{equation*}
-and the expectation value of the two-body part is, writing just $\sigma_{+}$ and $\sigma_{-}$ for the spins,
+and the expectation value of the two-body part is, writing just $\sigma_{+}$ and $\sigma_{-}$ for the spins with $n = 1$,
 \begin{equation*}
     \expval{\Phi_0}{\hat{H}_I}{\Phi_0}
     = \frac{1}{2} \sum_{\substack{\sigma_{+}\sigma_{-}\\ \sigma_{+} \neq \sigma_{-}}}
@@ -216,10 +216,10 @@ We are then just left with
 \end{equation*}
 As $\hat{H}_I$ is invariant under the change of label $\sigma$, we can simplify this to
 \begin{equation*}
-    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \expval*{\sigma_{+} \sigma_{-}}{\frac{1}{r_{\sigma_{+} \sigma_{-}}}}{\sigma_{+} \sigma_{-}}.
+    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \expval*{\sigma_{+} \sigma_{-}}{\frac{1}{r_{\sigma_{+} \sigma_{-}}}}{\sigma_{+} \sigma_{-}} = \frac{5}{8} Z.
 \end{equation*}
 
-Computing this, we find that the expectation value of the ground state is
+Combining this, we find that the expectation value of the ground state is
 \begin{equation}
     E[\Phi_0] = -Z^2 + \tfrac{5}{8}Z,
 \end{equation}
