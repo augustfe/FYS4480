@@ -57,7 +57,7 @@ where utilizing antisymmetrized matrix elements for the sake of brevity, we have
     \hat{H}_I^{(5)} &= \frac{1}{4} \sum_{ijkl} \expval{kl}{V}{ij} b_i^\dagger b_j^\dagger b_l b_k + \frac{1}{2} \sum_{ijk} \expval{ij}{V}{kj} b_k^\dagger b_i + \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij}.
 \end{align*}
 
-The terms are ordered in the following manner
+In order to simplify the computations later, we briefly summarize the qualitative properties of each of the terms above.
 \begin{enumerate}[(1).]
     \item Contributes for $\geq$two-particle states
     \item Creates or removes a three-particle-one-hole state, while conserving the number of particles
@@ -104,11 +104,10 @@ The terms are ordered in the following manner
     \end{enumerate}
 \end{comment}
 
-We only get contributions from the $H_I^{(5)}$ term, as the other terms vanish.
-They vanish due to either $b_\alpha \ket*{\Phi_0} = 0$ or orthogonality of the states created.
+We can now quickly see that $\expval{c}{\hat{H}_I}{c}$ only gets a contribution from the last $H_I^{(5)}$ term, as the other terms vanish due to either an annihilation operator acting on the vacuum state, or orthogonality of the states created.
 We are then just left with
 \begin{equation}
-    \expval{\Phi_0}{\hat{H}_0}{\Phi_0} = \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij}_{AS} = \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij} - \expval{ij}{V}{ji}.
+    \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij}_{AS} = \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij} - \expval{ij}{V}{ji}.
 \end{equation}
 
 Finally, combining this with the expectation value of the one-body part, we get that the complete expectation value of the ground state is
