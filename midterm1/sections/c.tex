@@ -23,9 +23,9 @@ Writing out the terms, we have
     &= \expval{c}{\hat{H}_0}{\Phi_i^a} + \expval{c}{\hat{H}_I}{\Phi_i^a}.
 \end{align*}
 We can now read from Eq.~\eqref{eq:H0_second_quant} that the one-body part of the Hamiltonian is
-\begin{equation*}
+\begin{equation}\label{eq:1p1h-ground-onebody}
     \expval{c}{\hat{H}_0}{\Phi_i^a} = \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \mathcal{E}_0^{\text{Ref}},
-\end{equation*}
+\end{equation}
 where $\mathcal{E}_0^{\text{Ref}} = \expval{c}{\hat{H}_0}{c}$ is the reference energy of the ground state.
 
 \begin{comment}
@@ -54,38 +54,34 @@ where $\mathcal{E}_0^{\text{Ref}} = \expval{c}{\hat{H}_0}{c}$ is the reference e
     which vanishes due to the $\delta_{ij}$ term of Eq.~\eqref{eq:onebody}.
 \end{comment}
 
-In order to make sure the number of annihilation and creation terms are correct, the contributing terms from $H_I$ are those with two more annihilation operators than creation operators, while also matching the number holes and particles created.
-Those are
-\begin{gather*}
-    \frac{1}{4} \sum_{aijk} \expval{ji}{V}{ak} b_k^\dagger b_j b_i b_a,\\
-    \frac{1}{2} \sum_{aij} \expval{ji}{V}{ai} {\color{red} b_j b_a} - \expval{ji}{V}{ia} b_j b_a.
-\end{gather*}
+In order to make sure the number of annihilation and creation terms are correct, the contributing terms from $H_I$ are those with two more annihilation operators than creation operators, while also matching the number of holes and particles created.
+We can then quickly reduce the possible contributing candidates to
+\begin{equation*}
+    \frac{1}{4} \sum_{aijk} \expval{ji}{V}{ak} b_k^\dagger b_j b_i b_a, \qquad
+    \frac{1}{2} \sum_{aij} \expval{ji}{V}{ai} b_j b_a, \qquad
+    \text{and} \qquad \mathcal{E}_I^\text{Ref}.
+\end{equation*}
+On closer inspection, we see that the first term vanishes, as $b_k^\dagger$ is unmatched.
 
-Computing the contractions, we find for the first term
-\begin{comment}
-    Dobbelt sjekk her du August
-    https://en.wikipedia.org/wiki/Wick%27s_theorem
-\end{comment}
-\begin{align*}
-    \langle
+We then just need to evaluate the contractions of the second term, changing the labels of the sum $(a, i, j) \mapsto (b, j, k)$ to avoid confusion with $\ket{\Phi_i^a}$, which simply is
+\begin{equation*}
+    \langle c \vert
     \wick{
-        c
-        \vert
-        \c2 b_k^\dagger \c2 b_j \c2 b_i \c1 b_a \c1 b_b^\dagger \c2 b_l^\dagger
-        \vert
-        c
+        \c2 b_k \c1 b_b \c1 b_a^\dagger \c2 b_i^\dagger
     }
-    \rangle & \\
-    \langle
-    \wick{
-        c
-        \vert
-        \c3 b_k^\dagger \c2 b_j \c3 b_i \c1 b_a \c1 b_b^\dagger \c2 b_l^\dagger
-        \vert
-        c
-    }
-    \rangle &
-\end{align*}
+    \vert c \rangle
+    = \delta_{ik} \delta_{ab}.
+\end{equation*}
+We then get
+\begin{equation}\label{eq:1p1h-ground-twobody}
+    \expval*{c}{\hat{H}_I}{\Phi_i^a} = \frac{1}{2} \sum_{j} \expval{i j}{V}{a j} + \mathcal{E}_I^{\text{Ref}},
+\end{equation}
+taking into account that the matrix element in the sum is antisymmetrized.
+
+Combining Eqs.~\eqref{eq:1p1h-ground-onebody}~and~\eqref{eq:1p1h-ground-twobody}, we get the final expression for the expectation value of the Hamiltonian between the ground state and a one-particle-one-hole excitation as
+\begin{equation}\label{eq:1p1h-ground}
+    \expval{c}{\hat{H}}{\Phi_i^a} = \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \frac{1}{2} \sum_{j} \expval{i j}{V}{a j} + \mathcal{E}_0^{\text{Ref}} + \mathcal{E}_I^{\text{Ref}}.
+\end{equation}
 
 \newpage
 

@@ -142,21 +142,22 @@ def plot_energy(save_path: Path) -> None:
 
     Z_vals = np.arange(1, 11)
     energies = energy_func(Z_vals)
-    plt.figure(figsize=(4, 3))
+    fig = plt.figure(figsize=(4, 3))
+    ax = fig.gca()
 
     # Plot the energy at the discrete points, with red crosses and green line
-    plt.plot(Z_vals, energies, "k--", lw=2)
-    plt.plot(Z_vals, energies, "rx", ms=7)
-    plt.xlabel("$Z$")
-    plt.ylabel("Potential energy")
-    plt.title("Ground state energy")
-    plt.grid()
+    ax.plot(Z_vals, energies, "k--", lw=2)
+    ax.plot(Z_vals, energies, "rx", ms=7)
+    ax.set_xlabel("$Z$")
+    ax.set_ylabel("Potential energy", labelpad=-3)
+    ax.set_title("Ground state energy")
+    ax.grid()
 
     # Add the atomic numbers next to the points
     periodictable = ["H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne"]
 
     for i, txt in enumerate(periodictable):
-        plt.annotate(
+        ax.annotate(
             txt,
             (Z_vals[i], energies[i]),
             textcoords="offset points",
@@ -167,14 +168,15 @@ def plot_energy(save_path: Path) -> None:
     bottom, top = min(energies), max(energies)
     scaling = 0.15 * (top - bottom)
 
-    plt.ylim(bottom - scaling, top + scaling)
-    plt.xticks(Z_vals, [f"${Z}$" for Z in Z_vals])
-    plt.xlim(0, 11)
+    ax.set_ylim(bottom - scaling, top + scaling)
+    ax.set_xticks(Z_vals, [f"${Z}$" for Z in Z_vals])
+    # plt.yticks([-i * 10 for i in range(11)])
+    ax.set_xlim(0, 11)
     ax = plt.gca()
     ax.set_box_aspect(1)
-    plt.tight_layout()
+    fig.tight_layout()
 
-    plt.savefig(save_path / "energy_plot.pdf", bbox_inches="tight")
+    fig.savefig(save_path / "energy_plot.pdf")  # , bbox_inches="tight")
 
 
 if __name__ == "__main__":
