@@ -63,7 +63,7 @@ def read_elements(n_max: int = 3) -> np.ndarray:
     Returns:
         np.ndarray: The matrix elements
     """
-    path = Path(__file__).parent / "matrix_elements.txt"
+    path = Path(__file__).parents[1] / "matrix_elements.txt"
 
     values = np.zeros((n_max, n_max, n_max, n_max), dtype=object)
 
@@ -180,7 +180,7 @@ def plot_energy(save_path: Path) -> None:
 
 
 if __name__ == "__main__":
-    save_path = Path(__file__).parent / "figs"
+    save_path = Path(__file__).parents[1] / "figs"
     plot_energy(save_path)
     # plt.show()
 
