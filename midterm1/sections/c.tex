@@ -161,7 +161,7 @@ The fifth term, relabeling $(i, j, k) \mapsto (k, l, m)$, gives
 \end{equation*}
 The last term simply gives us $\delta_{ab} \delta_{ij} \mathcal{E}_I^{\text{Ref}}$.
 
-In the case of the helium atom, fifth term vanishes, as there are no remaining holes in the vaccuum states. % TODO: Usikker på om dette er riktig. Er summene a ≠ b typ?
+In the case of the helium atom, the fifth term vanishes, as there are no remaining holes in the vaccuum states. % TODO: Usikker på om dette er riktig. Er summene a ≠ b typ?
 The final expression for $\expval{\Phi_i^a}{\hat{H}}{\Phi_j^b}$ is then
 \begin{equation}\label{eq:1p1h-1p1h}
     \begin{split}
@@ -177,70 +177,39 @@ The final expression for $\expval{\Phi_i^a}{\hat{H}}{\Phi_j^b}$ is then
     \end{split}
 \end{equation}
 
-\newpage
-
-Next, we find the expectation value of the Hamiltonian between two one-particle-one-hole excitations.
-Considering the one-body part, we have
-\begin{align*}
-    \expval{\Phi_i^a}{\hat{H}_0}{\Phi_j^b} &= \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} \expval{\Phi_i^a}{a_\alpha^\dagger a_\beta}{\Phi_j^b} \\
-    &= \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} \expval{c}{a_i^\dagger a_a  a_\alpha^\dagger a_\beta a_b^\dagger a_j}{c}.
-\end{align*}
-Note that if $\alpha > F$ or $\beta > F$, the expectation value vanishes.
-
-The contractions are then
+We split the expression into the different cases.
+Firstly, when $i \neq j$ and $a \neq b$, we have
 \begin{equation*}
-    \arraycolsep=1.4pt
-    \begin{array}{rlrcr}
-        \expval{\alpha}{\hat{h}_0}{\beta}
-        \langle
-        \wick{
-            c
-            \vert
-            \c2 a_i^\dagger \c1 a_a \c1 a_\alpha^\dagger \c1 a_\beta \c1 a_b^\dagger \c2 a_j
-            \vert
-            c
-        }
-        \rangle
-        &=& \delta_{ij} \delta_{a \alpha} \delta_{b \beta} \expval{\alpha}{\hat{h}_0}{\beta}
-        &=& \delta_{ij} \expval{a}{\hat{h}_0}{b} \,
-        \\
-        \expval{\alpha}{\hat{h}_0}{\beta}
-        \langle
-        \wick{
-            c
-            \vert
-            \c1 a_i^\dagger \c2 a_a \c3 a_\alpha^\dagger \c1 a_\beta \c2 a_b^\dagger \c3 a_j
-            \vert
-            c
-        }
-        \rangle
-        &= &- \delta_{i \beta} \delta_{a b} \delta_{\alpha j} \expval{\alpha}{\hat{h}_0}{\beta}
-        &=& -\delta_{ab} \expval{j}{\hat{h}_0}{i} \;  \\
-        \expval{\alpha}{\hat{h}_0}{\beta}
-        \langle
-        \wick{
-            c
-            \vert
-            \c3 a_i^\dagger \c2 a_a \c1 a_\alpha^\dagger \c1 a_\beta \c2 a_b^\dagger \c3 a_j
-            \vert
-            c
-        }
-        \rangle
-        &=& \delta_{i j} \delta_{a b} \delta_{\alpha \beta} \expval{\alpha}{\hat{h}_0}{\beta}
-        &=& \delta_{i j} \delta_{a b} \expval{\alpha}{\hat{h}_0}{\alpha} \\
-    \end{array}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_j^b} = -\frac{1}{2} \expval{aj}{V}{bi}_{AS} = \frac{1}{2} \left[ \expval{aj}{V}{ib} - \expval{aj}{V}{bi} \right].
 \end{equation*}
-meaning that the expectation value of the one-body part is
+Considering just the spin part, and placing disregarding the energy levels for now, we have
 \begin{equation*}
-    \expval{\Phi_i^a}{\hat{H}_0}{\Phi_j^b} = \delta_{ij} \expval{a}{\hat{h}_0}{b} - \delta_{ab} \expval{j}{\hat{h}_0}{i} + \delta_{ij} \delta_{ab} \sum_{\alpha \leq F} \expval{\alpha}{\hat{h}_0}{\alpha},
+    \frac{1}{2} \left[ \expval{\sigma_1 \sigma_2}{V}{\sigma_1 \sigma_2} - \expval{\sigma_1 \sigma_2}{V}{\sigma_2 \sigma_1} \right],
 \end{equation*}
-where we recognize the right-most term as the expectation value of the one-body operator in the ground state, known as the reference energy $\mathcal{E}_0^{\text{Ref}}$.
-The term then vanishes whenever $i \neq j$ or $a \neq b$.
+where we can now see that the second state vanishes due to the orthogonality of the spin. % TODO: Dobbeltsjekk at dette stemmer
+This leaves us with
+\begin{equation*}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_j^b} = \frac{1}{2} \expval{aj}{V}{ib}.
+\end{equation*}
 
-For the two-body part, we have
-\begin{align*}
-    \expval{\Phi_i^a}{\hat{H}_I}{\Phi_j^b} &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{\Phi_i^a}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma}{\Phi_j^b} \\
-    &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{c}{a_i^\dagger a_a a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma a_b^\dagger a_j}{c}.  \\
-\end{align*}
-The possible contractions are then
+Next, we consider the case when $i = j$ and $a \neq b$.
+The expression then becomes
+\begin{equation*}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^b} = \frac{1}{2} \expval{aj}{V}{bj}_{AS} = \frac{1}{2} \left[ \expval{aj}{V}{bj} - \expval{aj}{V}{jb} \right].
+\end{equation*}
+Again, considering the spin part, we have
+\begin{equation*}
+    \frac{1}{2} \left[ \expval{\sigma_1 \sigma_2}{V}{\sigma_1 \sigma_2} - \expval{\sigma_1 \sigma_2}{V}{\sigma_2 \sigma_1} \right],
+\end{equation*}
+where again the right term vanishes, leaving us with
+\begin{equation*}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^b} = \frac{1}{2} \expval{aj}{V}{bj}.
+\end{equation*}
+In the case where $i \neq j$ and $a = b$, the entire expression vanishes.
 
+Finally, the expectation value of the Hamiltonian with the one-particle-one-hole excitation is
+\begin{equation}\label{eq:1p1h-1p1h-final}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^a} = \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \mathcal{E}_0^{\text{Ref}} + \mathcal{E}_I^{\text{Ref}}.
+\end{equation}
+
+Now, getting the explicit values for the matrix elements, so that we can set up the Hamiltonian matrix and diagonalize it using Python.
