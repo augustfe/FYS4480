@@ -88,7 +88,13 @@ noting that
 \begin{equation*}
     \expval{\Phi_i^a}{\hat{H}}{\Phi_j^b} = \expval{c}{b_i b_a \hat{H} b_b^\dagger b_j^\dagger}{c}.
 \end{equation*}
-The possible contributing terms must then have an equal number of annihilation and creation operators in order to not vanish, reducing the candidates to
+Beginning again with the one-body part of the Hamiltonian, we have can read from Eq.~\eqref{eq:H0_second_quant_simple} that if $(i, a) \neq (j, b)$, the expression vanishes.
+If however the pair is equal, we get a contribution, giving us
+\begin{equation*}
+    \expval{\Phi_i^a}{\hat{H}_0}{\Phi_j^b} = \delta_{ij} \delta_{ab} \left[ \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \mathcal{E}_0^{\text{Ref}} \right]
+\end{equation*}
+
+For the two-body part, we have that the possible contributing terms must then have an equal number of annihilation and creation operators in order to not vanish, reducing the candidates to
 \begin{multicols}{2}{}
     \begin{enumerate}
         \item  $\displaystyle\frac{1}{4} \sum_{abcd} \expval{ab}{V}{cd} b_a^\dagger b_b^\dagger b_d b_c$
@@ -96,7 +102,7 @@ The possible contributing terms must then have an equal number of annihilation a
         \item  $\displaystyle\frac{1}{2} \sum_{abi} \expval{ai}{V}{bi} b_a^\dagger b_b$
         \item  $\displaystyle\frac{1}{4} \sum_{ijkl} \expval{kl}{V}{ij} b_i^\dagger b_j^\dagger b_l b_k$
         \item  $\displaystyle\frac{1}{2} \sum_{ijk} \expval{ij}{V}{kj} b_k^\dagger b_i$
-        \item  $\displaystyle\mathcal{E}_I^\text{Ref}.$
+        \item  $\displaystyle\mathcal{E}_I^\text{Ref}$.
     \end{enumerate}
 \end{multicols}
 
@@ -117,7 +123,8 @@ For the second term, relabeling $(a, b, i, j) \mapsto (c, d, k, l)$ we get
         \c2 b_j^\dagger
         \vert c
         \rangle
-    } = -\delta_{il} \delta_{ac} \delta_{db} \delta_{kj} \implies \frac{1}{2} \sum
+    } = -\delta_{il} \delta_{ac} \delta_{db} \delta_{kj} \implies
+    -\frac{1}{2} \expval{a j}{V}{b i}.
 \end{equation*}
 For the third term, relabeling $(a, b, i) \mapsto (c, d, k)$, we have
 \begin{equation*}
@@ -132,7 +139,8 @@ For the third term, relabeling $(a, b, i) \mapsto (c, d, k)$, we have
         \c2 b_j^\dagger
         \vert c
         \rangle
-    } = \delta_{ij} \delta_{ab} \delta_{cd}.
+    } = \delta_{ij} \delta_{ab} \delta_{cd} \implies
+    \frac{1}{2} \delta_{ij} \sum_{k} \expval{a k}{V}{b k}.
 \end{equation*}
 The fourth term vanishes as the number of hole annihilation operator to the left of the creation operators does not match.
 The fifth term, relabeling $(i, j, k) \mapsto (k, l, m)$, gives
@@ -148,9 +156,26 @@ The fifth term, relabeling $(i, j, k) \mapsto (k, l, m)$, gives
         \c1 b_j^\dagger
         \vert c
         \rangle
-    } = \delta_{im} \delta_{ab} \delta_{kj}.
+    } = \delta_{im} \delta_{ab} \delta_{kj} \implies
+    \frac{1}{2} \delta_{ab} \sum_{l} \expval{j l}{V}{i l}.
 \end{equation*}
-The last term simply gives us $\delta_{ab} \delta_{ij}$.
+The last term simply gives us $\delta_{ab} \delta_{ij} \mathcal{E}_I^{\text{Ref}}$.
+
+In the case of the helium atom, fifth term vanishes, as there are no remaining holes in the vaccuum states. % TODO: Usikker på om dette er riktig. Er summene a ≠ b typ?
+The final expression for $\expval{\Phi_i^a}{\hat{H}}{\Phi_j^b}$ is then
+\begin{equation}\label{eq:1p1h-1p1h}
+    \begin{split}
+        \expval{\Phi_i^a}{\hat{H}}{\Phi_j^b}
+        =& \ \delta_{ij} \delta_{ab} \left[
+            \expval{a}{\hat{h}_0}{a}
+            - \expval{i}{\hat{h}_0}{i}
+            + \mathcal{E}_0^{\text{Ref}}
+            + \mathcal{E}_I^{\text{Ref}}
+        \right] \\
+        &- \frac{1}{2} \expval{a j}{V}{b i}
+        + \frac{\delta_{ij}}{2} \sum_{k} \expval{a k}{V}{b k}.
+    \end{split}
+\end{equation}
 
 \newpage
 
