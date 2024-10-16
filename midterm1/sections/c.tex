@@ -28,32 +28,6 @@ This gives us
     \expval{c}{\hat{H}_0}{\Phi_i^a} = 0.
 \end{equation}
 
-\begin{comment}
-    Considering the one-body part, we have
-    \begin{align*}
-        \expval{c}{\hat{H}_0}{\Phi_i^a} &= \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} \expval{c}{a_\alpha^\dagger a_\beta}{\Phi_i^a} \\
-        &= \sum_{\alpha\beta} \expval{\alpha}{\hat{h}_0}{\beta} \expval{c}{a_\alpha^\dagger a_\beta a_a^\dagger a_i}{c}. \\
-    \end{align*}
-    The only possible contraction is
-    \begin{equation*}
-        \langle
-        \wick{
-            c
-            \vert
-            \c2 a_\alpha^\dagger \c1 a_\beta \c1 a_a^\dagger \c2 a_i
-            \vert
-            c
-        }
-        \rangle,
-    \end{equation*}
-    such that $\alpha = i$ and $\beta = a$.
-    The expectation value of the one-body part is then
-    \begin{equation*}
-        \expval{c}{\hat{H}_0}{\Phi_i^a} = \sum_{\alpha \beta} \expval{\alpha}{\hat{h}_0}{\beta} \delta_{\alpha i} \delta_{\beta a} = \expval{i}{\hat{h}_0}{a} = 0,
-    \end{equation*}
-    which vanishes due to the $\delta_{ij}$ term of Eq.~\eqref{eq:onebody}.
-\end{comment}
-
 In order to make sure the number of annihilation and creation terms are correct, the contributing terms from $H_I$ are those with two more annihilation operators than creation operators, while also matching the number of holes and particles created.
 We can then quickly reduce the possible contributing candidates to
 \begin{equation*}
@@ -109,125 +83,12 @@ For brevity, we write $j\sigma_{\pm}$ as just $j_{\pm}$ here.
     \end{array}
 \end{equation}
 
-\begin{comment}
-    \newpage
-
-    For the two-body part, writing $V$ for the two-particle operator, we have
-    \begin{align*}
-        \expval{c}{\hat{H}_I}{\Phi_i^a} &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{c}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma}{\Phi_i^a} \\
-        &= \frac{1}{2} \sum_{\alpha\beta\gamma\delta} \expval{\alpha\beta}{V}{\gamma\delta} \expval{c}{a_\alpha^\dagger a_\beta^\dagger a_\delta a_\gamma a_a^\dagger a_i}{c}.
-    \end{align*}
-    The possible contractions are then
-    \begin{align*}
-        \expval{\alpha\beta}{V}{\gamma\delta} \langle
-        \wick{
-            c
-            \vert
-            \c3 a_\alpha^\dagger \c2 a_\beta^\dagger \c1 a_\delta \c3 a_\gamma \c1 a_a^\dagger \c2 a_i
-            \vert
-            c
-        }
-        \rangle
-        &= \delta_{\alpha \gamma} \delta_{\beta i} \delta_{\delta a} \expval{\alpha\beta}{V}{\gamma\delta}
-        = \expval{\alpha i}{V}{\alpha a}, \\
-        \expval{\alpha\beta}{V}{\gamma\delta} \langle
-        \wick{
-            c
-            \vert
-            \c3 a_\alpha^\dagger \c2 a_\beta^\dagger \c3 a_\delta \c1 a_\gamma \c1 a_a^\dagger \c2 a_i
-            \vert
-            c
-        }
-        \rangle
-        &= -\delta_{\alpha \delta} \delta_{\beta i} \delta_{\gamma a} \expval{\alpha\beta}{V}{\gamma\delta} = -\expval{\alpha i}{V}{a \alpha}, \\
-        \expval{\alpha\beta}{V}{\gamma\delta} \langle
-        \wick{
-            c
-            \vert
-            \c3 a_\alpha^\dagger \c2 a_\beta^\dagger \c1 a_\delta \c2 a_\gamma \c1 a_a^\dagger \c3 a_i
-            \vert
-            c
-        }
-        \rangle
-        &= -\delta_{\alpha i} \delta_{\beta \gamma} \delta_{a \delta} \expval{\alpha\beta}{V}{\gamma\delta} = -\expval{i \beta}{V}{\beta a}, \\
-        \expval{\alpha\beta}{V}{\gamma\delta} \langle
-        \wick{
-            c
-            \vert
-            \c2 a_\alpha^\dagger \c1 a_\beta^\dagger \c1 a_\delta \c1 a_\gamma \c1 a_a^\dagger \c2 a_i
-            \vert
-            c
-        }
-        \rangle
-        &= \delta_{\alpha i} \delta_{\beta \delta} \delta_{\gamma a} \expval{\alpha\beta}{V}{\gamma\delta} = \expval{i \beta}{V}{a \beta}.
-    \end{align*}
-    Using the general fact that $\expval{\alpha \beta}{V}{\gamma \delta} = \expval{\beta \alpha}{V}{\delta \gamma}$, we can gather these terms into a single term
-    % TODO: FIX OSKAR, gjør greia di
-    % TODO: Commutation relations
-    % TODO: Diagrams
-    \begin{equation*}
-        \expval{c}{\hat{H}_I}{\Phi_i^a} = \sum_{\alpha} \expval{\alpha i}{V}{\alpha a} - \expval{\alpha i}{V}{a \alpha}.
-    \end{equation*}
-
-    The final expression for the expectation value of the Hamiltonian between the ground state and a one-particle-one-hole excitation is then
-    \begin{equation}\label{eq:1p1h-exp}
-        \expval{c}{\hat{H}}{\Phi_i^a} = \expval{c}{\hat{H}_0}{\Phi_i^a} + \expval{c}{\hat{H}_I}{\Phi_i^a} = 0 + \sum_{\alpha} \expval{\alpha i}{V}{\alpha a} - \expval{\alpha i}{V}{a \alpha}.
-    \end{equation}
-
-    Finally, the values we get for the one-particle-one-hole excitations are listed in Eq.~\eqref{eq:1p1h-exp-list}, with the only possible value for $\alpha$ in each case of Eq.~\eqref{eq:1p1h-exp} listed to the far left.
-    For brevity, we write $\beta\sigma_{\pm}$ as just $\beta_{\pm}$ here.
-    \begin{equation}\label{eq:1p1h-exp-list}
-        \arraycolsep=1.4pt % TODO: Fiks off-by-one pixel Oskar
-        \begin{array}{crcl}
-            \alpha = 1_{-}: \quad
-            & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}
-            & = &
-            \expval{1_{-} 1_{+}}{V}{1_{-} 2_{+}} - \expval{1_{-} 1_{+}}{V}{2_{+} 1_{-}} \\
-
-            \alpha = 1_{-}: \quad
-            & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}
-            & = &
-            \expval{1_{-} 1_{+}}{V}{1_{-} 3_{+}} - \expval{1_{-} 1_{+}}{V}{3_{+} 1_{-}} \\
-
-            \alpha = 1_{+}: \quad
-            & \expval*{c}{\hat{H}}{\Phi_{1_{-}}^{2_{-}}}
-            & = &
-            \expval{1_{+} 1_{-}}{V}{1_{+} 2_{-}} - \expval{1_{+} 1_{-}}{V}{2_{-} 1_{+}} \\
-
-            \alpha = 1_{+}: \quad
-            & \expval*{c}{\hat{H}}{\Phi_{1_{-}}^{3_{-}}}
-            & = &
-            \expval{1_{+} 1_{-}}{V}{1_{+} 3_{-}} - \expval{1_{+} 1_{-}}{V}{3_{-} 1_{+}}
-        \end{array}
-    \end{equation}
-\end{comment}
-
 Next, we find a simplified expression for $\expval{\Phi_i^a}{\hat{H}}{\Phi_j^b}$,
 noting that
 \begin{equation*}
     \expval{\Phi_i^a}{\hat{H}}{\Phi_j^b} = \expval{c}{b_i b_a \hat{H} b_b^\dagger b_j^\dagger}{c}.
 \end{equation*}
 The possible contributing terms must then have an equal number of annihilation and creation operators in order to not vanish, reducing the candidates to
-% \begin{enumerate}
-%     \item $\displaystyle\frac{1}{4} \sum_{abcd} \expval{ab}{V}{cd} b_a^\dagger b_b^\dagger b_d b_c$
-%     \item $\displaystyle\frac{1}{2} \sum_{abij} \expval{ai}{V}{bj} b_a^\dagger b_j^\dagger b_b b_i$
-%     \item $\displaystyle\frac{1}{2} \sum_{abi} \expval{ai}{V}{bi} b_a^\dagger b_b$
-%     \item $\displaystyle\frac{1}{4} \sum_{ijkl} \expval{kl}{V}{ij} b_i^\dagger b_j^\dagger b_l b_k$
-%     \item $\displaystyle\frac{1}{2} \sum_{ijkl} \expval{ij}{V}{kj} b_k^\dagger b_i$
-%     \item $\displaystyle\mathcal{E}_I^\text{Ref}$
-% \end{enumerate}
-\begin{equation*} % TODO: Fix formattering Oskar
-    \begin{array}{cccccc}
-        \displaystyle\frac{1}{4} \sum_{abcd} \expval{ab}{V}{cd} b_a^\dagger b_b^\dagger b_d b_c &, &
-        \displaystyle\frac{1}{2} \sum_{abij} \expval{ai}{V}{bj} b_a^\dagger b_j^\dagger b_b b_i &, &
-        \displaystyle\frac{1}{2} \sum_{abi} \expval{ai}{V}{bi} b_a^\dagger b_b, \\
-        \displaystyle\frac{1}{4} \sum_{ijkl} \expval{kl}{V}{ij} b_i^\dagger b_j^\dagger b_l b_k &, &
-        \displaystyle\frac{1}{2} \sum_{ijk} \expval{ij}{V}{kj} b_k^\dagger b_i &, &
-        \displaystyle\mathcal{E}_I^\text{Ref}.
-    \end{array}
-\end{equation*}
-
-% TODO: Bra nok formattering?
 \begin{multicols}{2}{}
     \begin{enumerate}
         \item  $\displaystyle\frac{1}{4} \sum_{abcd} \expval{ab}{V}{cd} b_a^\dagger b_b^\dagger b_d b_c$
@@ -240,7 +101,7 @@ The possible contributing terms must then have an equal number of annihilation a
 \end{multicols}
 
 For the terms here, recall that $\wick{\langle c \vert \c1 b_\alpha^\dagger \c1 b_\beta \vert c \rangle} = \delta_{\alpha \beta}$, while $\wick{\langle c \vert \c1 b_\alpha \c1 b_\beta^\dagger \vert c \rangle} = 0$.
-The first term vanishes as $b_d b_c\ket{\Phi_j^{b}} =  \underbrace{b_d b_c b_b^\dagger b_j^†}_{0}\ket{c}= 0$, due to over-annihilation of particles.
+The first term vanishes as $b_d b_c\ket{\Phi_j^{b}} =  \underbrace{b_d b_c b_b^\dagger b_j^\dagger}_{0}\ket{c}= 0$, due to over-annihilation of particles.
 For the second term, relabeling $(a, b, i, j) \mapsto (c, d, k, l)$ we get
 \begin{equation*}
     \wick{
@@ -258,40 +119,6 @@ For the second term, relabeling $(a, b, i, j) \mapsto (c, d, k, l)$ we get
         \rangle
     } = -\delta_{il} \delta_{ac} \delta_{db} \delta_{kj} \implies \frac{1}{2} \sum
 \end{equation*}
-\begin{comment}
-    \begin{align*}
-        \wick{
-            \langle
-            c \vert
-            \c2 b_i
-            \c1 b_a
-            \underbrace{
-                b_c^\dagger
-                b_l^\dagger
-                b_d
-                b_k
-            }_{\text{vanishes}}
-            \c1 b_b^\dagger
-            \c2 b_j^\dagger
-            \vert c
-            \rangle
-        } &= 0, &
-        \wick{
-            \langle
-            c \vert
-            \c2 b_i
-            \c1 b_a
-            \c1 b_c^\dagger
-            \c2 b_l^\dagger
-            \c1 b_d
-            \c2 b_k
-            \c1 b_b^\dagger
-            \c2 b_j^\dagger
-            \vert c
-            \rangle
-        } &= -\delta_{il} \delta_{ac} \delta_{db} \delta_{kj}.
-    \end{align*}
-\end{comment}
 For the third term, relabeling $(a, b, i) \mapsto (c, d, k)$, we have
 \begin{equation*}
     \wick{
