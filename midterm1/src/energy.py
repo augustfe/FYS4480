@@ -97,6 +97,16 @@ class Energy:
 
         return energy
 
+    def index_to_state(self, idx: int) -> np.ndarray:
+        """Convert an index to the states
+
+        Args:
+            idx (int): The index to convert
+
+        Returns:
+            np.ndarray: The state
+        """
+
 
 if __name__ == "__main__":
     groundstate = np.array(

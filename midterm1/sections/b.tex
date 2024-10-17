@@ -7,6 +7,8 @@ Show that it is given by
 Define properly the sums keeping in mind that the states $ij$ refer to all quantum numbers $n, l, m_l, s, m_s$.
 Use the values for the various matrix elements listed at the end of the midterm to find the value of $E$ as function of $Z$ and compute $E$ as function of $Z$.
 
+% \input{sections/b_new.tex}
+
 \subsection{}
 We consider the Hamiltonian $\hat{H} = \hat{H}_0 + \hat{H}_I$, where $\hat{H}_0$ is the one-body part and $\hat{H}_I$ is the two-body part, given by
 \begin{align*}
@@ -48,13 +50,49 @@ With the new annihilation and creation operators, we can rewrite this as
 \end{equation*}
 where utilizing antisymmetrized matrix elements for the sake of brevity, we have
 \begin{align*}
-    \hat{H}_I^{(1)} &= \frac{1}{4} \sum_{abcd} \expval{ab}{V}{cd} b_a^\dagger b_b^\dagger b_d b_c, \\
-    \hat{H}_I^{(2)} &= \frac{1}{4} \sum_{abci} \expval{ab}{V}{ci} b_a^\dagger b_b^\dagger b_i^\dagger b_c + \expval{ai}{V}{cb} b_a^\dagger b_i b_b b_c \\
-    \hat{H}_I^{(3)} &= \frac{1}{4} \sum_{abij} \left[\expval{ab}{V}{ij} b_a^\dagger b_b^\dagger b_j^\dagger b_i^\dagger + \expval{ij}{V}{ab} b_a b_b b_j b_i \right] \\
-    &\qquad + \frac{1}{2} \sum_{abij} \expval{ai}{V}{bj} b_a^\dagger b_j^\dagger b_b b_i + \frac{1}{2} \sum_{abi} \expval{ai}{V}{bi} b_a^\dagger b_b \\
-    \hat{H}_I^{(4)} &= \frac{1}{4} \sum_{aijk} \left[ \expval{ai}{V}{jk} b_a^\dagger b_k^\dagger b_j^\dagger b_i + \expval{ji}{V}{ak} b_k^\dagger b_j b_i b_a \right] \\
-    &\qquad + \frac{1}{2} \sum_{aij} \left[ \expval{ai}{V}{ji} b_a^\dagger b_j^\dagger + \expval{ji}{V}{ai} b_j b_a \right] \\
-    \hat{H}_I^{(5)} &= \frac{1}{4} \sum_{ijkl} \expval{kl}{V}{ij} b_i^\dagger b_j^\dagger b_l b_k + \frac{1}{2} \sum_{ijk} \expval{ij}{V}{kj} b_k^\dagger b_i + \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij}.
+    \hat{H}_I^{(1)} &= {
+        \frac{1}{4} \sum_{abcd} \expval{ab}{V}{cd} b_a^\dagger b_b^\dagger b_d b_c
+    }, \\
+    \hat{H}_I^{(2)} &= {
+        \frac{1}{4} \sum_{abci} {
+            \expval{ab}{V}{ci} b_a^\dagger b_b^\dagger b_i^\dagger b_c
+            + \expval{ai}{V}{cb} b_a^\dagger b_i b_b b_c
+        }
+    } \\
+    \hat{H}_I^{(3)} &= {
+        \frac{1}{4} \sum_{abij} \left[
+            \expval{ab}{V}{ij} b_a^\dagger b_b^\dagger b_j^\dagger b_i^\dagger
+            + \expval{ij}{V}{ab} b_a b_b b_j b_i
+        \right]
+    } \\
+    &\qquad + {
+        \frac{1}{2} \sum_{abij} {
+            \expval{ai}{V}{bj} b_a^\dagger b_j^\dagger b_b b_i
+        } + \frac{1}{2} \sum_{abi} {
+            \expval{ai}{V}{bi} b_a^\dagger b_b
+        }
+    } \\
+    \hat{H}_I^{(4)} &= {
+        \frac{1}{4} \sum_{aijk} \left[
+            \expval{ai}{V}{jk} b_a^\dagger b_k^\dagger b_j^\dagger b_i
+            + \expval{ji}{V}{ak} b_k^\dagger b_j b_i b_a
+        \right]
+    } \\
+    &\qquad + {
+        \frac{1}{4} \sum_{aij} \left[
+            \expval{ai}{V}{ji} b_a^\dagger b_j^\dagger
+            + 2 \expval{ji}{V}{ai} b_j b_a
+        \right]
+    } \\
+    \hat{H}_I^{(5)} &= {
+        \frac{1}{4} \sum_{ijkl} {
+            \expval{kl}{V}{ij} b_i^\dagger b_j^\dagger b_l b_k
+        } + \frac{1}{2} \sum_{ijk} {
+            \expval{ij}{V}{kj} b_k^\dagger b_i
+        } + \frac{1}{2} \sum_{ij} {
+            \expval{ij}{V}{ij}
+        }
+    }.
 \end{align*}
 
 In order to simplify the computations later, we briefly summarize the qualitative properties of each of the terms above.

@@ -16,6 +16,9 @@ The exact energy with our Hamiltonian is $-2.9037$ atomic units for helium.
 This value is also close to the experimental energy.
 
 \subsection{}
+\input{sections/c_new.tex}
+
+\subsection{}
 We start by finding the value of the expression $\expval{c}{\hat{H}}{\Phi_i^a}$.
 Writing out the terms, we have
 \begin{align*}
@@ -65,22 +68,22 @@ Inserting for the explicit excitations, we get
         j = 1_{-}: \quad
         & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}\hspace{0.27pt}
         & = &
-        \expval{1_{-} 1_{+}}{V}{1_{-} 2_{+}} \\
+        \expval{1_{-} 1_{+}}{V}{2_{+} 1_{-}} \\
 
         j = 1_{-}: \quad
         & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{3_{+}}}\hspace{0.27pt}
         & = &
-        \expval{1_{-} 1_{+}}{V}{1_{-} 3_{+}} \\
+        \expval{1_{-} 1_{+}}{V}{3_{+} 1_{-}} \\
 
         j = 1_{+}: \quad
         & \expval*{c}{\hat{H}}{\Phi_{1_{-}}^{2_{-}}}
         & = &
-        \expval{1_{+} 1_{-}}{V}{1_{+} 2_{-}} \\
+        \expval{1_{+} 1_{-}}{V}{2_{-} 1_{+}} \\
 
         j = 1_{+}: \quad
         & \expval*{c}{\hat{H}}{\Phi_{1_{-}}^{3_{-}}}
         & = &
-        \expval{1_{+} 1_{-}}{V}{1_{+} 3_{-}}
+        \expval{1_{+} 1_{-}}{V}{3_{-} 1_{+}}
     \end{array}
 \end{equation}
 
@@ -110,7 +113,7 @@ For the two-body part, we have that the possible contributing terms must then ha
 For the terms here, recall that $\wick{\langle c \vert \c1 b_\alpha^\dagger \c1 b_\beta \vert c \rangle} = \delta_{\alpha \beta}$, while $\wick{\langle c \vert \c1 b_\alpha \c1 b_\beta^\dagger \vert c \rangle} = 0$.
 The first term vanishes as $b_d b_c\ket{\Phi_j^{b}} =  \underbrace{b_d b_c b_b^\dagger b_j^\dagger}_{0}\ket{c}= 0$, due to over-annihilation of particles.
 For the second term, relabeling $(a, b, i, j) \mapsto (c, d, k, l)$ we get
-\begin{equation*}
+\begin{align*}
     \wick{
         \langle
         c \vert
@@ -124,9 +127,10 @@ For the second term, relabeling $(a, b, i, j) \mapsto (c, d, k, l)$ we get
         \c2 b_j^\dagger
         \vert c
         \rangle
-    } = -\delta_{il} \delta_{ac} \delta_{db} \delta_{kj} \implies
-    -\frac{1}{2} \expval{a j}{V}{b i}.
-\end{equation*}
+    } = -\delta_{il} \delta_{ac} \delta_{db} \delta_{kj} \implies&
+    -\frac{1}{2} \expval{a j}{V}{b i} \\
+    =& \ \frac{1}{2} \expval{aj}{V}{ib}.
+\end{align*}
 For the third term, relabeling $(a, b, i) \mapsto (c, d, k)$, we have
 \begin{equation*}
     \wick{
@@ -145,7 +149,7 @@ For the third term, relabeling $(a, b, i) \mapsto (c, d, k)$, we have
 \end{equation*}
 The fourth term vanishes as the number of hole annihilation operator to the left of the creation operators does not match.
 The fifth term, relabeling $(i, j, k) \mapsto (k, l, m)$, gives
-\begin{equation*}
+\begin{align*}
     \wick{
         \langle
         c \vert
@@ -157,12 +161,15 @@ The fifth term, relabeling $(i, j, k) \mapsto (k, l, m)$, gives
         \c1 b_j^\dagger
         \vert c
         \rangle
-    } = \delta_{im} \delta_{ab} \delta_{kj} \implies
-    \frac{1}{2} \delta_{ab} \sum_{l} \expval{j l}{V}{i l}.
-\end{equation*}
+    } = \delta_{im} \delta_{ab} \delta_{kj}
+    \implies& \
+    \frac{1}{2} \delta_{ab} \sum_{l} \expval{j l}{V}{i l}, \\
+    =& \ \frac{1}{2} \delta_{ab} \sum_{k} \expval{j k}{V}{i k}.
+\end{align*}
 The last term simply gives us $\delta_{ab} \delta_{ij} \mathcal{E}_I^{\text{Ref}}$.
 
-In the case of the helium atom, the fifth term vanishes, as there are no remaining holes in the vaccuum states. % TODO: Usikker på om dette er riktig. Er summene a ≠ b typ?
+% In the case of the helium atom, the fifth term vanishes if $i \neq j$, as there would be no remaining holes in the vacuum states.
+% In the case of the helium atom, the fifth term vanishes, as there are no remaining holes in the vaccuum states. % TODO: Usikker på om dette er riktig. Er summene a ≠ b typ?
 The final expression for $\expval{\Phi_i^a}{\hat{H}}{\Phi_j^b}$ is then
 \begin{equation}\label{eq:1p1h-1p1h}
     \begin{split}
@@ -173,8 +180,8 @@ The final expression for $\expval{\Phi_i^a}{\hat{H}}{\Phi_j^b}$ is then
             + \mathcal{E}_0^{\text{Ref}}
             + \mathcal{E}_I^{\text{Ref}}
         \right] \\
-        &- \frac{1}{2} \expval{a j}{V}{b i}
-        + \frac{\delta_{ij}}{2} \sum_{k} \expval{a k}{V}{b k}.
+        & \frac{1}{2} \expval{a j}{V}{i b}
+        + \frac{1}{2} \sum_{k} \delta_{ij} \expval{a k}{V}{b k} + \delta_{ab} \expval{jk}{V}{ik}.
     \end{split}
 \end{equation}
 
@@ -195,22 +202,27 @@ This leaves us with
 
 Next, we consider the case when $i = j$ and $a \neq b$.
 The expression then becomes
+\begin{align*}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^b} &= -\frac{1}{2} \expval{ai}{V}{bi}_{AS} + \frac{1}{2} \sum_k \expval{ak}{V}{bk}_{AS} \\
+    &= \frac{1}{2} \Big[ - \expval{ai}{V}{bi}_{AS} + \expval{ai}{V}{bi}_{AS} + \expval{aj}{V}{bj}_{AS} \Big] \\
+    &= \frac{1}{2} \expval{aj}{V}{bj}_{AS}.
+\end{align*}
+Again, considering the spin, we have
 \begin{equation*}
-    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^b} = \frac{1}{2} \expval{aj}{V}{bj}_{AS} = \frac{1}{2} \left[ \expval{aj}{V}{bj} - \expval{aj}{V}{jb} \right].
+    \frac{1}{2} \left[
+        \expval{\sigma_1 \sigma_2}{V}{\sigma_1 \sigma_2}
+        - \expval{\sigma_1 \sigma_2}{V}{\sigma_2 \sigma_1}
+    \right],
 \end{equation*}
-Again, considering the spin part, we have
+where the second term again vanishes, leaving us with
 \begin{equation*}
-    \frac{1}{2} \left[ \expval{\sigma_1 \sigma_1}{V}{\sigma_1 \sigma_1} - \expval{\sigma_1 \sigma_1}{V}{\sigma_1 \sigma_1} \right],
-\end{equation*}
-where both terms contribute, which accounting for both degrees of spin gives us
-\begin{equation*}
-    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^b} = \expval{aj}{V}{bj} - \expval{aj}{V}{jb}.
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^b} = \frac{1}{2} \expval{aj}{V}{bj}.
 \end{equation*}
 In the case where $i \neq j$ and $a = b$, the entire expression vanishes, as this would imply that we would have a state where $M_S \neq 0$.
 
 Finally, the expectation value of the Hamiltonian with the one-particle-one-hole excitation is
 \begin{equation}\label{eq:1p1h-1p1h-final}
-    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^a} = \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \mathcal{E}_0^{\text{Ref}} + \mathcal{E}_I^{\text{Ref}}.
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^a} = \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \mathcal{E}_0^{\text{Ref}} + \mathcal{E}_I^{\text{Ref}} - .
 \end{equation}
 A summary of the cases is listed in \autoref{tab:1p1h-1p1h}
 \begin{table}[ht]
@@ -218,7 +230,7 @@ A summary of the cases is listed in \autoref{tab:1p1h-1p1h}
     \caption{The different cases for $\expval{\Phi_i^a}{\hat{H}}{\Phi_j^b}$.\label{tab:1p1h-1p1h}}
     \begin{tabular}{lll}
         $i \neq j$ & $a \neq b$ & $\frac{1}{2} \expval{aj}{V}{ib}$ \\
-        $i = j$ & $a \neq b$ & $\expval{aj}{V}{bj} - \expval{aj}{V}{jb}$ \\
+        $i = j$ & $a \neq b$ & $\frac{1}{2} \expval{aj}{V}{bj} $ \\
         $i \neq j$ & $a = b$ & $0$ \\
         $i = j$ & $a = b$ & $\expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \mathcal{E}^{\text{Ref}}$
     \end{tabular}

@@ -1,0 +1,35 @@
+In order to be able to handle the more complicated systems, we partition the Hamiltonian into
+\begin{equation}
+    \hat{H} = \underbrace{\mathcal{E}_0^{\text{ref}}}_{\expval{c}{\hat{H}_0}{c}} + \hat{F}_N + \hat{V}_N,
+\end{equation}
+where
+\begin{align*}
+    \hat{F}_N &= \sum_{pq} \expval{p}{\hat{f}}{q} \{a_p^\dagger a_q\}, \qquad
+    \expval{p}{f}{q} = \expval{p}{\hat{h}_0}{q} + \sum_{i} \expval{pi}{\hat{V}}{qi}_{AS}, \\
+    \hat{V}_N &= \frac{1}{4} \sum_{pqrs} \expval{pq}{\hat{V}}{rs}_{AS} \{a_p^\dagger a_q^\dagger a_s a_r\}.
+\end{align*}
+
+Considering then $\expval{c}{\hat{H}}{\Phi_i^a}$, we firstly have $\expval{c}{\mathcal{E}_0^{\text{Ref}}}{\Phi_i^a} = 0$, as $\braket{c}{\Phi_i^a} = 0$.
+For the next term, we have
+\begin{align*}
+    \expval{c}{\hat{F}_N}{\Phi_i^a} &= \sum_{pq} \expval{p}{\hat{f}}{q} \expval{c}{a_p^\dagger a_q}{\Phi_i^a}
+    = \sum_{pq} \expval{p}{\hat{f}}{q} \wick{
+        \langle c \vert
+        \c2 a_p^\dagger \c1 a_q \c1 a_a^\dagger \c2 a_i
+        \vert c \rangle
+    } \\
+    &= \sum_{pq} \expval{p}{\hat{f}}{q} \delta_{pi} \delta_{qa}
+    = \expval{i}{\hat{f}}{a} \\
+    &= \expval{i}{\hat{h}_0}{a} + \sum_{j} \expval{ij}{\hat{V}}{aj}_{AS}.
+\end{align*}
+For the last term, we get
+\begin{align*}
+    \expval{c}{\hat{V}_N}{\Phi_i^a} &= \frac{1}{4} \sum_{pqrs} \expval{pq}{\hat{V}}{rs}_{AS} \expval{c}{a_p^\dagger a_q^\dagger a_s a_r}{\Phi_i^a} \\
+    &= \frac{1}{4} \sum_{pqrs} \expval{pq}{\hat{V}}{rs}_{AS} \wick{
+        \langle c \vert
+        \c2 a_p^\dagger \c1 a_q^\dagger \c1 a_s \c2 a_r a_a^\dagger a_i
+        \vert c \rangle
+    } \\
+    &= 0,
+\end{align*}
+as we cannot make the $\wick{\c a_a^\dagger \c a_i}$ contraction.
