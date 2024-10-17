@@ -51,35 +51,36 @@ We then get
     \expval*{c}{\hat{H}_I}{\Phi_i^a} = \frac{1}{2} \sum_{j} \expval{i j}{V}{a j}_{AS},
 \end{equation}
 taking into account that the matrix element in the sum is antisymmetrized.
-Combining Eqs.~\eqref{eq:1p1h-ground-onebody}~and~\eqref{eq:1p1h-ground-twobody}, we get the final expression is
+Now, considering spin, the exchange term vanishes, leaving us with two times the direct term.
+This gives us the final expression
 \begin{equation}\label{eq:1p1h-ground}
-    \expval{c}{\hat{H}}{\Phi_i^a} = \frac{1}{2} \sum_{j \neq i} \expval{i j}{V}{a j} - \expval{i j}{V}{j a}.
+    \expval{c}{\hat{H}}{\Phi_i^a} = \sum_{ij} \expval{ij}{V}{aj}.
 \end{equation}
 
-Finally, taking into account spin, the values we get for the one-particle-one-hole excitations are listed in Eq.~\eqref{eq:1p1h-ground-list}, with the only possible value for $j$ in each case of Eq.~\eqref{eq:1p1h-ground} listed to the far left.
-For brevity, we write $j\sigma_{\pm}$ as just $j_{\pm}$ here.
+In the case of the helium atom, the only possible value for $j$ when $i = 1_{\sigma_1}$ is $j = 1_{\sigma_2}$.
+Inserting for the explicit excitations, we get
 \begin{equation}\label{eq:1p1h-ground-list}
     \arraycolsep=1.4pt
     \begin{array}{crcl}
         j = 1_{-}: \quad
         & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}\hspace{0.27pt}
         & = &
-        \expval{1_{-} 1_{+}}{V}{1_{-} 2_{+}} - \expval{1_{-} 1_{+}}{V}{2_{+} 1_{-}} \\
+        \expval{1_{-} 1_{+}}{V}{1_{-} 2_{+}} \\
 
         j = 1_{-}: \quad
-        & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{2_{+}}}\hspace{0.27pt}
+        & \expval*{c}{\hat{H}}{\Phi_{1_{+}}^{3_{+}}}\hspace{0.27pt}
         & = &
-        \expval{1_{-} 1_{+}}{V}{1_{-} 3_{+}} - \expval{1_{-} 1_{+}}{V}{3_{+} 1_{-}} \\
+        \expval{1_{-} 1_{+}}{V}{1_{-} 3_{+}} \\
 
         j = 1_{+}: \quad
         & \expval*{c}{\hat{H}}{\Phi_{1_{-}}^{2_{-}}}
         & = &
-        \expval{1_{+} 1_{-}}{V}{1_{+} 2_{-}} - \expval{1_{+} 1_{-}}{V}{2_{-} 1_{+}} \\
+        \expval{1_{+} 1_{-}}{V}{1_{+} 2_{-}} \\
 
         j = 1_{+}: \quad
         & \expval*{c}{\hat{H}}{\Phi_{1_{-}}^{3_{-}}}
         & = &
-        \expval{1_{+} 1_{-}}{V}{1_{+} 3_{-}} - \expval{1_{+} 1_{-}}{V}{3_{-} 1_{+}}
+        \expval{1_{+} 1_{-}}{V}{1_{+} 3_{-}}
     \end{array}
 \end{equation}
 
@@ -199,17 +200,28 @@ The expression then becomes
 \end{equation*}
 Again, considering the spin part, we have
 \begin{equation*}
-    \frac{1}{2} \left[ \expval{\sigma_1 \sigma_2}{V}{\sigma_1 \sigma_2} - \expval{\sigma_1 \sigma_2}{V}{\sigma_2 \sigma_1} \right],
+    \frac{1}{2} \left[ \expval{\sigma_1 \sigma_1}{V}{\sigma_1 \sigma_1} - \expval{\sigma_1 \sigma_1}{V}{\sigma_1 \sigma_1} \right],
 \end{equation*}
-where again the right term vanishes, leaving us with
+where both terms contribute, which accounting for both degrees of spin gives us
 \begin{equation*}
-    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^b} = \frac{1}{2} \expval{aj}{V}{bj}.
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^b} = \expval{aj}{V}{bj} - \expval{aj}{V}{jb}.
 \end{equation*}
-In the case where $i \neq j$ and $a = b$, the entire expression vanishes.
+In the case where $i \neq j$ and $a = b$, the entire expression vanishes, as this would imply that we would have a state where $M_S \neq 0$.
 
 Finally, the expectation value of the Hamiltonian with the one-particle-one-hole excitation is
 \begin{equation}\label{eq:1p1h-1p1h-final}
     \expval{\Phi_i^a}{\hat{H}}{\Phi_i^a} = \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \mathcal{E}_0^{\text{Ref}} + \mathcal{E}_I^{\text{Ref}}.
 \end{equation}
+A summary of the cases is listed in \autoref{tab:1p1h-1p1h}
+\begin{table}[ht]
+    \centering
+    \caption{The different cases for $\expval{\Phi_i^a}{\hat{H}}{\Phi_j^b}$.\label{tab:1p1h-1p1h}}
+    \begin{tabular}{lll}
+        $i \neq j$ & $a \neq b$ & $\frac{1}{2} \expval{aj}{V}{ib}$ \\
+        $i = j$ & $a \neq b$ & $\expval{aj}{V}{bj} - \expval{aj}{V}{jb}$ \\
+        $i \neq j$ & $a = b$ & $0$ \\
+        $i = j$ & $a = b$ & $\expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \mathcal{E}^{\text{Ref}}$
+    \end{tabular}
+\end{table}
 
 Now, getting the explicit values for the matrix elements, so that we can set up the Hamiltonian matrix and diagonalize it using Python.
