@@ -7,25 +7,18 @@ Diagonalize this matrix and compare your eigenvalues with $\expval{c}{\hat{H}}{c
 The exact energy with our Hamiltonian is $-14.6674$ atomic units for beryllium.
 This value is again close to the experimental energy.
 
-With a given energy functional, we can perform at least two types of variational strategies.
-These are:
-\begin{enumerate}
-    \item Vary the Slater determinant by changing the spatial part of the single-particle wave functions themselves, or
+\subsection{}
+We define the ansatz for the ground state as
+\begin{equation}
+    \ket{c} = a^\dagger_{1\sigma_{+}} a^\dagger_{1\sigma_{-}} a^\dagger_{2\sigma_{+}} a^\dagger_{2\sigma_{-}} \ket{0},
+\end{equation}
+where we now define the Fermi level as the $2s$ state, $F = 2$.
+Utilizing again the code in \verb|src/get_energy.py| we find the reference energy to be
+\begin{equation}
+    \expval{c}{\hat{H}}{c} = -\frac{5}{4} Z^2 + \frac{586373}{373248} Z \approx -1.25 \cdot Z^2 + 1.5710 \cdot Z.
+\end{equation}
+For beryllium, we have $Z = 4$, and the reference energy is then $-13.7159$ atomic units or $-373.0751 \ \text{eV}$.
 
-    \item Expand the single-particle functions in a known basis  and vary the coefficients, that is, the new function single-particle wave function $\ket{p}$ is written as a linear expansion in terms of a fixed basis $\phi$ (harmonic oscillator, Laguerre polynomials etc)
-        \begin{equation*}
-            \psi_p  = \sum_{\lambda} C_{p\lambda}\phi_{\lambda}
-        \end{equation*}
-\end{enumerate}
-Both cases lead to a new Slater determinant which is related to the previous via a unitary transformation.
-Below we will set up the Hartree-Fock equations using the second option.
-We assume that our basis is still formed by the hydrogen-like wave functions.
-We consider a Slater determinant built up of single-particle orbitals $\phi_{\lambda}$ where the indices $\lambda$ refer to specific single-particle states.
-As an example, you could think of the ground state ansatz for the beryllium atom.
+Setting up and diagonalizing the Hamiltonian truncated to one-particle-one-hole contributions, we find a new estimate for the energy to be $14.3621$ atomic units or $-390.6493 \ \text{eV}$.
+Here, we see the estimate improve drasticly, lying much closer to the exact energy.
 
-The unitary transformation
-\begin{equation*}
-    \psi_p  = \sum_{\lambda} C_{p\lambda}\phi_{\lambda},
-\end{equation*}
-brings us into the new basis $\psi$.
-The new basis is orthonormal and $C$ is a unitary matrix.

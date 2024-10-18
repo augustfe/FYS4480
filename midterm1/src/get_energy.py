@@ -164,6 +164,7 @@ def evaluate(F: int, z_val: int) -> None:
     he_setup = SetupMatrix(F=F)
     ground_energy_expr = he_setup.ref_energy
     print(ground_energy_expr)
+    print(ground_energy_expr.evalf())
     ground_energy_atomic = ground_energy_expr.subs(Z, z_val)
     print(ground_energy_atomic.evalf())
     ground_energy = to_eV(ground_energy_atomic.evalf())
@@ -177,6 +178,6 @@ def evaluate(F: int, z_val: int) -> None:
 
 
 if __name__ == "__main__":
-    evaluate(F=1, z_val=2)
+    # evaluate(F=1, z_val=2)
     print()
     evaluate(F=2, z_val=4)
