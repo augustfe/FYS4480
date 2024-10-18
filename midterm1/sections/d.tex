@@ -1,0 +1,31 @@
+We repeat parts b) and c) but now for the beryllium atom. % chktex 10 % tex-fmt: skip
+
+Define the ansatz for $\ket{c}$ and limit yourself again to one-particle-one-hole excitations.
+Compute the reference energy $\expval{c}{\hat{H}}{c}$ as function of $Z$.
+Thereafter you will need to set up the appropriate Hamiltonian matrix which involves also one-particle-one-hole excitations.
+Diagonalize this matrix and compare your eigenvalues with $\expval{c}{\hat{H}}{c}$ as function of $Z$ and comment your results.
+The exact energy with our Hamiltonian is $-14.6674$ atomic units for beryllium.
+This value is again close to the experimental energy.
+
+With a given energy functional, we can perform at least two types of variational strategies.
+These are:
+\begin{enumerate}
+    \item Vary the Slater determinant by changing the spatial part of the single-particle wave functions themselves, or
+
+    \item Expand the single-particle functions in a known basis  and vary the coefficients, that is, the new function single-particle wave function $\ket{p}$ is written as a linear expansion in terms of a fixed basis $\phi$ (harmonic oscillator, Laguerre polynomials etc)
+        \begin{equation*}
+            \psi_p  = \sum_{\lambda} C_{p\lambda}\phi_{\lambda}
+        \end{equation*}
+\end{enumerate}
+Both cases lead to a new Slater determinant which is related to the previous via a unitary transformation.
+Below we will set up the Hartree-Fock equations using the second option.
+We assume that our basis is still formed by the hydrogen-like wave functions.
+We consider a Slater determinant built up of single-particle orbitals $\phi_{\lambda}$ where the indices $\lambda$ refer to specific single-particle states.
+As an example, you could think of the ground state ansatz for the beryllium atom.
+
+The unitary transformation
+\begin{equation*}
+    \psi_p  = \sum_{\lambda} C_{p\lambda}\phi_{\lambda},
+\end{equation*}
+brings us into the new basis $\psi$.
+The new basis is orthonormal and $C$ is a unitary matrix.

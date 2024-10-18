@@ -1,3 +1,21 @@
+Hereafter we will limit ourselves to a system which now contains only one-particle-one-hole excitations beyond the chosen state $\ket{c}$.
+Using the possible Slater determinants from exercise a) for the helium atom, find the expressions (without inserting the explicit values for the matrix elements first) for % chktex 10 % tex-fmt: skip
+\begin{equation*}
+    \expval{c}{\hat{H}}{\Phi_i^a},
+\end{equation*}
+and
+\begin{equation*}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_j^b}.
+\end{equation*}
+Represent these expressions in a diagrammatic form, both for the onebody part and the two-body part of the Hamiltonian.
+
+Insert then the explicit values for the various matrix elements and set up the final Hamiltonian matrix and diagonalize it using for example Python as programming language.
+Compare your results from those of exercise b) and comment your results. % chktex 10 % tex-fmt: skip
+
+The exact energy with our Hamiltonian is $-2.9037$ atomic units for helium.
+This value is also close to the experimental energy.
+
+\subsection{}
 In order to be able to handle the more complicated systems, we partition the Hamiltonian into
 \begin{equation}
     \hat{H} = \underbrace{\mathcal{E}_0^{\text{ref}}}_{\expval{c}{\hat{H}_0}{c}} + \hat{F}_N + \hat{V}_N,
@@ -152,32 +170,36 @@ We have thus shown that
 \begin{equation}
     \expval{\Phi_i^a}{\hat{H}}{\Phi_{j}^{b}} = \delta_{ij} \delta_{ab} \mathcal{E}_0^{\text{Ref}} + \expval{a}{f}{b} \delta_{ij} - \expval{j}{f}{i} \delta_{ab} + \expval{aj}{V}{ib}_{AS}.
 \end{equation}
-Inserting for $f$, we can simplify the later expressions, as $\hat{h}_0$ defined in Eq.~\eqref{eq:onebody} contains a $\delta_{\alpha \beta}$.
-We then have
-\begin{equation*}
-    \expval{\alpha}{f}{\beta} = \expval{\alpha}{\hat{h}_0}{\beta} + \sum_{k} \expval{\alpha k}{V}{\beta k}_{AS} = \delta_{\alpha \beta} \expval{\alpha}{\hat{h}_0}{\alpha} + \sum_{k} \expval{\alpha k}{V}{\beta k}_{AS}.
-\end{equation*}
-Our final expression for $\expval{\Phi_i^a}{\hat{H}}{\Phi_{j}^{b}}$ then becomes
-\begin{align*}
-    \expval{\Phi_i^a}{\hat{H}}{\Phi_{j}^{b}} &= \delta_{ij} \delta_{ab} \Big[ \mathcal{E}_0^{\text{Ref}} + \expval{a}{\hat{h}_0}{a}  - \expval{i}{\hat{h}_0}{i} \Big] + \expval{aj}{V}{ib}_{AS} \\
-    &+ \sum_{k} \Big[ \delta_{ij} \expval{ak}{V}{bk} - \delta_{ab} \expval{jk}{V}{ik} \Big]
-\end{align*}
+% Inserting for $f$, we can simplify the later expressions, as $\hat{h}_0$ defined in Eq.~\eqref{eq:onebody} contains a $\delta_{\alpha \beta}$.
+% We then have
+% \begin{equation*}
+%     \expval{\alpha}{f}{\beta} = \expval{\alpha}{\hat{h}_0}{\beta} + \sum_{k} \expval{\alpha k}{V}{\beta k}_{AS} = \delta_{\alpha \beta} \expval{\alpha}{\hat{h}_0}{\alpha} + \sum_{k} \expval{\alpha k}{V}{\beta k}_{AS}.
+% \end{equation*}
+% Our final expression for $\expval{\Phi_i^a}{\hat{H}}{\Phi_{j}^{b}}$ then becomes
+% \begin{align*}
+%     \expval{\Phi_i^a}{\hat{H}}{\Phi_{j}^{b}} &= \delta_{ij} \delta_{ab} \Big[ \mathcal{E}_0^{\text{Ref}} + \expval{a}{\hat{h}_0}{a}  - \expval{i}{\hat{h}_0}{i} \Big] + \expval{aj}{V}{ib}_{AS} \\
+%     &+ \sum_{k} \Big[ \delta_{ij} \expval{ak}{V}{bk} - \delta_{ab} \expval{jk}{V}{ik} \Big]
+% \end{align*}
 
-Considering the different cases of $(i, a), (j, b)$ for the helium atom, we have when $i = j$ and $a = b$
-\begin{align*}
-    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^a} &= \mathcal{E}_0^{\text{Ref}} + \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \expval{ai}{V}{ia}_{AS}  \\
-    &+ \sum_{k} \Big[ \expval{ak}{V}{ak}_{AS} - \expval{ik}{V}{ik}_{AS} \Big],
-\end{align*}
-When $i = j$ and $a \neq b$
-\begin{equation*}
-    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^b} = \expval{ai}{V}{ib}_{AS} + \sum_k \Big[ \expval{ak}{V}{bk}_{AS} \Big],
-\end{equation*}
-When $i \neq j$ and $a = b$
-\begin{equation*}
-    \expval{\Phi_i^a}{\hat{H}}{\Phi_j^a} = \expval{aj}{V}{ia}_{AS} - \sum_k \Big[ \expval{jk}{V}{ik}_{AS} \Big],
-\end{equation*}
-and finally when $i \neq j$ and $a \neq b$
-\begin{equation*}
-    \expval{\Phi_i^a}{\hat{H}}{\Phi_j^b} = \expval{aj}{V}{ib}_{AS}.
-\end{equation*}
+% Considering the different cases of $(i, a), (j, b)$ for the helium atom, we have when $i = j$ and $a = b$
+% \begin{align*}
+%     \expval{\Phi_i^a}{\hat{H}}{\Phi_i^a} &= \mathcal{E}_0^{\text{Ref}} + \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \expval{ai}{V}{ia}_{AS}  \\
+%     &+ \sum_{k} \Big[ \expval{ak}{V}{ak}_{AS} - \expval{ik}{V}{ik}_{AS} \Big],
+% \end{align*}
+% When $i = j$ and $a \neq b$
+% \begin{equation*}
+%     \expval{\Phi_i^a}{\hat{H}}{\Phi_i^b} = \expval{ai}{V}{ib}_{AS} + \sum_k \Big[ \expval{ak}{V}{bk}_{AS} \Big],
+% \end{equation*}
+% When $i \neq j$ and $a = b$
+% \begin{equation*}
+%     \expval{\Phi_i^a}{\hat{H}}{\Phi_j^a} = \expval{aj}{V}{ia}_{AS} - \sum_k \Big[ \expval{jk}{V}{ik}_{AS} \Big],
+% \end{equation*}
+% and finally when $i \neq j$ and $a \neq b$
+% \begin{equation*}
+%     \expval{\Phi_i^a}{\hat{H}}{\Phi_j^b} = \expval{aj}{V}{ib}_{AS}.
+% \end{equation*}
 
+Inserting for the explicit matrix elements, we get that the energy with our Hamiltonian is $-2.8386$ atomic units, or $-77.2112 \ \text{eV}$ for the helium atom.
+We see that we have a higher value than the exact energy, which is expected as the true energy serves as a lower bound to the truncated Hamiltonian.
+We also see an improvement from our previous results, which stem from the fact that we are truncating at a higher level of excitations.
+The energy is computed with the code in \verb|src/get_energy.py|.
