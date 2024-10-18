@@ -1,6 +1,13 @@
 import numpy as np
 import sympy as sp
+
 from utils import read_elements, to_eV, Z
+from typing import NamedTuple
+
+
+class Electron(NamedTuple):
+    spin: int
+    level: int
 
 
 class SetupMatrix:
@@ -8,15 +15,15 @@ class SetupMatrix:
         self.F = F
         self.groundstate = np.zeros((2, 3))
         self.groundstate[:, :F] = 1
-        # self.ref_energy = ref_energy
         self.values = read_elements()
+
         self.ref_energy = self.reference_energy()
 
     def reference_energy(self) -> sp.Expr:
         onebody = 0
         two_body = 0
-        holes = np.argwhere(self.groundstate[:, : self.F] == 1)
-        holes = [tuple(hole) for hole in holes]
+        hole_arrs = np.argwhere(self.groundstate[:, :self.F] == 1)  # fmt: skip
+        holes = [Electron(*hole) for hole in hole_arrs]
 
         for hole in holes:
             onebody += self.h0(hole, hole)
@@ -27,14 +34,12 @@ class SetupMatrix:
 
         return onebody + two_body
 
-    def get_hole_particle(
-        self, state: np.ndarray
-    ) -> tuple[tuple[int, int], tuple[int, int]]:
+    def get_hole_particle(self, state: np.ndarray) -> tuple[Electron, Electron]:
         hole = np.argwhere(state[:, :self.F] == 0)[0]  # fmt: skip
         particle = np.argwhere(state[:, self.F:] == 1)[0]  # fmt: skip
         particle = particle + np.array([0, self.F])
 
-        return tuple(hole), tuple(particle)
+        return Electron(*hole), Electron(*particle)
 
     def energy_from_state(
         self, bra_state: np.ndarray, ket_state: np.ndarray
@@ -68,21 +73,22 @@ class SetupMatrix:
             return 1
         return 0
 
-    def h0(self, p: tuple[int, int], q: tuple[int, int]) -> sp.Expr:
-        if p != q:
-            return 0
-        n = p[1]
-        return -(Z**2) / (2 * (n + 1) ** 2)
+    def h0(self, p: Electron, q: Electron) -> sp.Expr:
+        # if p != q:
+        #     return 0
+        n = p.level
+        return -(Z**2) / (2 * (n + 1) ** 2) * self.delta(p, q)
 
     def v(
         self,
-        p: tuple[int, int],
-        q: tuple[int, int],
-        r: tuple[int, int],
-        s: tuple[int, int],
+        p: Electron,
+        q: Electron,
+        r: Electron,
+        s: Electron,
     ) -> sp.Expr:
-        spins = tuple(map(lambda x: x[0], [p, q, r, s]))
-        levels = tuple(map(lambda x: x[1], [p, q, r, s]))
+        spins = [p.spin, q.spin, r.spin, s.spin]
+        levels = [p.level, q.level, r.level, s.level]
+
         if not self.spin_ok(*spins):
             return 0
 
@@ -93,19 +99,20 @@ class SetupMatrix:
 
     def antisymmetrized(
         self,
-        p: tuple[int, int],
-        q: tuple[int, int],
-        r: tuple[int, int],
-        s: tuple[int, int],
+        p: Electron,
+        q: Electron,
+        r: Electron,
+        s: Electron,
     ) -> sp.Expr:
         return self.v(p, q, r, s) - self.v(p, q, s, r)
 
-    def f(self, p: tuple[int, int], q: tuple[int, int]) -> sp.Expr:
+    def f(self, p: Electron, q: Electron) -> sp.Expr:
         energy = self.h0(p, q)
 
         for spin in range(2):
             for k in range(self.F):
-                energy += self.antisymmetrized(p, (spin, k), q, (spin, k))
+                k_s = Electron(spin, k)
+                energy += self.antisymmetrized(p, k_s, q, k_s)
 
         return energy
 
@@ -118,6 +125,10 @@ class SetupMatrix:
         new_state = np.copy(self.groundstate)
         new_state[sigma, i] -= 1
         new_state[sigma, a] += 1
+
+        assert new_state[sigma, i] == 0
+        assert new_state[sigma, a] == 1
+
         return new_state
 
     def get_total_states(self) -> list[np.ndarray]:
@@ -134,6 +145,7 @@ class SetupMatrix:
     def get_hamiltonian(self) -> sp.Matrix:
         total_states = self.get_total_states()
         Hamiltonian = sp.zeros(len(total_states), len(total_states))
+
         for i, bra_state in enumerate(total_states):
             for j, ket_state in enumerate(total_states):
                 Hamiltonian[i, j] = self.energy_from_state(bra_state, ket_state)
@@ -144,10 +156,11 @@ class SetupMatrix:
         Hamiltonian = self.get_hamiltonian()
         eigenvals = Hamiltonian.subs(Z, z_val).eigenvals()
         eigs = [sp.re(key.evalf()) for key in eigenvals.keys()]
+
         return min(eigs)
 
 
-def evaluate(F: int, z_val: int):
+def evaluate(F: int, z_val: int) -> None:
     he_setup = SetupMatrix(F=F)
     ground_energy_expr = he_setup.ref_energy
     print(ground_energy_expr)
