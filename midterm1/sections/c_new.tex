@@ -150,5 +150,34 @@ which when inserted gives
 \end{align*}
 We have thus shown that
 \begin{equation}
-    \expval{\Phi_i^a}{\hat{H}}{\Phi_{j}^{b}} = \delta_{ij} \delta_{ab} \mathcal{E}_0^{\text{Ref}} + \expval{i}{f}{a} \delta_{ij} - \expval{j}{f}{i} \delta_{ab} + \expval{aj}{V}{ib}_{AS}.
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_{j}^{b}} = \delta_{ij} \delta_{ab} \mathcal{E}_0^{\text{Ref}} + \expval{a}{f}{b} \delta_{ij} - \expval{j}{f}{i} \delta_{ab} + \expval{aj}{V}{ib}_{AS}.
 \end{equation}
+Inserting for $f$, we can simplify the later expressions, as $\hat{h}_0$ defined in Eq.~\eqref{eq:onebody} contains a $\delta_{\alpha \beta}$.
+We then have
+\begin{equation*}
+    \expval{\alpha}{f}{\beta} = \expval{\alpha}{\hat{h}_0}{\beta} + \sum_{k} \expval{\alpha k}{V}{\beta k}_{AS} = \delta_{\alpha \beta} \expval{\alpha}{\hat{h}_0}{\alpha} + \sum_{k} \expval{\alpha k}{V}{\beta k}_{AS}.
+\end{equation*}
+Our final expression for $\expval{\Phi_i^a}{\hat{H}}{\Phi_{j}^{b}}$ then becomes
+\begin{align*}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_{j}^{b}} &= \delta_{ij} \delta_{ab} \Big[ \mathcal{E}_0^{\text{Ref}} + \expval{a}{\hat{h}_0}{a}  - \expval{i}{\hat{h}_0}{i} \Big] + \expval{aj}{V}{ib}_{AS} \\
+    &+ \sum_{k} \Big[ \delta_{ij} \expval{ak}{V}{bk} - \delta_{ab} \expval{jk}{V}{ik} \Big]
+\end{align*}
+
+Considering the different cases of $(i, a), (j, b)$ for the helium atom, we have when $i = j$ and $a = b$
+\begin{align*}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^a} &= \mathcal{E}_0^{\text{Ref}} + \expval{a}{\hat{h}_0}{a} - \expval{i}{\hat{h}_0}{i} + \expval{ai}{V}{ia}_{AS}  \\
+    &+ \sum_{k} \Big[ \expval{ak}{V}{ak}_{AS} - \expval{ik}{V}{ik}_{AS} \Big],
+\end{align*}
+When $i = j$ and $a \neq b$
+\begin{equation*}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_i^b} = \expval{ai}{V}{ib}_{AS} + \sum_k \Big[ \expval{ak}{V}{bk}_{AS} \Big],
+\end{equation*}
+When $i \neq j$ and $a = b$
+\begin{equation*}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_j^a} = \expval{aj}{V}{ia}_{AS} - \sum_k \Big[ \expval{jk}{V}{ik}_{AS} \Big],
+\end{equation*}
+and finally when $i \neq j$ and $a \neq b$
+\begin{equation*}
+    \expval{\Phi_i^a}{\hat{H}}{\Phi_j^b} = \expval{aj}{V}{ib}_{AS}.
+\end{equation*}
+

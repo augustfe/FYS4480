@@ -54,3 +54,15 @@ def read_elements(n_max: int = 3) -> np.ndarray:
             values[indicies] = value
 
     return values
+
+
+def to_eV(value: float) -> float:
+    """Convert from atomic units to eV
+
+    Args:
+        value (float): The value in atomic units
+
+    Returns:
+        float: The value in eV
+    """
+    return value * 2 * 13.6
