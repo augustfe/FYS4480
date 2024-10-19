@@ -47,11 +47,11 @@ With this, we define a functional $F[C]$ as
 \begin{equation*}
     F[C] = E_0[C] - \sum_{i} \lambda_i \sum_{\alpha} C_{i \alpha}^* C_{i \alpha},
 \end{equation*}
-where $\lambda_i$ are the Lagrange multipliers enforcing the orthonormality of the basis functions and $N$ is the number of states.
+where $\lambda_i$ are the Lagrange multipliers enforcing the orthonormality of the basis functions.
 
-Minimizing $F$ with respect to $C^*_{p\alpha}$, we wish to solve
+Minimizing $F$ with respect to $C^*_{i\alpha}$, we wish to solve
 \begin{equation*}
-    \frac{\diff F}{\diff C^*_{p\alpha}}[C] = \frac{\diff}{\diff C_{i \alpha}^*} \left[ E_0[C] - \sum_j \lambda_j \sum_{\alpha} C_{j \alpha}^* C_{j \alpha} \right] = 0.
+    \frac{\diff F}{\diff C^*_{i\alpha}}[C] = \frac{\diff}{\diff C_{i \alpha}^*} \left[ E_0[C] - \sum_j \lambda_j \sum_{\alpha} C_{j \alpha}^* C_{j \alpha} \right] = 0.
 \end{equation*}
 Considering the one-body part of $E_0$, we have
 \begin{equation*}
@@ -78,7 +78,22 @@ Recognizing $\lambda_i$ as the eigenvalues $\varepsilon_i^\HF$, we can rewrite t
 Changing the label of the dummy variables $\beta \mapsto \gamma$ in the one-body term and $i \mapsto p$ everywhere, we can write this as
 \begin{gather*}
     \sum_{\gamma} C_{p \gamma} \expval{\alpha}{h}{\gamma} + \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{p \gamma} C_{j \delta} \expval{\alpha\beta}{v}{\gamma\delta}_{AS} = \varepsilon_p^\HF C_{p \alpha} \\
-    \sum_{\gamma}  \left[ C_{p \gamma} \expval{\alpha}{h}{\gamma} + \sum_j \sum_{\beta\delta} C_{j \beta}^* C_{p \gamma} C_{j \delta} \expval{\alpha\beta}{v}{\gamma\delta}_{AS} \right] = \varepsilon_p^\HF C_{p \alpha} \\
+    \sum_{\gamma} C_{p \gamma} \left[ \expval{\alpha}{h}{\gamma} + \sum_j \sum_{\beta\delta} C_{j \beta}^*  C_{j \delta} \expval{\alpha\beta}{v}{\gamma\delta}_{AS} \right] = \varepsilon_p^\HF C_{p \alpha} \\
     \sum_{\gamma} h_{\alpha\gamma}^\HF C_{p \gamma} = \varepsilon_p^\HF C_{p \alpha},
 \end{gather*}
 as we wanted to show.
+
+Using the density matrix, defined by
+\begin{equation*}
+    \rho_{\beta\delta} = \sum_{i} \braket{\beta}{i} \braket{i}{\delta} = \sum_{i} C_{i\beta} C_{i\delta}^*,
+\end{equation*}
+we can write $h_{\alpha \gamma}^\HF$ as
+\begin{equation*}
+    h_{\alpha \gamma}^\HF = \expval{\alpha}{h}{\gamma} + \sum_{\beta\delta} \rho_{\beta\delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS}.
+\end{equation*}
+
+In first quantization, the Hartree-Fock operator is defined as
+\begin{equation*}
+    \hat{h}^\HF(x_i) = \hat{h}_0(x_i) + \hat{u}^\HF(x_i),
+\end{equation*}
+

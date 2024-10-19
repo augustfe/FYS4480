@@ -69,9 +69,7 @@ class SetupMatrix:
         return energy
 
     def delta(self, alpha: int, beta: int) -> int:
-        if alpha == beta:
-            return 1
-        return 0
+        return 1 if alpha == beta else 0
 
     def h0(self, p: Electron, q: Electron) -> sp.Expr:
         # if p != q:
@@ -117,9 +115,7 @@ class SetupMatrix:
         return energy
 
     def spin_ok(self, a: int, b: int, c: int, d: int) -> bool:
-        if a == c and b == d:
-            return True
-        return False
+        return a == c and b == d
 
     def annihilate_and_create(self, sigma: int, i: int, a: int) -> np.ndarray:
         new_state = np.copy(self.groundstate)
