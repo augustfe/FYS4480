@@ -168,7 +168,10 @@ which when inserted gives
 \end{align*}
 We have thus shown that
 \begin{equation}
-    \expval{\Phi_i^a}{\hat{H}}{\Phi_{j}^{b}} = \delta_{ij} \delta_{ab} \mathcal{E}_0^{\text{Ref}} + \expval{a}{f}{b} \delta_{ij} - \expval{j}{f}{i} \delta_{ab} + \expval{aj}{V}{ib}_{AS}.
+    \begin{split}
+        \expval{c}{\hat{H}}{\Phi_i^a} = \expval{i}{\hat{h}_0}{a} + \sum_{j} \expval{ij}{V}{aj}_{AS} \\
+        \expval{\Phi_i^a}{\hat{H}}{\Phi_{j}^{b}} = \delta_{ij} \delta_{ab} \mathcal{E}_0^{\text{Ref}} + \expval{a}{f}{b} \delta_{ij} - \expval{j}{f}{i} \delta_{ab} + \expval{aj}{V}{ib}_{AS}.
+    \end{split}
 \end{equation}
 % Inserting for $f$, we can simplify the later expressions, as $\hat{h}_0$ defined in Eq.~\eqref{eq:onebody} contains a $\delta_{\alpha \beta}$.
 % We then have

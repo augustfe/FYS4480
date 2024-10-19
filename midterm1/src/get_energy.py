@@ -178,6 +178,7 @@ def evaluate(F: int, z_val: int) -> None:
 
 
 if __name__ == "__main__":
-    # evaluate(F=1, z_val=2)
-    print()
+    print("Helium:")
+    evaluate(F=1, z_val=2)
+    print("\nBeryllium:")
     evaluate(F=2, z_val=4)
