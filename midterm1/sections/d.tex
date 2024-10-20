@@ -1,7 +1,7 @@
 We repeat parts b) and c) but now for the beryllium atom. % chktex 10 % tex-fmt: skip
 
 Define the ansatz for $\ket{c}$ and limit yourself again to one-particle-one-hole excitations.
-Compute the reference energy $\expval{c}{\hat{H}}{c}$ as function of $Z$.
+Compute the reference energy $\expval{c}{\hat{H}}{c}$ as a function of $Z$.
 Thereafter you will need to set up the appropriate Hamiltonian matrix which involves also one-particle-one-hole excitations.
 Diagonalize this matrix and compare your eigenvalues with $\expval{c}{\hat{H}}{c}$ as function of $Z$ and comment your results.
 The exact energy with our Hamiltonian is $-14.6674$ atomic units for beryllium.
@@ -13,12 +13,14 @@ We define the ansatz for the ground state as
     \ket{c} = a^\dagger_{1\sigma_{+}} a^\dagger_{1\sigma_{-}} a^\dagger_{2\sigma_{+}} a^\dagger_{2\sigma_{-}} \ket{0},
 \end{equation}
 where we now define the Fermi level as the $2s$ state, $F = 2$.
-Utilizing again the code in \verb|src/get_energy.py| we find the reference energy to be
+As we are working with the same Hamiltonian, the only difference from the expressions found previously are the new one-particle-one-hole excitations, as well as the specific value of $Z$.
+
+As our code can handle these variations, we again utilize the code in \verb|get_energy.py| and find the reference energy to be
 \begin{equation}
     \expval{c}{\hat{H}}{c} = -\frac{5}{4} Z^2 + \frac{586373}{373248} Z \approx -1.25 \cdot Z^2 + 1.5710 \cdot Z.
 \end{equation}
 For beryllium, we have $Z = 4$, and the reference energy is then $-13.7159$ atomic units or $-373.0751 \ \text{eV}$.
 
 Setting up and diagonalizing the Hamiltonian truncated to one-particle-one-hole contributions, we find a new estimate for the energy to be $-14.3621$ atomic units or $-390.6493 \ \text{eV}$.
-Here, we see the estimate improve drasticly, lying much closer to the exact energy.
+Here, we see the estimate improve drastically, lying much closer to the exact energy.
 

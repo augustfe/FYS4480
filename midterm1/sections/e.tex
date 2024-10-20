@@ -14,11 +14,11 @@ The greek letters refer to the wave functions in the original basis (in our case
 \subsection{}
 We previously defined the energy functional as, using greek indices for the original basis,
 \begin{equation*}
-    E[\Phi] = \expval{\Phi}{\hat{H}}{\Phi} = \sum_{\alpha} \expval{\alpha}{\hat{h}_0}{\alpha} + \frac{1}{2} \sum_{\alpha\beta} \expval{\alpha\beta}{\hat{v}}{\alpha \beta}_{AS}.
+    E[\Phi] = \expval{\Phi}{\hat{H}}{\Phi} = \sum_{\alpha} \expval{\alpha}{\hat{h}_0}{\alpha} + \frac{1}{2} \sum_{\alpha\beta} \expval{\alpha\beta}{V}{\alpha \beta}_{AS}.
 \end{equation*}
 In the new basis, we have
 \begin{equation*}
-    E[\Phi^\HF] = \sum_{i} \expval{i}{\hat{h}_0}{i} + \frac{1}{2} \sum_{ij} \expval{ij}{\hat{v}}{ij}_{AS}.
+    E[\Phi^\HF] = \sum_{i} \expval{i}{\hat{h}_0}{i} + \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij}_{AS}.
 \end{equation*}
 As $\ket{i} = \sum_{\alpha} C_{i \alpha} \ket{\alpha}$, we also have
 \begin{equation*}
@@ -28,15 +28,15 @@ As $\ket{i} = \sum_{\alpha} C_{i \alpha} \ket{\alpha}$, we also have
 \end{equation*}
 This means that we can rewrite the one-body as
 \begin{align*}
-    \sum_i \expval{i}{h}{i} = \sum_{i} \sum_{\alpha\beta} \expval{\alpha}{C_{i \alpha}^* h C_{i \beta}}{\beta} = \sum_{i} \sum_{\alpha\beta} C_{i \alpha}^* C_{i \beta}  \expval{\alpha}{h}{\beta}.
+    \sum_i \expval{i}{\hat{h}_0}{i} = \sum_{i} \sum_{\alpha\beta} \expval{\alpha}{C_{i \alpha}^* \hat{h}_0 C_{i \beta}}{\beta} = \sum_{i} \sum_{\alpha\beta} C_{i \alpha}^* C_{i \beta}  \expval{\alpha}{\hat{h}_0}{\beta}.
 \end{align*}
 Similarly, we get the two-body part as
 \begin{equation*}
-    \frac{1}{2} \sum_{ij} \expval{ij}{v}{ij}_{AS} = \frac{1}{2} \sum_{ij} \sum_{\alpha\beta\gamma\delta} C_{i \alpha}^* C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{v}{\gamma\delta}_{AS}.
+    \frac{1}{2} \sum_{ij} \expval{ij}{V}{ij}_{AS} = \frac{1}{2} \sum_{ij} \sum_{\alpha\beta\gamma\delta} C_{i \alpha}^* C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS}.
 \end{equation*}
 Defining this as a functional of the coefficients $C$, we have
 \begin{equation}\label{eq:E0}
-    E_0[C] = \sum_{i} \sum_{\alpha\beta} C_{i \alpha}^* C_{i \beta}  \expval{\alpha}{h}{\beta} + \frac{1}{2} \sum_{ij} \sum_{\alpha\beta\gamma\delta} C_{i \alpha}^* C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{v}{\gamma\delta}_{AS}.
+    E_0[C] = \sum_{i} \sum_{\alpha\beta} C_{i \alpha}^* C_{i \beta}  \expval{\alpha}{\hat{h}_0}{\beta} + \frac{1}{2} \sum_{ij} \sum_{\alpha\beta\gamma\delta} C_{i \alpha}^* C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS}.
 \end{equation}
 
 As we are working with orthonormal basis functions, we have
@@ -55,12 +55,12 @@ Minimizing $F$ with respect to $C^*_{i\alpha}$, we wish to solve
 \end{equation*}
 Considering the one-body part of $E_0$, we have
 \begin{equation*}
-    \frac{\diff}{\diff C_{i \alpha}^*} \sum_{i} \sum_{\alpha\beta} C_{i \alpha}^* C_{i \beta}  \expval{\alpha}{h}{\beta} = \sum_{\beta} C_{i \beta} \expval{\alpha}{h}{\beta}.
+    \frac{\diff}{\diff C_{i \alpha}^*} \sum_{i} \sum_{\alpha\beta} C_{i \alpha}^* C_{i \beta}  \expval{\alpha}{\hat{h}_0}{\beta} = \sum_{\beta} C_{i \beta} \expval{\alpha}{\hat{h}_0}{\beta}.
 \end{equation*}
 For the two-body part, we firstly note that $C_{i \alpha}^*$ and $C_{j \beta}^*$ of Eq.~\eqref{eq:E0} are dummy indices, meaning the factor of $1/2$ gets canceled out.
 This gives us
 \begin{equation*}
-    \frac{\diff}{\diff C_{i \alpha}^*} \frac{1}{2} \sum_{ij} \sum_{\alpha\beta\gamma\delta} C_{i \alpha}^* C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{v}{\gamma\delta}_{AS} = \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{v}{\gamma\delta}_{AS}.
+    \frac{\diff}{\diff C_{i \alpha}^*} \frac{1}{2} \sum_{ij} \sum_{\alpha\beta\gamma\delta} C_{i \alpha}^* C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS} = \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS}.
 \end{equation*}
 For the term enforcing orthonormality, we have simply
 \begin{equation*}
@@ -68,20 +68,20 @@ For the term enforcing orthonormality, we have simply
 \end{equation*}
 Combining these terms, we have
 \begin{equation*}
-    \sum_{\beta} C_{i \beta} \expval{\alpha}{h}{\beta} + \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{v}{\gamma\delta}_{AS} - \lambda_i C_{i \alpha} = 0.
+    \sum_{\beta} C_{i \beta} \expval{\alpha}{\hat{h}_0}{\beta} + \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS} - \lambda_i C_{i \alpha} = 0.
 \end{equation*}
 Recognizing $\lambda_i$ as the eigenvalues $\varepsilon_i^\HF$, we can rewrite this as
 \begin{equation*}
-    \sum_{\beta} C_{i \beta} \expval{\alpha}{h}{\beta} + \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{v}{\gamma\delta}_{AS} = \varepsilon_i^\HF C_{i \alpha}.
+    \sum_{\beta} C_{i \beta} \expval{\alpha}{\hat{h}_0}{\beta} + \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma} C_{j \delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS} = \varepsilon_i^\HF C_{i \alpha}.
 \end{equation*}
 
 Changing the label of the dummy variables $\beta \mapsto \gamma$ in the one-body term and $i \mapsto p$ everywhere, we can write this as
 \begin{gather*}
-    \sum_{\gamma} C_{p \gamma} \expval{\alpha}{h}{\gamma} + \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{p \gamma} C_{j \delta} \expval{\alpha\beta}{v}{\gamma\delta}_{AS} = \varepsilon_p^\HF C_{p \alpha} \\
-    \sum_{\gamma} C_{p \gamma} \left[ \expval{\alpha}{h}{\gamma} + \sum_j \sum_{\beta\delta} C_{j \beta}^*  C_{j \delta} \expval{\alpha\beta}{v}{\gamma\delta}_{AS} \right] = \varepsilon_p^\HF C_{p \alpha} \\
+    \sum_{\gamma} C_{p \gamma} \expval{\alpha}{\hat{h}_0}{\gamma} + \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{p \gamma} C_{j \delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS} = \varepsilon_p^\HF C_{p \alpha} \\
+    \sum_{\gamma} C_{p \gamma} \left[ \expval{\alpha}{\hat{h}_0}{\gamma} + \sum_j \sum_{\beta\delta} C_{j \beta}^*  C_{j \delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS} \right] = \varepsilon_p^\HF C_{p \alpha} \\
     \sum_{\gamma} h_{\alpha\gamma}^\HF C_{p \gamma} = \varepsilon_p^\HF C_{p \alpha},
 \end{gather*}
-as we wanted to show.
+as we wanted to show, where $\varepsilon_p^\HF$ are the new single-particle energies we solve for.
 
 Using the density matrix, defined by
 \begin{equation*}
@@ -89,11 +89,11 @@ Using the density matrix, defined by
 \end{equation*}
 we can write $h_{\alpha \gamma}^\HF$ as
 \begin{equation*}
-    h_{\alpha \gamma}^\HF = \expval{\alpha}{h}{\gamma} + \sum_{\beta\delta} \rho_{\beta\delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS}.
+    h_{\alpha \gamma}^\HF = \expval{\alpha}{\hat{h}_0}{\gamma} + \sum_{\beta\delta} \rho_{\beta\delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS}.
 \end{equation*}
 In second quantization, the Hartree-Fock operator is then defined as
 \begin{equation*}
-    \hat{h}^\HF = \sum_{\alpha\gamma} h_{\alpha\gamma}^\HF a_\alpha^\dagger a_\gamma
+    \hat{h}^\HF = \sum_{\alpha\gamma} h_{\alpha\gamma}^\HF a_\alpha^\dagger a_\gamma.
 \end{equation*}
 
 \textcolor{red}{TODO:\@ LEGG TIL DIAGRAM OG FORKLAR TERMENE}

@@ -1,0 +1,37 @@
+The final stage is to set up an iterative scheme where you use the new wave functions determined via the coefficients $C_{p\alpha}$ to solve iteratively the Hartree-Fock equations till a given self-consistency is reached.
+A typical way of doing this is to compare the single-particle energies from the previous iteration with those obtained from the new diagonalization.
+If the total difference is smaller than a prefixed value, the iterative process is stopped.
+Feel free to use the code presented in the lecture notes of week 40.
+Compare these results with the those you obtained under the minimization of the ground states as functions of $Z$ and the full diagonalization.
+Discuss your results.
+
+\subsection{}
+Setting up the iterative scheme now simply amounts to repeating the diagonalization process implemented previously, until convergence is reached.
+We measure converge by checking the condition
+\begin{equation*}
+    \frac{\lvert \varepsilon^{(n)} - \varepsilon^{(n-1)} \rvert}{m} \leq \lambda,
+\end{equation*}
+where $\varepsilon^{(n)}$ is the new ground state energy, $\varepsilon^{(n-1)}$ is the previous ground state energy, $m$ is the number of single-particle states, $\lambda$ is a predefined tolerance, and $\lvert \cdot \rvert$ denotes the 1-norm.
+We set $\lambda = 10^{-14}$.
+
+The code for this can again be found in \verb|hartree_fock.py|, and the results are listed in \autoref{tab:energies_converged}.
+The untruncated values can be found in \verb|hartree_fock.txt|.
+Here, we see only marginal improvements as opposed to the results from the first iteration.
+
+\begin{table}[h!]
+    \caption{Single-particle energies and new ground state energies for Helium and Beryllium atoms, after one Hartree-Fock iteration.\label{tab:energies_converged}}
+    \centering
+    \small
+    \begin{tabular}{lcr}
+        \toprule\toprule
+        Atom & Iterations & Final Energy \\ \midrule
+        Helium & 17 & $-2.8310$ \\ \midrule
+        Beryllium & 18 & $-14.5082$ \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+For the helium atom we found the best results when diagonalizing the Hamiltonian directly.
+This is unsurprising, given the simpler nature of the problem.
+This approach does not however scale well to larger systems, where the iterative scheme is more efficient.
+We see tendencies of this already in the beryllium atom, where the iterative scheme gives the best results.
+When setting up the Hamiltonian for the beryllium atom, we truncated the excitations at one level above the Fermi level, as opposed to two levels as with the helium atom.

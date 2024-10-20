@@ -15,22 +15,22 @@ We consider a Hamiltonian $\hat{H} = \hat{H}_0 + \hat{H}_I$, where $\hat{H}_0$ a
 \end{align}
 
 We have the normal-ordered form of annihilation and creation operators, relative to the reference state, where all creation operators are to the left of all annihilation operators.
-For example, we have $N[a_p^\dagger a_q] = a_p^\dagger a_q$, $N[a_p a_q^\dagger] = -a_q^\dagger a_p$, where the sign is dependent on the number of permutations required to bring the operators to normal order.
+For example, we have $\{a_p^\dagger a_q \} = a_p^\dagger a_q$, $\{ a_p a_q^\dagger \} = -a_q^\dagger a_p$, where the sign is dependent on the number of permutations required to bring the operators to normal order.
 We are interested in this, as
 \begin{equation*}
-    \expval{c}{N[A B\dotsm]}{c} = 0
+    \expval{c}{\{ A B\dotsm \}}{c} = 0
 \end{equation*}
-if $N[A B \dotsm]$ is not empty, where $A, B, \dotsc$ are annihilation or creation operators.
+if $\{ A B \dotsm\}$ is not empty, where $A, B, \dotsc$ are annihilation or creation operators.
 
 With this, we have the contractions of operators, defined as
 \begin{equation*}
-    \wick{\c A \c B} = AB - N[AB].
+    \wick{\c A \c B} = AB - \{AB\}.
 \end{equation*}
 Relative to our reference state, we have that
-\begin{align*}
-    \wick{\c a_i^\dagger \c a_j} &= \delta_{i j}, &
-    \wick{\c a_a \c a_b^\dagger} &= \delta_{a b}
-\end{align*}
+\begin{equation*}
+    \wick{\c a_i^\dagger \c a_j} = \delta_{i j} \qquad \text{and} \qquad
+    \wick{\c a_a \c a_b^\dagger} = \delta_{a b}
+\end{equation*}
 are the only non-zero contractions.
 
 For the one-body term, we then have
@@ -38,49 +38,49 @@ For the one-body term, we then have
     \expval{c}{\hat{H}_0}{c} = \sum_{pq} \expval{p}{\hat{h}_0}{q} \expval{c}{a_p^\dagger a_q}{c} = \sum_{ij} \expval{i}{\hat{h}_0}{j} \delta_{ij} = \sum_{i} \expval{i}{\hat{h}_0}{i}.
 \end{equation}
 
-For the two-body term, writing $\ket{c} = \ket{i j}$ we first need to examine the possible contractions of $ i j p^\dagger q^\dagger s r j^\dagger i^\dagger$ and the resulting matrix element $\expval{pq}{V}{rs}_{AS}$.
+For the two-body term, writing $\ket{c} = \ket{i j}$ we first need to examine the possible contractions of $ a_i a_j a_p^\dagger a_q^\dagger a_s a_r a_j^\dagger a_i^\dagger$ and the resulting matrix element $\expval{pq}{V}{rs}_{AS}$.
 We have
 \begin{align*}
     \wick{
-        \c2 j
-        \c1 i
-        \c1 p^\dagger
-        \c2 q^\dagger
-        \c2 s
-        \c1 r
-        \c1 i^\dagger
-        \c2 j^\dagger
+        \c2 a_j
+        \c1 a_i
+        \c1 a_p^\dagger
+        \c2 a_q^\dagger
+        \c2 a_s
+        \c1 a_r
+        \c1 a_i^\dagger
+        \c2 a_j^\dagger
     } &= \delta_{jq} \delta_{ip} \delta_{sj} \delta_{ri} \to \expval{ij}{V}{ij}_{AS}, \\
     \wick{
-        \c2 j
-        \c1 i
-        \c1 p^\dagger
-        \c2 q^\dagger
-        \c2 s
-        \c1 r
-        \c2 i^\dagger
-        \c1 j^\dagger
+        \c2 a_j
+        \c1 a_i
+        \c1 a_p^\dagger
+        \c2 a_q^\dagger
+        \c1 a_s
+        \c2 a_r
+        \c1 a_i^\dagger
+        \c2 a_j^\dagger
     } &= -\delta_{jq} \delta_{ip} \delta_{si} \delta_{rj} \to -\expval{ij}{V}{ji}_{AS}, \\
     \wick{
-        \c2 j
-        \c1 i
-        \c2 p^\dagger
-        \c1 q^\dagger
-        \c2 s
-        \c1 r
-        \c2 i^\dagger
-        \c1 j^\dagger
-    } &= \delta_{jp} \delta_{iq} \delta_{si} \delta_{rj} \to \expval{ji}{V}{ji}_{AS}, \\
+        \c1 a_j
+        \c2 a_i
+        \c1 a_p^\dagger
+        \c2 a_q^\dagger
+        \c2 a_s
+        \c1 a_r
+        \c1 a_i^\dagger
+        \c2 a_j^\dagger
+    } &= -\delta_{jp} \delta_{iq} \delta_{sj} \delta_{ri} \to -\expval{ji}{V}{ij}_{AS}, \\
     \wick{
-        \c2 j
-        \c1 i
-        \c2 p^\dagger
-        \c1 q^\dagger
-        \c2 s
-        \c1 r
-        \c1 i^\dagger
-        \c2 j^\dagger
-    } &= -\delta_{jp} \delta_{iq} \delta_{sj} \delta_{ri} \to -\expval{ji}{V}{ij}_{AS}.
+        \c1 a_j
+        \c2 a_i
+        \c1 a_p^\dagger
+        \c2 a_q^\dagger
+        \c1 a_s
+        \c2 a_r
+        \c1 a_i^\dagger
+        \c2 a_j^\dagger
+    } &= \delta_{jp} \delta_{iq} \delta_{si} \delta_{rj} \to \expval{ji}{V}{ji}_{AS}.
 \end{align*}
 As $\expval{\alpha \beta}{V}{\gamma \delta}_{AS} = - \expval{\alpha \beta}{V}{\delta \gamma}_{AS}$ we gather these terms, and inserting for $V$, leaving us with
 \begin{equation}
@@ -105,7 +105,7 @@ and the expectation value of the two-body part is, writing just $\sigma_{+}$ and
     \underbrace{\expval*{\sigma_{+} \sigma_{-}}{\frac{1}{r_{\sigma_{+}\sigma_{-}}}}{\sigma_{+} \sigma_{-}}}_{\textnormal{Direct term}}
     - \underbrace{\expval*{\sigma_{+} \sigma_{-}}{\frac{1}{r_{\sigma_{+}\sigma_{-}}}}{\sigma_{-}\sigma_{+}}}_{\textnormal{Exchange term}}.
 \end{equation*}
-The exchange term vanishes since the states are orthogonal, and we are left with the direct term.
+The exchange term vanishes as the states are orthogonal, and we are left with the direct term.
 We are then just left with
 \begin{equation*}
     \expval{\Phi_0}{\hat{H}_I}{\Phi_0} = \frac{1}{2}\left[ \expval*{\sigma_{+} \sigma_{-}}{\frac{1}{r_{\sigma_{+} \sigma_{-}}}}{\sigma_{+} \sigma_{-}} + \expval*{\sigma_{-} \sigma_{+}}{\frac{1}{r_{\sigma_{+} \sigma_{-}}}}{\sigma_{-} \sigma_{+}}\right].
