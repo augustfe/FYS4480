@@ -3,3 +3,32 @@ Use the single-particle orbits $1s{-}3s$ and set up the Hartree-Fock matrix for 
 Find after the first diagonalization the new single-particle energies and the new ground state energy.
 Compare these results with those you obtained under the minimization of the ground states as functions of $Z$ and the full diagonalization.
 When setting up the Hartree-Fock matrix in the first iteration, our guess for the coefficients $C_{p\beta}$ etc.\ is $C_{p\beta}=1$ for $p=\beta$ and zero else.
+
+\subsection{}
+We set up the Hartree-Fock matrices with the code in \verb|src/hartree_fock.py|, for both the helium and beryllium atoms.
+After the first diagonalization, we find the new single-particle energies and the new ground state energy, listed in \autoref{tab:energies}.
+The untruncated values can be found in \verb|src/hartree_fock.txt|.
+
+\begin{table}[h!]
+    \caption{Single-particle energies and new ground state energies for Helium and Beryllium atoms, after one Hartree-Fock iteration.\label{tab:energies}}
+    \centering
+    \small
+    \begin{tabular}{lcr}
+        \toprule\toprule
+        Atom & Single-Particle Energies & New Energy \\ \midrule
+        Helium & $
+        \begin{bmatrix}
+            -0.7832 & -0.7832
+        \end{bmatrix}
+        $ & $-2.8291$ \\ \midrule
+        Beryllium & $
+        \begin{bmatrix}
+            -3.9506 & -3.9506 & -0.1040 & -0.1040
+        \end{bmatrix}
+        $ & $-14.4998$ \\ \bottomrule
+    \end{tabular}
+\end{table}
+
+For the helium atom, we find that the new ground state energy is $-2.8291$ atomic units, which is an improvement from the value $-2.75$ atomic units we found when minimizing with respect to $Z$, but slightly worse than the result $-2.8386$ atomic units we found when fully diagonalizing the Hamiltonian.
+
+For the beryllium atom, the new ground state energy of $-14.4998$ atomic units is a large improvement from the estimate of $-13.7159$ we got when minimizing with respect to $Z$, and is still better than the fully diagonalized result of $-14.3621$ atomic units.
