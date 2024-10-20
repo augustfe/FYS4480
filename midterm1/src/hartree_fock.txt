@@ -1,0 +1,24 @@
+Results after one iteration:
+Helium:
+New single-particle energies: [-0.78328822 -0.78328822  0.03963372  0.03963372  0.45345627  0.45345627]
+New ground state energy: -2.8291928003392006
+In electron volts: -76.95404416922625 eV
+
+Beryllium:
+New single-particle energies: [-3.95069926 -3.95069926 -0.10403995 -0.10403995  0.86568896  0.86568896]
+New ground state energy: -14.499822866520379
+In electron volts: -394.3951819693543 eV
+
+Results after full convergence: (with tolerance 1e-14)
+Helium:
+Converged in 18 iterations
+Final single-particle energies: [-0.888475   -0.888475    0.03942215  0.03942215  0.43951618  0.43951618]
+Final ground state energy: -2.831096086785041
+In electron volts: -77.00581356055311 eV
+
+Beryllium:
+Converged in 18 iterations
+Final single-particle energies: [-4.68698242 -4.68698242 -0.30526599 -0.30526599  0.81112416  0.81112416]
+Final ground state energy: -14.508252442377158
+In electron volts: -394.62446643265866 eV
+
