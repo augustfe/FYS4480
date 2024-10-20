@@ -12,9 +12,10 @@ class HartreeFock:
     def __init__(self, F: int, Z_val: int) -> None:
         self.F = F
         self.Z = Z_val
+        self.num_orbitals = 6
+
         self.levels = np.arange(1, 4).repeat(2)
         self.spins = np.array([0, 1] * 3)
-
         self.electrons = np.vstack([self.levels, self.spins]).T
 
         self.h = np.diag(-(Z_val**2) / (2 * self.levels**2))
@@ -27,7 +28,9 @@ class HartreeFock:
         self.coulomb_integrals = self.setup_coulomb()
 
     def setup_coulomb(self) -> np.ndarray:
-        coulomb_integrals = np.zeros((6, 6, 6, 6))
+        coulomb_integrals = np.zeros(
+            (self.num_orbitals, self.num_orbitals, self.num_orbitals, self.num_orbitals)
+        )
 
         for i, alpha in enumerate(self.electrons):
             for j, beta in enumerate(self.electrons):
@@ -91,35 +94,38 @@ class HartreeFock:
         return coulomb_matrix
 
     def run(self, max_iter=100, tol=1e-14):
-        coeffs = np.eye(6)
-        density_matrix = self.setup_density_matrix(coeffs)
+        coeffs = np.eye(self.num_orbitals)
+        old_energies = np.zeros(self.num_orbitals)
 
         for iteration in range(max_iter):
+            density_matrix = self.setup_density_matrix(coeffs)
             fock_matrix = self.h + self.coulomb(density_matrix)
             energies, coeffs = self.diagonalize(fock_matrix)
-            new_density_matrix = self.setup_density_matrix(coeffs)
 
-            if np.linalg.norm(new_density_matrix - density_matrix) < tol:
+            difference = (
+                np.linalg.norm(energies - old_energies, ord=1) / self.num_orbitals
+            )
+            if difference < tol:
                 print(f"Converged in {iteration} iterations")
                 break
 
-            density_matrix = new_density_matrix
+            old_energies = energies
         return energies, coeffs
 
     def groundstate_loop(self, coeffs: np.ndarray) -> np.ndarray:
         h0 = 0
         for i in range(self.F):
-            for alpha in range(6):
-                for beta in range(6):
+            for alpha in range(self.num_orbitals):
+                for beta in range(self.num_orbitals):
                     h0 += self.h[alpha, beta] * coeffs[i, alpha] * coeffs[i, beta]
 
         h1 = 0
         for i in range(self.F):
             for j in range(self.F):
-                for alpha in range(6):
-                    for beta in range(6):
-                        for gamma in range(6):
-                            for delta in range(6):
+                for alpha in range(self.num_orbitals):
+                    for beta in range(self.num_orbitals):
+                        for gamma in range(self.num_orbitals):
+                            for delta in range(self.num_orbitals):
                                 h1 += (
                                     self.coulomb_integrals[alpha, beta, gamma, delta]
                                     * coeffs[i, alpha]

@@ -11,10 +11,10 @@ In electron volts: -394.3951819693543 eV
 
 Results after full convergence: (with tolerance 1e-14)
 Helium:
-Converged in 18 iterations
+Converged in 17 iterations
 Final single-particle energies: [-0.888475   -0.888475    0.03942215  0.03942215  0.43951618  0.43951618]
-Final ground state energy: -2.831096086785041
-In electron volts: -77.00581356055311 eV
+Final ground state energy: -2.83109608678504
+In electron volts: -77.0058135605531 eV
 
 Beryllium:
 Converged in 18 iterations
