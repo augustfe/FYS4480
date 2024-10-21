@@ -6,29 +6,18 @@ When setting up the Hartree-Fock matrix in the first iteration, our guess for th
 
 \subsection{}
 We set up the Hartree-Fock matrices with the code in \verb|hartree_fock.py|, for both the helium and beryllium atoms.
-After the first diagonalization, we find the new single-particle energies and the new ground state energy, listed in \autoref{tab:energies}.
-The untruncated values can be found in \verb|hartree_fock.txt|.
+We index the single-particle states as $1 = 1s_+, 2 = 1s_-, \ldots, 6 = 3s_-$.
 
-\begin{table}[h!]
-    \caption{Single-particle energies and new ground state energies for Helium and Beryllium atoms, after one Hartree-Fock iteration.\label{tab:energies}}
-    \centering
-    \small
-    \begin{tabular}{lcr}
-        \toprule\toprule
-        Atom & Single-Particle Energies & New Energy \\ \midrule
-        Helium & $
-        \begin{bmatrix}
-            -0.7832 & -0.7832
-        \end{bmatrix}
-        $ & $-2.8291$ \\ \midrule
-        Beryllium & $
-        \begin{bmatrix}
-            -3.9506 & -3.9506 & -0.1040 & -0.1040
-        \end{bmatrix}
-        $ & $-14.4998$ \\ \bottomrule
-    \end{tabular}
-\end{table}
+For the helium atom, we find that the new single-particle energies after the first diagonalization are
+\begin{equation*}
+    \varepsilon_1 = \varepsilon_2 = -0.7832 \qquad \varepsilon_3 = \varepsilon_4 = 0.0396 \qquad \varepsilon_5 = \varepsilon_6 = 0.4534,
+\end{equation*}
+and the new ground state energy is $-2.8292$ atomic units, which is an improvement from the value $-2.75$ atomic units we found when minimizing with respect to $Z$, but slightly worse than the result $-2.8386$ atomic units we found when fully diagonalizing the Hamiltonian.
 
-For the helium atom, we find that the new ground state energy is $-2.8291$ atomic units, which is an improvement from the value $-2.75$ atomic units we found when minimizing with respect to $Z$, but slightly worse than the result $-2.8386$ atomic units we found when fully diagonalizing the Hamiltonian.
+For the beryllium atom, we find that the new single-particle energies after the first diagonalization to be
+\begin{equation*}
+    \varepsilon_1 = \varepsilon_2 = -3.9507 \qquad \varepsilon_3 = \varepsilon_4 = -0.1040 \qquad \varepsilon_5 = \varepsilon_6 = 0.8656,
+\end{equation*}
+which with a new ground state energy of $-14.4998$ atomic units is a large improvement from the estimate of $-13.7159$ we got when minimizing with respect to $Z$, and is still better than the fully diagonalized result of $-14.3621$ atomic units.
 
-For the beryllium atom, the new ground state energy of $-14.4998$ atomic units is a large improvement from the estimate of $-13.7159$ we got when minimizing with respect to $Z$, and is still better than the fully diagonalized result of $-14.3621$ atomic units.
+The untruncated results are available in the file \verb|hartree_fock.txt|.

@@ -91,9 +91,37 @@ we can write $h_{\alpha \gamma}^\HF$ as
 \begin{equation*}
     h_{\alpha \gamma}^\HF = \expval{\alpha}{\hat{h}_0}{\gamma} + \sum_{\beta\delta} \rho_{\beta\delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS}.
 \end{equation*}
-In second quantization, the Hartree-Fock operator is then defined as
+
+In second quantization with respect to the old basis, the Hartree-Fock operator is then defined as
+% \begin{equation*}
+%     \hat{h}^\HF = \sum_{\alpha\gamma} h_{\alpha\gamma}^\HF a_\alpha^\dagger a_\gamma.
+% \end{equation*}
 \begin{equation*}
-    \hat{h}^\HF = \sum_{\alpha\gamma} h_{\alpha\gamma}^\HF a_\alpha^\dagger a_\gamma.
+    \hat{h}^\HF = \sum_{\alpha \gamma} \hat{h}^\HF_{\alpha\gamma} a_\alpha^\dagger a_\gamma = \sum_{\alpha \gamma} \expval{\alpha}{\hat{h}^\HF}{\gamma} a_\alpha^\dagger a_\gamma
 \end{equation*}
 
-\textcolor{red}{TODO:\@ LEGG TIL DIAGRAM OG FORKLAR TERMENE}
+We are then interested in the second quantized form with respect to the new basis, namely
+\begin{equation*}
+    \hat{h}^\HF = \sum_{pq} \hat{h}^\HF_{p q} a_p^\dagger a_q.
+\end{equation*}
+We have
+\begin{align*}
+    \hat{h}^\HF_{p q} &= \expval{p}{\hat{h}^\HF}{q} \\
+    &= \sum_{\alpha \beta} C_{p \alpha}^* \expval{\alpha}{\hat{h}^\HF}{\beta} C_{q \beta} \\
+    &= \sum_{\alpha\gamma} C_{p\alpha}^* \left[ \expval{\alpha}{\hat{h}_0}{\gamma} + \sum_{\beta\delta} \rho_{\beta\delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS} \right] C_{q\gamma} \\
+    &= \sum_{\alpha\gamma} C_{p\alpha}^* \expval{\alpha}{\hat{h}_0}{\gamma} C_{q\gamma} + \sum_{\alpha\gamma} C_{p\alpha}^* \sum_{\beta\delta} \rho_{\beta\delta} \expval{\alpha\beta}{V}{\gamma\delta}_{AS} C_{q\gamma} \\
+    &= \expval{p}{\hat{h}_0}{q} + \sum_{i} \expval{p i }{V}{q i}_{AS}.
+\end{align*}
+This gives us the second quantized form of the Hartree-Fock operator as
+\begin{equation*}
+    \hat{h}^\HF = \sum_{pq} \left[ \expval{p}{\hat{h}_0}{q} + \sum_{i} \expval{pi}{V}{qi}_{AS} \right] a_p^\dagger a_q.
+\end{equation*}
+
+For the diagrammatic representation, we only consider the cases $\expval{i}{h^\HF}{i}$ and $\expval{a}{h^\HF}{a}$, as the other cases vanish.
+This gives us the diagram shown in Fig.~\ref{fig:HF-diagram}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/HF-operator.pdf}
+    \caption{Diagrammatic representation of $\expval{i}{h^\HF}{i}$ and $\expval{a}{h^\HF}{a}$.\label{fig:HF-diagram}}
+\end{figure}
