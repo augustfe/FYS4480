@@ -8,6 +8,10 @@ We refer to this as the exact calculation.
 Comment the behavior of the ground state as function of $g$.
 
 \subsection{}
+Due to the requirement of no broken pairs, total spin $S = 0$, and the fact that we have four particles, the number of possible Slater determinants is quite limited.
+We choose our ansatz $\ket{\Phi_0}$ to be the Slater determinant with all four particles below the Fermi level of $p = 2$.
+The possible Slater determinants are shown in Fig.~\ref{fig:SDs}.
+
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}[scale=0.6]
@@ -84,6 +88,42 @@ Comment the behavior of the ground state as function of $g$.
 
     \end{tikzpicture}
     \caption{
-        TODO:\@ Add caption.
+        Schematic representation of the six possible Slater determinants for a system with four particles, under the constraint of no broken pairs, total spin $S = 0$, considering only the four lowest levels $p = 1, 2, 3, 4$.\label{fig:SDs}
+    }
+\end{figure}
+
+Setting up the Slater determinants in second quantization, we set the ground state to be
+\begin{equation*}
+    \ket{\Phi_0} = a_{1+}^\dagger a_{1-}^\dagger a_{2+}^\dagger a_{2-}^\dagger \ket{0}.
+\end{equation*}
+We define the other Slater determinants relative to the ground state:
+\begin{align*}
+    \ket{\Phi_1} &= a_{3+}^\dagger a_{3-}^\dagger a_{2-} a_{2+} \ket{\Phi_0}, \\
+    \ket{\Phi_2} &= a_{4+}^\dagger a_{4-}^\dagger a_{2-} a_{2+} \ket{\Phi_0}, \\
+    \ket{\Phi_3} &= a_{3+}^\dagger a_{3-}^\dagger a_{1-} a_{1+} \ket{\Phi_0}, \\
+    \ket{\Phi_4} &= a_{4+}^\dagger a_{4-}^\dagger a_{1-} a_{1+} \ket{\Phi_0}, \\
+    \ket{\Phi_5} &= a_{4+}^\dagger a_{4-}^\dagger a_{3+}^\dagger a_{3-}^\dagger a_{2-} a_{2+} a_{1-} a_{1+} \ket{\Phi_0}.
+\end{align*}
+
+Setting up the Hamiltonian matrix in Python, we find
+\begin{equation*}
+    \begin{bmatrix}
+        2 - g & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & 0 \\
+        - \frac{g}{2} & 4 - g & - \frac{g}{2} & - \frac{g}{2} & 0 & - \frac{g}{2} \\
+        - \frac{g}{2} & - \frac{g}{2} & 6 - g & 0 & - \frac{g}{2} & - \frac{g}{2} \\
+        - \frac{g}{2} & - \frac{g}{2} & 0 & 6 - g & - \frac{g}{2} & - \frac{g}{2} \\
+        - \frac{g}{2} & 0 & - \frac{g}{2} & - \frac{g}{2} & 8 - g & - \frac{g}{2} \\
+        0 & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & 10 - g
+    \end{bmatrix}
+\end{equation*}
+
+Plotted as a function of $g$, the ground state energy is shown in Fig.~\ref{fig:groundstate}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/ground_state_energy.pdf}
+    \caption{
+        Ground state energy as a function of $g$ for the four-particle system with no broken pairs and total spin $S = 0$.
+        The energy is given in units of the unperturbed ground state energy.\label{fig:groundstate}
     }
 \end{figure}
