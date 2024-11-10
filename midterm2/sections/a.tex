@@ -1,0 +1,294 @@
+Show that the unperturbed Hamiltonian $\hat{H}_0$ and $\hat{V}$ commute with both the spin projection $\hat{S}_z$ and the total spin $\hat{S}^2$, given by
+\begin{equation*}
+    \hat{S}_z := \frac{1}{2} \sum_{p\sigma} \sigma a^\dag_{p\sigma} a_{p\sigma} \quad \text{and} \quad \hat{S}^2 := \hat{S}_z^2 + \frac{1}{2}(\hat{S}_ + \hat{S}_ - + \hat{S}_ - \hat{S}_+),
+\end{equation*}
+where
+\begin{equation*}
+    \hat{S}_\pm := \sum_{p} a^\dag_{p\pm} a_{p\mp}.
+\end{equation*}
+
+This is an important feature of our system that allows us to block-diagonalize the full Hamiltonian.
+We will focus on total spin $S=0$.
+In this case, it is convenient to define the so-called pair creation and pair annihilation operators
+\begin{equation*}
+    \hat{P}^{+}_p = a^\dag_{p+} a^\dag_{p-} \quad \text{and} \quad \hat{P}^{-}_p = a_{p-} a_{p+},
+\end{equation*}
+respectively.
+
+Show that you can rewrite the Hamiltonian (with $\xi=1$) as
+\begin{equation*}
+    \hat{H} = \sum_{p\sigma} (p-1) a_{p\sigma}^{\dagger} a_{p\sigma} - \frac{1}{2} g \sum_{pq} \hat{P}^{+}_p \hat{P}^{-}_q.
+\end{equation*}
+Show also that pair creation operators  commute among themselves.
+
+In this midterm we focus only on a system with no broken pairs.
+This means that the Hamiltonian can only link two-particle states in so-called spin-reversed states.
+
+\subsection{}
+We firstly need to show that the unperturbed Hamiltonian $\hat{H}_0$ and the two-body operator $\hat{V}$ commute with the spin projection $\hat{S}_z$.
+We have, being careful with the summation indices,
+\begin{align*}
+    \left[ \hat{H}_0, \hat{S}_z \right]
+    &= \left[
+        \sum_{p\sigma} (p-1) a_{p\sigma}^{\dagger} a_{p\sigma},
+        \frac{1}{2} \sum_{q\tau} \tau a^\dag_{q\tau} a_{q\tau}
+    \right] \\
+    &= \frac{1}{2} \sum_{p\sigma} (p-1) \sum_{q\tau} \tau \left[
+        a_{p\sigma}^{\dagger} a_{p\sigma},
+        a^\dag_{q\tau} a_{q\tau}
+    \right] \\
+    &= \frac{1}{2} \sum_{p\sigma} (p-1) \sum_{q\tau} \tau \left[
+        \hat{n}_{p\sigma}, \hat{n}_{q\tau}
+    \right],
+\end{align*}
+where we have defined the number operator $\hat{n}_{p\sigma} = a_{p\sigma}^{\dagger} a_{p\sigma}$.
+As the number operator commutes with itself, we have that $\left[ \hat{n}_{p\sigma}, \hat{n}_{q\tau} \right] = 0$, and thus $[ \hat{H}_0, \hat{S}_z ] = 0$.
+
+Next, we show that the two-body operator $\hat{V}$ commutes with the spin projection $\hat{S}_z$.
+We have, again being careful with the summation indices,
+\begin{align*}
+    \left[ \hat{V}, \hat{S}_z \right]
+    &= \left[
+        -\frac{1}{2} g \sum_{pq} a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+},
+        \frac{1}{2} \sum_{r\sigma} \sigma a^\dag_{r\sigma} a_{r\sigma}
+    \right] \\
+    &= -\frac{1}{4} g \sum_{pqr \sigma} \sigma \left[
+        a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+},
+        a^\dag_{r\sigma} a_{r\sigma}
+    \right] \\
+    &= -\frac{1}{4} g \sum_{pqr \sigma} \sigma \left[
+        a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+},
+        \hat{n}_{r\sigma}
+    \right].
+\end{align*}
+Using the commutation indentity
+\begin{equation*}
+    \left[ AB, C \right] = A \left[B, C \right] + \left[ A, C \right] B,
+\end{equation*}
+we have
+\begin{equation}\label{eq:double_comm}
+    \left[ a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+}, \hat{n}_{r\sigma} \right]
+    = a_{p+}^\dagger a_{p-}^\dagger \Big[ a_{q-} a_{q+}, \hat{n}_{r\sigma} \Big] + \left[ a_{p+}^\dagger a_{p-}^\dagger, \hat{n}_{r\sigma} \right] a_{q-} a_{q+},
+\end{equation}
+and then need to find expressions for
+\begin{equation*}
+    \Big[ a_{q-} a_{q+}, \hat{n}_{r\sigma} \Big] \quad \text{and} \quad \left[ a_{p+}^\dagger a_{p-}^\dagger, \hat{n}_{r\sigma} \right].
+\end{equation*}
+
+Changing the indices for brevity in the intermediate steps, we need to find
+\begin{equation*}
+    \left[ a_{p} a_{q}, \hat{n}_{r} \right] \quad \text{and} \quad \left[ a_{p}^\dagger a_{q}^\dagger, \hat{n}_{r} \right],
+\end{equation*}
+noting that
+\begin{equation*}
+    \left[ a_{p} a_{q}, \hat{n}_{r} \right]
+    = a_{p} \left[ a_{q}, \hat{n}_{r} \right] + \left[ a_{p}, \hat{n}_{r} \right] a_{q}.
+\end{equation*}
+As
+\begin{align*}
+    \left[ a_q, \hat{n}_{r} \right] &= \left[ a_q, a_{r}^\dagger a_{r} \right]
+    = \left[ a_q, a_{r}^\dagger \right] a_{r} + a_{r}^\dagger \left[ a_q, a_{r} \right] \\
+    &= \delta_{qr} a_{r} + a_{r}^\dagger \cdot 0
+    = \delta_{qr} a_{r} = a_{q},
+\end{align*}
+We have
+\begin{align*}
+    \left[ a_{p} a_{q}, \hat{n}_{r} \right]
+    &= a_{p} \left[ a_{q}, \hat{n}_{r} \right] + \left[ a_{p}, \hat{n}_{r} \right] a_{q} \\
+    &= a_{p} a_{q} + a_{p} a_{q} = 2 a_{p} a_{q}.
+\end{align*}
+Similarly, for the creation operators, we have
+\begin{equation*}
+    \left[ a_p^\dagger, \hat{n}_r \right] = \left[ a_p^\dagger, a_r^\dagger a_r \right] = \left[ a_p^\dagger, a_r^\dagger \right] a_r + a_r^\dagger \left[ a_p^\dagger, a_r \right] = -\delta_{pr} a_r^\dagger = -a_p^\dagger,
+\end{equation*}
+and thus
+\begin{align*}
+    \left[ a_p^\dagger a_q^\dagger, \hat{n}_r \right]
+    &= a_p^\dagger \left[ a_q^\dagger, \hat{n}_r \right] + \left[ a_p^\dagger, \hat{n}_r \right] a_q^\dagger \\
+    &= - a_p^\dagger a_q^\dagger - a_p^\dagger a_q^\dagger = - 2 a_p^\dagger a_q^\dagger.
+\end{align*}
+
+Returning to Eq.~\eqref{eq:double_comm} with the correct labels, we have
+\begin{align*}
+    \left[ a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+}, \hat{n}_{r\sigma} \right]
+    &= a_{p+}^\dagger a_{p-}^\dagger \Big[ a_{q-} a_{q+}, \hat{n}_{r\sigma} \Big] + \left[ a_{p+}^\dagger a_{p-}^\dagger, \hat{n}_{r\sigma} \right] a_{q-} a_{q+} \\
+    &= 2 a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+} - 2 a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+} \\
+    &= 0,
+\end{align*}
+meaning that
+\begin{align*}
+    \left[ \hat{V}, \hat{S}_z \right] = -\frac{1}{4} g \sum_{pqr \sigma} \sigma \left[
+        a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+},
+        \hat{n}_{r\sigma}
+    \right] = 0.
+\end{align*}
+We have thus shown that the unperturbed Hamiltonian $\hat{H}_0$ and the two-body operator $\hat{V}$ commute with the spin projection $\hat{S}_z$.
+
+Next, we want to show the commutations of $\hat{H}_0$ and $\hat{V}$ with the total spin $\hat{S}^2$.
+Starting with $\hat{H}_0$, we have
+\begin{align*}
+    \left[ \hat{H}_0, \hat{S}^2 \right]
+    &= \left[
+        \hat{H}_0,
+        \hat{S}_z^2 + \frac{1}{2}(\hat{S}_+ \hat{S}_- + \hat{S}_- \hat{S}_+)
+    \right] \\
+    &= \left[ \hat{H}_0, \hat{S}_z^2 \right] + \left[ \hat{H}_0, \frac{1}{2}(\hat{S}_+ \hat{S}_- + \hat{S}_- \hat{S}_+) \right].
+\end{align*}
+As we have shown that $\hat{H}_0$ commutes with $\hat{S}_z$, we also have $\left[ \hat{H}_0, \hat{S}_z^2 \right] = 0$, and thus only need to place our attention on
+\begin{align*}
+    \left[ \hat{H}_0, \frac{1}{2}(\hat{S}_+ \hat{S}_- + \hat{S}_- \hat{S}_+) \right]
+    &= \frac{1}{2} \left(
+        \left[
+            \hat{H}_0, \hat{S}_+ \hat{S}_-
+        \right]
+        + \left[
+            \hat{H}_0, \hat{S}_- \hat{S}_+
+        \right]
+    \right).
+\end{align*}
+We will only show the commutation of $\hat{H}_0$ with $\hat{S}_+ \hat{S}_-$, as the other commutation is analogous.
+Breaking the expression down further, we have
+\begin{equation*}
+    \left[ \hat{H}_0, \hat{S}_\pm \hat{S}_\mp \right]
+    = \left[ \hat{H}_0, \hat{S}_\pm \right] \hat{S}_\mp + \hat{S}_\pm \left[ \hat{H}_0, \hat{S}_\mp \right].
+\end{equation*}
+We then have
+\begin{align*}
+    \left[ \hat{H}_0, \hat{S}_{\pm} \right]
+    &= \left[
+        \sum_{p\sigma} (p-1) a_{p\sigma}^{\dagger} a_{p\sigma},
+        \sum_{q} a^\dag_{q\pm} a_{q\mp}
+    \right] \\
+    &= \sum_{pq \sigma} (p-1) \left[
+        a_{p\sigma}^{\dagger} a_{p\sigma},
+        a^\dag_{q\pm} a_{q\mp}
+    \right].
+\end{align*}
+Considering the commutation, using the number operator, we have
+\begin{align*}
+    \left[ \hat{n}_{p\sigma}, a^\dag_{q\pm} a_{q\mp} \right]
+    &= a^\dag_{q\pm} \left[ \hat{n}_{p\sigma}, a_{q\mp} \right] + \left[ \hat{n}_{p\sigma}, a^\dag_{q\pm} \right] a_{q\mp} \\
+    &= - a^\dag_{q\pm} a_{q\mp} + a^\dag_{q\pm} a_{q\mp} = 0,
+\end{align*}
+and thus
+\begin{equation*}
+    \left[ \hat{H}_0, \hat{S}_{\pm} \right] = 0.
+\end{equation*}
+We have thus shown that $\left[ \hat{H}_0, \hat{S}^2 \right] = 0$.
+
+Next, we show that $\hat{V}$ commutes with $\hat{S}^2$.
+We have
+\begin{align*}
+    \left[ \hat{V}, \hat{S}^2 \right]
+    &= \left[
+        -\frac{1}{2} g \sum_{pq} a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+},
+        \hat{S}_z^2 + \frac{1}{2}(\hat{S}_+ \hat{S}_- + \hat{S}_- \hat{S}_+)
+    \right] \\
+    &= \left[ \hat{V}, \hat{S}_z^2 \right] + \left[ \hat{V}, \frac{1}{2}(\hat{S}_+ \hat{S}_- + \hat{S}_- \hat{S}_+) \right].
+\end{align*}
+Again, as we've already shown that $\hat{V}$ commutes with $\hat{S}_z$, we only need to consider the commutation with $\hat{S}_\pm \hat{S}_\mp$.
+We analogously again have
+\begin{equation*}
+    \left[ \hat{V}, \hat{S}_\pm \hat{S}_\mp \right]
+    = \left[ \hat{V}, \hat{S}_\pm \right] \hat{S}_\mp + \hat{S}_\pm \left[ \hat{V}, \hat{S}_\mp \right],
+\end{equation*}
+where
+\begin{align*}
+    \left[ \hat{V}, \hat{S}_{\pm} \right]
+    &= \left[
+        -\frac{1}{2} g \sum_{pq} a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+},
+        \sum_{r} a^\dag_{r\pm} a_{r\mp}
+    \right] \\
+    &= -\frac{1}{2} g \sum_{pqr} \left[
+        a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+},
+        a^\dag_{r\pm} a_{r\mp}
+    \right].
+\end{align*}
+Breaking the expression down further, we have
+\begin{equation}\label{eq:V_to_S_comm}
+    \begin{split}
+        \left[
+            a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+},
+            a^\dag_{r\pm} a_{r\mp}
+        \right] &= a_{p+}^\dagger a_{p-}^\dagger \left[ a_{q-} a_{q+}, a^\dag_{r\pm} a_{r\mp} \right] \\
+        &+ \left[ a_{p+}^\dagger a_{p-}^\dagger, a^\dag_{r\pm} a_{r\mp} \right] a_{q-} a_{q+}.
+    \end{split}
+\end{equation}
+Considering the two contractions seperately, starting with the first one:
+\begin{equation*}
+    \left[ a_{q-} a_{q+}, a^\dag_{r\pm} a_{r\mp} \right]
+    = a_{q-} \left[ a_{q+}, a^\dag_{r\pm} a_{r\mp} \right] + \left[ a_{q-}, a^\dag_{r\pm} a_{r\mp} \right] a_{q+}.
+\end{equation*}
+These expressions follow the same pattern, so we only consider $q \pm \mapsto q$.
+\begin{align*}
+    \left[ a_{q}, a^\dag_{r\pm} a_{r\mp} \right]
+    &= \left[ a_q, a^\dag_{r\pm} \right] a_{r \mp} + a^\dag_{r\pm} \Big[ a_q, a_{r\mp} \Big] \\
+    &= \delta_{q, r\pm} a_{r\mp} + a^\dag_{r\pm} \cdot 0 = \delta_{q, r\pm} a_{r\mp}.
+\end{align*}
+We thus only get a contribution when $q = r$ and the spin parities match.
+We then have
+\begin{align*}
+    \left[ a_{q-} a_{q+}, a^\dag_{r\pm} a_{r\mp} \right]
+    &= a_{q-} \left[ a_{q+}, a^\dag_{r\pm} a_{r\mp} \right] + \left[ a_{q-}, a^\dag_{r\pm} a_{r\mp} \right] a_{q+} \\
+    &= a_{q-} \delta_{q+, r\pm} a_{r\mp} + \delta_{q-, r\pm} a_{r\mp} a_{q+} \\
+    &= \delta_{q+, r\pm} a_{q-} a_{r\mp} - \delta_{q-, r\pm} a_{q+} a_{r\mp} \\
+\end{align*}
+Continuing with the second contraction, we have
+\begin{equation*}
+    \left[ a_{p+}^\dagger a_{p-}^\dagger, a^\dag_{r\pm} a_{r\mp} \right] = a_{p+}^\dagger \left[ a_{p-}^\dagger, a^\dag_{r\pm} a_{r\mp} \right] + \left[ a_{p+}^\dagger, a^\dag_{r\pm} a_{r\mp} \right] a_{p-}^\dagger,
+\end{equation*}
+which again follow the same pattern.
+Writing $p \pm \mapsto p$ we have
+\begin{align*}
+    \left[ a_{p}^\dagger, a^\dag_{r\pm} a_{r\mp} \right]
+    &= \left[ a_p^\dagger, a^\dag_{r\pm} \right] a_{r\mp} + a^\dag_{r\pm} \left[ a_p^\dagger, a_{r\mp} \right] \\
+    &= 0 \cdot a_{r\mp} - a^\dag_{r\pm} \delta_{p, r\mp} = - a^\dag_{r\pm} \delta_{p, r\mp}.
+\end{align*}
+Inserting the expressions back into the commutator, we have
+\begin{align*}
+    \left[ a_{p+}^\dagger a_{p-}^\dagger, a^\dag_{r\pm} a_{r\mp} \right]
+    &= a_{p+}^\dagger \left[ a_{p-}^\dagger, a^\dag_{r\pm} a_{r\mp} \right] + \left[ a_{p+}^\dagger, a^\dag_{r\pm} a_{r\mp} \right] a_{p-}^\dagger \\
+    &= - a_{p+}^\dagger a^\dag_{r\pm} \delta_{p-, r\mp} - a^\dag_{r\pm} \delta_{p+, r\mp} a_{p-}^\dagger \\
+    &= - \delta_{p-, r\mp} a_{p+}^\dagger a^\dag_{r\pm} + \delta_{p+, r\mp} a_{p-}^\dagger a^\dag_{r\pm}.
+\end{align*}
+
+As the results are getting quite wieldy, we summarize the different cases of spin parities in the commutator.
+\begin{align*}
+    \left[ a_{q-} a_{q+}, a^\dag_{r+} a_{r-} \right] &= \delta_{q+, r+} a_{q-} a_{r-} = 0 \\
+    \left[ a_{q-} a_{q+}, a^\dag_{r-} a_{r+} \right] &= -\delta_{q-, r-} a_{q+} a_{r+} = 0 \\
+    \left[ a_{p+}^\dagger a_{p-}^\dagger, a^\dag_{r+} a_{r-} \right] &= - \delta_{p-, r-} a_{p+}^\dagger a^\dag_{r+} = 0 \\
+    \left[ a_{p+}^\dagger a_{p-}^\dagger, a^\dag_{r-} a_{r+} \right] &= \delta_{p+, r+} a_{p-}^\dagger a^\dag_{r-} = 0.
+\end{align*}
+We thus have that that Eq.~\eqref{eq:V_to_S_comm} simplifies to
+\begin{equation*}
+    \left[ a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+}, a^\dag_{r\pm} a_{r\mp} \right] = 0,
+\end{equation*}
+which means that $\left[ \hat{V}, \hat{S}_\pm \right] = 0$, giving us that
+\begin{equation*}
+    \left[ \hat{V}, \hat{S}^2 \right] = 0.
+\end{equation*}
+We have thus shown that both $\hat{H}_0$ and $\hat{V}$ commute with the total spin $\hat{S}^2$.
+
+With $\xi = 1$, the one-body operator $\hat{H}_0$ is defined as
+\begin{equation*}
+    \hat{H}_0 = \sum_{p\sigma} (p-1) a_{p\sigma}^{\dagger} a_{p\sigma}.
+\end{equation*}
+For the two-body operator $\hat{V}$, we have, substituting $\hat{P}^{+}_p = a_{p+}^\dagger a_{p-}^\dagger$ and $\hat{P}^{-}_q = a_{q-} a_{q+}$,
+\begin{equation*}
+    \hat{V} = - \frac{1}{2} g \sum_{pq} \hat{P}^{+}_p \hat{P}^{-}_q.
+\end{equation*}
+This leaves us with the rewritten Hamiltonian
+\begin{equation*}
+    \hat{H} = \hat{H}_0 + \hat{V} = \sum_{p\sigma} (p-1) a_{p\sigma}^{\dagger} a_{p\sigma} - \frac{1}{2} g \sum_{pq} \hat{P}^{+}_p \hat{P}^{-}_q.
+\end{equation*}
+
+Finally, we want to show that the pair creation operators commute among themselves.
+\begin{align*}
+    \left[ \hat{P}^{+}_p, \hat{P}^{+}_q \right]
+    &= \left[ a_{p+}^\dagger a_{p-}^\dagger, a_{q+}^\dagger a_{q-}^\dagger \right] \\
+    &= a_{p+}^\dagger a_{p-}^\dagger a_{q+}^\dagger a_{q-}^\dagger - a_{q+}^\dagger a_{q-}^\dagger a_{p+}^\dagger a_{p-}^\dagger \\
+    &= a_{p+}^\dagger a_{p-}^\dagger a_{q+}^\dagger a_{q-}^\dagger - (-1)^2 a_{p+}^\dagger a_{q+}^\dagger a_{q-}^\dagger a_{p-}^\dagger \\
+    &= a_{p+}^\dagger a_{p-}^\dagger a_{q+}^\dagger a_{q-}^\dagger - (-1)^4 a_{p+}^\dagger a_{p-}^\dagger a_{q+}^\dagger a_{q-}^\dagger \\
+    &= 0.
+\end{align*}
+Similarly, one can show that the pair annihilation operators also commute among themselves.

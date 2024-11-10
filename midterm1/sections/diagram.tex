@@ -1,0 +1,127 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{amsmath} % for \langle and \rangle
+
+\begin{document}
+
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+
+\tikzset{cross/.style={cross out, draw=black, minimum size=2*(#1-\pgflinewidth), inner sep=0pt, outer sep=0pt},
+    %default radius will be 1pt.
+cross/.default={1pt}}
+
+\begin{tikzpicture}
+
+    \begin{scope}[very thick,decoration={
+                markings,
+                mark=at position 0.6 with {\arrow{>}}
+            }
+        ]
+        \draw[postaction={decorate}]   (0, 2) node[left] {\large$i$} -- (1, 1);
+        \draw[postaction={decorate}]   (1, 1) -- (0, 0) node[left] {\large$i$};
+        \draw[dashed] (1, 1) -- (2, 1);
+        \draw (2.1, 1) node[cross=5pt, line width=1pt]{};
+    \end{scope}
+
+    \node at (3,1) {\Huge$+$};
+
+    \begin{scope}[xshift=3.5cm,very thick,decoration={
+                markings,
+                mark=at position 0.6 with {\arrow{>}}
+            }
+        ]
+        \draw[postaction={decorate}]   (0, 2) node[left] {\large$i$} -- (1, 1);
+        \draw[postaction={decorate}]   (1, 1) -- (0, 0) node[left] {\large$i$};
+        \draw[dashed] (1, 1) -- (1.7, 1);
+        % Create a loop starting and ending at (2, 1)
+        % \draw[postaction={decorate}] (2, 1) edge[loop above] (2, 1);
+        \node (A) at (1.4, 1) {} ;
+        % \draw[postaction={decorate}] (A) to [bend right,out=90,in=90] ([xshift=5 cm]A) to  [bend right,out=90,in=90] (A) ;
+        % \draw (A.east) circle (.5cm);
+
+        % \node (B) at ([xshift=2*\myshift cm]A) {};
+        % \draw (B) arc(0:360:.5) -- cycle;
+
+        % Add a circle with tangent at (2, 1), with an arrow halfway
+        % \draw (2.1, 1) node[cross=5pt, line width=1pt]{};
+
+        % \draw[postaction={decorate}] (2, 1) -- (2.5, 1);
+
+    \end{scope}
+    \begin{scope}[xshift=3.5cm,very thick]
+        \def\Radius{.3}
+        \draw[
+            decoration={markings, mark=at position 0 with {\arrow{<}}},
+            postaction={decorate}
+        ]
+        (1.7 + \Radius, 1) circle (\Radius);
+        \node at (2.6, 1) {\large$j$};
+
+    \end{scope}
+    \node at (6.8,1) {\Huge$+$};
+    \begin{scope}[xshift=7.3cm,very thick,decoration={
+                markings,
+                mark=at position 0.6 with {\arrow{<}}
+        }]
+        \coordinate (A) at (0, 0) {};
+        \coordinate (B) at (1, 1) {};
+        \coordinate (C) at (2, 1) {};
+        \coordinate (D) at (3, 2) {};
+        \draw[postaction={decorate}] (A) node[left] {\large$i$} -- (B);
+        \draw[dashed] (B) -- (C);
+        \draw[postaction={decorate}] (C) -- (D) node[right] {\large$i$};
+        % \draw (2, 1) arc(0:180:.5);
+
+        \draw[postaction={decorate}] (B) to  [out=45,in=135,distance=.5cm] (C);
+        \node at (1.5, 1.5) {\large$j$};
+
+    \end{scope}
+
+\end{tikzpicture}
+
+\begin{tikzpicture}
+    \begin{scope}[very thick,decoration={
+                markings,
+                mark=at position 0.6 with {\arrow{>}}
+            }
+        ]
+        \draw[postaction={decorate}]   (0, 2) node[left] {\large$i$} -- (1, 1);
+        \draw[postaction={decorate}]   (1, 1) -- (0, 0) node[left] {\large$i$};
+        \draw[dashed] (1, 1) -- (2, 1);
+        \draw (2.1, 1) node[cross=5pt, line width=1pt]{};
+    \end{scope}
+
+    \node at (3,1) {\Huge$+$};
+
+    \begin{scope}[xshift=3.5cm,very thick
+        ]
+        \coordinate (A) at (0, 2) {};
+        \coordinate (B) at (1, 1) {};
+        \coordinate (C) at (0, 0) {};
+
+        \draw[decoration={
+                markings,
+                mark=at position 0.6 with {\arrow{>}}
+        },postaction={decorate}]   (A) node[left] {\large$i$} -- (B);
+        \draw[decoration={
+                markings,
+                mark=at position 0.6 with {\arrow{>}}
+        },postaction={decorate}]   (B) -- (C) node[left] {\large$i$};
+
+        \draw[
+            decoration={
+                markings,
+                mark=at position 0.52 with {\arrow{>}}
+            },
+            postaction={decorate}
+        ]
+        (B) to  [bend left,out=90,in=90,distance=.45cm] ([xshift=.7 cm]B) to [bend left,out=90,in=90,distance=.45cm] (B);
+
+        \node at (1.35, 1.6) {\large$j$};
+
+    \end{scope}
+
+\end{tikzpicture}
+
+\end{document}
