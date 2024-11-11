@@ -41,10 +41,14 @@ def create_matrix(g: float, states: list[tuple[int, int]]) -> np.ndarray:
     return matrix
 
 
-def get_all_energies_below(g: float, max_level: int = 4) -> np.ndarray:
-    states = get_states(max_level)
+def get_energy_from_states(g: float, states: list[tuple[int, int]]) -> float:
     matrix = create_matrix(g, states)
     return np.linalg.eigvalsh(matrix)
+
+
+def get_all_energies_below(g: float, max_level: int = 4) -> np.ndarray:
+    states = get_states(max_level)
+    return get_energy_from_states(g, states)
 
 
 if __name__ == "__main__":

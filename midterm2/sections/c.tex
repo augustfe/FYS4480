@@ -1,0 +1,32 @@
+
+Instead of setting up all possible Slater determinants, construct only an approximation to the ground state (where we assume that the four particles are in the two lowest single-particle orbits only) which includes at most two-particle-two-hole excitations.
+Diagonalize this matrix and compare with the exact calculation and comment your results.
+Can you set up which diagrams this approximation corresponds to?
+
+\subsection{}
+From Fig.~\ref{fig:SDs} we see that all states except $\ket{\Phi_5}$, has states with at most one pair of electrons above the $p=2$.
+Our new approximation of the ground state is then shown in Fig.~\ref{fig:c_groundstate}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics{figures/c_ground_state_energy.pdf}
+    \caption{
+        Ground state energy of the Hamiltonian matrix for the four-particle system with no broken pairs and total spin $S = 0$, as a function of the pairing strength $g$.
+        Truncated to only include at most two-particle-two-hole excitations.\label{fig:c_groundstate}
+    }
+\end{figure}
+
+As the figure shows, the approximate energies are very close, regardless of whether we include the four-particle state $\ket{\Phi_5}$ or not.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics{figures/c_diff_ground_state_energy.pdf}
+    \caption{
+        Difference in ground state energy of the Hamiltonian with all states below $p=4$ and the Hamiltonian with $\ket{\Phi_5}$ removed, as a function of the pairing strength $g$.
+        Truncated to only include at most two-particle-two-hole excitations.\label{fig:c_diff_groundstate}
+    }
+\end{figure}
+
+% TODO: Comment on differences
+
+\textcolor{red}{TODO:\@ MAKE DIAGRAMS}
