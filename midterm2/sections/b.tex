@@ -94,19 +94,151 @@ The possible Slater determinants are shown in Fig.~\ref{fig:SDs}.
 
 Setting up the Slater determinants in second quantization, we set the ground state to be
 \begin{equation*}
-    \ket{\Phi_0} = a_{1+}^\dagger a_{1-}^\dagger a_{2+}^\dagger a_{2-}^\dagger \ket{0}.
+    \ket{\Phi_0} = a_{1+}^\dagger a_{1-}^\dagger a_{2+}^\dagger a_{2-}^\dagger \ket{0},
 \end{equation*}
-We define the other Slater determinants relative to the ground state:
+or equivalently with the pair creation operators
+\begin{equation*}
+    \ket{\Phi_0} = \hat{P}_1^+ \hat{P}_2^+ \ket{0}.
+\end{equation*}
+The other Slater determinants are then
 \begin{align*}
-    \ket{\Phi_1} &= a_{3+}^\dagger a_{3-}^\dagger a_{2-} a_{2+} \ket{\Phi_0}, \\
-    \ket{\Phi_2} &= a_{4+}^\dagger a_{4-}^\dagger a_{2-} a_{2+} \ket{\Phi_0}, \\
-    \ket{\Phi_3} &= a_{3+}^\dagger a_{3-}^\dagger a_{1-} a_{1+} \ket{\Phi_0}, \\
-    \ket{\Phi_4} &= a_{4+}^\dagger a_{4-}^\dagger a_{1-} a_{1+} \ket{\Phi_0}, \\
-    \ket{\Phi_5} &= a_{4+}^\dagger a_{4-}^\dagger a_{3+}^\dagger a_{3-}^\dagger a_{2-} a_{2+} a_{1-} a_{1+} \ket{\Phi_0}.
+    \ket{\Phi_1} &= \hat{P}_1^+ \hat{P}_3^+ \ket{0}, &
+    \ket{\Phi_2} &= \hat{P}_1^+ \hat{P}_4^+ \ket{0}, \\
+    \ket{\Phi_3} &= \hat{P}_2^+ \hat{P}_3^+ \ket{0}, &
+    \ket{\Phi_4} &= \hat{P}_2^+ \hat{P}_4^+ \ket{0}, \\
+    \ket{\Phi_5} &= \hat{P}_3^+ \hat{P}_4^+ \ket{0}.
+\end{align*}
+Equivalently, we can write these relative to the ground state as
+\begin{align*}
+    \ket{\Phi_1} &= \hat{P}_3^+ \hat{P}_2^- \ket{\Phi_0}, \\
+    \ket{\Phi_2} &= \hat{P}_4^+ \hat{P}_2^- \ket{\Phi_0}, &
+    \ket{\Phi_3} &= \hat{P}_3^+ \hat{P}_1^- \ket{\Phi_0}, \\
+    \ket{\Phi_4} &= \hat{P}_4^+ \hat{P}_1^- \ket{\Phi_0}, &
+    \ket{\Phi_5} &= \hat{P}_4^+ \hat{P}_3^+ \hat{P}_1^- \hat{P}_2^- \ket{\Phi_0}.
+\end{align*}
+Note that as the pair creation and annihilation operators commute, the order of the operators in the Slater determinants is not important.
+
+We define an arbitrary four-particle state $\ket{\Phi}_{\alpha, \beta}$, with $\alpha < \beta$, as
+\begin{equation*}
+    \ket{\Phi}_{\alpha, \beta} = \hat{P}_\alpha^+ \hat{P}_\beta^+ \ket{0}
+\end{equation*}
+in order to simplify the computation for the Hamiltonian matrix.
+For $\langle \Phi_{\alpha, \beta} | \hat{H}_0 | \Phi_{\gamma, \delta} \rangle$, we only need to consider the terms where $(\alpha, \beta) = (\gamma, \delta)$, as the other terms vanish due to the orthogonality of the Slater determinants.
+\begin{align*}
+    \langle \Phi_{\alpha, \beta} | \hat{H}_0 | \Phi_{\alpha, \beta} \rangle
+    &= \langle \Phi_{\alpha, \beta} | \sum_{p\sigma} (p - 1) a_{p\sigma}^\dagger a_{p\sigma} | \Phi_{\alpha, \beta} \rangle \\
+    &= \sum_{p\sigma} (p - 1) \langle \Phi_{\alpha, \beta} | a_{p\sigma}^\dagger a_{p\sigma} | \Phi_{\alpha, \beta} \rangle \\
+    &= \sum_{\substack{p=\alpha,\beta\\ \sigma=\pm}} (p - 1) \\
+    &= 2(\alpha - 1) + 2(\beta - 1) \\
+    &= 2(\alpha + \beta - 2).
 \end{align*}
 
-Setting up the Hamiltonian matrix in Python, we find
-\begin{equation*}
+% For $\langle \Phi_{\alpha, \beta} | \hat{V} | \Phi_{\gamma, \delta} \rangle$, we first consider the terms along the diagonal where $(\alpha, \beta) = (\gamma, \delta)$.
+% \begin{align*}
+%     \langle \Phi_{\alpha, \beta} | \hat{V} | \Phi_{\alpha, \beta} \rangle
+%     &= -\frac{1}{2} g \sum_{pq} \langle \Phi_{\alpha, \beta} | \hat{P}_p^+ \hat{P}_q^- | \Phi_{\alpha, \beta} \rangle \\
+%     &= -\frac{1}{2} g \sum_{pq} \langle 0 | \hat{P}_\beta^- \hat{P}_\alpha^- \hat{P}_p^+ \hat{P}_q^- \hat{P}_\alpha^+ \hat{P}_\beta^+| 0 \rangle
+% \end{align*}
+% The possible contractions are then
+% \begin{align*}
+%     \wick{
+%         \left\langle 0 \left\vert
+%         \c2 {\hat{P}_\beta^-}
+%         \c1 {\hat{P}_\alpha^-}
+%         \c1 {\hat{P}_p^+}
+%         \c1 {\hat{P}_q^-}
+%         \c1 {\hat{P}_\alpha^+}
+%         \c2 {\hat{P}_\beta^+}
+%         \right\vert 0 \right\rangle
+%     } &= \delta_{\alpha p} \delta_{\alpha q}, \\
+%     \wick{
+%         \left\langle 0 \left\vert
+%         \c1 {\hat{P}_\beta^-}
+%         \c2 {\hat{P}_\alpha^-}
+%         \c1 {\hat{P}_p^+}
+%         \c1 {\hat{P}_q^-}
+%         \c2 {\hat{P}_\alpha^+}
+%         \c1 {\hat{P}_\beta^+}
+%         \right\vert 0 \right\rangle
+%     } &= \delta_{\beta p} \delta_{\beta q}.
+% \end{align*}
+
+Next, we consider $\langle \Phi_{\alpha, \beta} | \hat{V} | \Phi_{\gamma, \delta} \rangle$.
+\begin{align*}
+    \langle \Phi_{\alpha, \beta} | \hat{V} | \Phi_{\gamma, \delta} \rangle
+    &= -\frac{1}{2} g \sum_{pq} \langle \Phi_{\alpha, \beta} | \hat{P}_p^+ \hat{P}_q^- | \Phi_{\gamma, \delta} \rangle \\
+    &= -\frac{1}{2} g \sum_{pq} \langle 0 | \hat{P}_\beta^- \hat{P}_\alpha^- \hat{P}_p^+ \hat{P}_q^- \hat{P}_\gamma^+ \hat{P}_\delta^+| 0 \rangle
+\end{align*}
+The possible contractions are then
+\begin{align*}
+    (1) \quad \wick{
+        \left\langle 0 \left\vert
+        \c2 {\hat{P}_\beta^-}
+        \c1 {\hat{P}_\alpha^-}
+        \c1 {\hat{P}_p^+}
+        \c1 {\hat{P}_q^-}
+        \c1 {\hat{P}_\gamma^+}
+        \c2 {\hat{P}_\delta^+}
+        \right\vert 0 \right\rangle
+    } &= \delta_{\beta \delta} \delta_{\alpha p} \delta_{q \gamma} \\[0.5em]
+    (2) \quad \wick{
+        \left\langle 0 \left\vert
+        \c2 {\hat{P}_\beta^-}
+        \c1 {\hat{P}_\alpha^-}
+        \c1 {\hat{P}_p^+}
+        \c1 {\hat{P}_q^-}
+        \c2 {\hat{P}_\gamma^+}
+        \c1 {\hat{P}_\delta^+}
+        \right\vert 0 \right\rangle
+    } &= -\delta_{\beta \gamma} \delta_{\alpha p} \delta_{q \delta} \\[0.5em]
+    (3) \quad \wick{
+        \left\langle 0 \left\vert
+        \c1 {\hat{P}_\beta^-}
+        \c2 {\hat{P}_\alpha^-}
+        \c1 {\hat{P}_p^+}
+        \c1 {\hat{P}_q^-}
+        \c2 {\hat{P}_\gamma^+}
+        \c1 {\hat{P}_\delta^+}
+        \right\vert 0 \right\rangle
+    } &= \delta_{\beta p} \delta_{\alpha \gamma} \delta_{q \delta} \\[0.5em]
+    (4) \quad \wick{
+        \left\langle 0 \left\vert
+        \c1 {\hat{P}_\beta^-}
+        \c2 {\hat{P}_\alpha^-}
+        \c1 {\hat{P}_p^+}
+        \c1 {\hat{P}_q^-}
+        \c1 {\hat{P}_\gamma^+}
+        \c2 {\hat{P}_\delta^+}
+        \right\vert 0 \right\rangle
+    } &= -\delta_{\beta p} \delta_{\alpha \delta} \delta_{q \gamma}
+\end{align*}
+From this, we can then calculate the matrix elements of the Hamiltonian matrix based on the number of matched pairs.
+When two pairs match, i.e.~along the diagonal, we get contributions from $(1)$ and $(3)$.
+When one pair matches and the other differs, we get contributions from \textit{either} $(2)$ or $(4)$.
+When no pairs match, the matrix element is zero.
+
+From this, we can set up the Hamiltonian matrix for the system, ordered as $\ket{\Phi_0}, \ket{\Phi_1}, \ldots, \ket{\Phi_5}$.
+\begin{align*}
+    H &= H_0 + V \\
+    &=
+    \begin{bmatrix}
+        2 & 0 & 0 & 0 & 0 & 0 \\
+        0 & 4 & 0 & 0 & 0 & 0 \\
+        0 & 0 & 6 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 6 & 0 & 0 \\
+        0 & 0 & 0 & 0 & 8 & 0 \\
+        0 & 0 & 0 & 0 & 0 & 10
+    \end{bmatrix}
+    - \frac{g}{2}
+    \begin{bmatrix}
+        2 & 1 & 1 & 1 & 1 & 0 \\
+        1 & 2 & 1 & 1 & 0 & 1 \\
+        1 & 1 & 2 & 0 & 1 & 1 \\
+        1 & 1 & 0 & 2 & 1 & 1 \\
+        1 & 0 & 1 & 1 & 2 & 1 \\
+        0 & 1 & 1 & 1 & 1 & 2
+    \end{bmatrix} \\
+    &=
     \begin{bmatrix}
         2 - g & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & 0 \\
         - \frac{g}{2} & 4 - g & - \frac{g}{2} & - \frac{g}{2} & 0 & - \frac{g}{2} \\
@@ -115,7 +247,7 @@ Setting up the Hamiltonian matrix in Python, we find
         - \frac{g}{2} & 0 & - \frac{g}{2} & - \frac{g}{2} & 8 - g & - \frac{g}{2} \\
         0 & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & 10 - g
     \end{bmatrix}
-\end{equation*}
+\end{align*}
 
 Plotted as a function of $g$, the ground state energy is shown in Fig.~\ref{fig:groundstate}.
 
@@ -127,3 +259,23 @@ Plotted as a function of $g$, the ground state energy is shown in Fig.~\ref{fig:
         The energy is given in units of the unperturbed ground state energy.\label{fig:groundstate}
     }
 \end{figure}
+
+Performing the contractions, we have
+
+groundstate -- groundstate:
+\begin{align*}
+    \langle \Phi_0 | \hat{H}_0 | \Phi_0 \rangle
+    &= \langle \Phi_0 | \sum_{p\sigma} (p - 1) a_{p\sigma}^\dagger a_{p\sigma} | \Phi_0 \rangle \\
+    &= \sum_{p\sigma} (p - 1) \langle \Phi_0 | a_{p\sigma}^\dagger a_{p\sigma} | \Phi_0 \rangle \\
+    &= \sum_{i = 1}^2 \sum_{\sigma = \pm} (i - 1) \\
+    &= 0 + 0 + 1 + 1 = 2.
+\end{align*}
+\begin{align*}
+    \langle \Phi_0 | \hat{V} | \Phi_0 \rangle
+    &= \langle \Phi_0 | -\frac{1}{2} g \sum_{pq} \hat{P}_p^+ \hat{P}_q^- | \Phi_0 \rangle \\
+    &= -\frac{1}{2} g \sum_{pq} \langle \Phi_0 | \hat{P}_p^+ \hat{P}_q^- | \Phi_0 \rangle \\
+    &= -\frac{1}{2} g \sum_{p} \langle \Phi_0 | \hat{P}_p^+ \hat{P}_p^- | \Phi_0 \rangle \\
+    &= -\frac{1}{2} g \sum_{p=1}^2 \langle \Phi_0 | \Phi_0 \rangle \\
+    &= -\frac{1}{2} g \cdot 2 = -g.
+\end{align*}
+In order to get a contribution, we then require that

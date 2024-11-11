@@ -7,6 +7,7 @@ from sympy.printing import pprint
 class Result(NamedTuple):
     state: np.ndarray
     value: int
+    valid: bool
 
 
 class State:
@@ -17,7 +18,7 @@ class State:
         self.groundstate[:self.F] = 1  # fmt: skip
 
         self.all_states = self.generate_initial_states()
-        self.g = sp.Symbol("g", real=True)
+        self.g = sp.Symbol("g", positive=True)
 
     def generate_initial_states(self) -> list[np.ndarray]:
         states = [self.groundstate]
@@ -52,41 +53,44 @@ class State:
         return state
 
     def annihilate_with_spin(self, state: np.ndarray, p: int, sigma: int) -> np.ndarray:
+        state = state.copy()
         state[p, sigma] -= 1
 
         return state
 
     def pair_create(self, state: np.ndarray, *ps: int) -> np.ndarray:
         for p in ps:
-            state = self.create_with_spin(state, p, 0)
             state = self.create_with_spin(state, p, 1)
+            state = self.create_with_spin(state, p, 0)
 
         return state
 
     def create_with_spin(self, state: np.ndarray, p: int, sigma: int) -> np.ndarray:
+        state = state.copy()
         state[p, sigma] += 1
 
         return state
 
     def h0(self, state: np.ndarray, p: int, sigma: int) -> Result:
         # Adjust for zero indexed
-        coeff = p
+        contribution = p
+        valid = True
         state = self.annihilate_with_spin(state, p, sigma)
         if np.any(state < 0):
-            coeff = 0
+            valid = False
 
         state = self.create_with_spin(state, p, sigma)
         if np.any(state > 1):
-            coeff = 0
+            valid = False
 
-        return Result(state, coeff)
+        return Result(state, contribution, valid)
 
     def H0(self, bra_state: np.ndarray, ket_state: np.ndarray) -> float:
-        value = 0.0
+        value = 0
         for p in range(self.P_max):
             for sigma in range(2):
-                result = self.h0(ket_state.copy(), p, sigma)
-                if result.value == 0:
+                result = self.h0(ket_state, p, sigma)
+                if not result.valid:
                     continue
 
                 if np.array_equal(bra_state, result.state):
@@ -95,24 +99,25 @@ class State:
         return value
 
     def v(self, state: np.ndarray, p: int, q: int) -> Result:
-        coeff = -self.g / 2
+        contribution = -self.g / 2
+        valid = True
 
         state = self.pair_annihilate(state, q)
         if np.any(state < 0):
-            coeff = 0
+            valid = False
 
         state = self.pair_create(state, p)
         if np.any(state > 1):
-            coeff = 0
+            valid = False
 
-        return Result(state, coeff)
+        return Result(state, contribution, valid)
 
     def V(self, bra_state: np.ndarray, ket_state: np.ndarray) -> float:
-        value = 0.0
+        value = 0
         for p in range(self.P_max):
             for q in range(self.P_max):
-                result = self.v(ket_state.copy(), p, q)
-                if result.value == 0:
+                result = self.v(ket_state, p, q)
+                if not result.valid:
                     continue
 
                 if np.array_equal(bra_state, result.state):
@@ -126,10 +131,9 @@ class State:
 
         for i, bra_state in enumerate(total_states):
             for j, ket_state in enumerate(total_states):
-                bra, ket = bra_state.copy(), ket_state.copy()
-                Hamiltonian[i, j] = self.H0(bra.copy(), ket.copy()) + self.V(
-                    bra.copy(), ket.copy()
-                )
+                H0 = self.H0(bra_state, ket_state)
+                V = self.V(bra_state, ket_state)
+                Hamiltonian[i, j] = H0 + V
 
         return Hamiltonian
 
@@ -138,6 +142,47 @@ class State:
         return Hamiltonian.eigenvals()
 
 
+if __name__ == "__main__":
+    state = State()
+
+    # interval_condition = sp.And(
+    #     sp.Ge(state.g, -1), sp.Le(state.g, 1)
+    # )  # (state.g >= -1) & (state.g <= 1)
+    interval_condition = (state.g >= -1) & (state.g <= 1) & (state.g != 0)
+
+    with sp.assuming(interval_condition):
+        H = state.setup_hamiltonian()
+        pprint(H)
+        # pprint(H.eigenvals(simplify=True, multiple=True))
+        lamda = sp.Symbol("lamda")
+        p = H.charpoly(lamda)
+        qp = sp.factor(p.as_expr(), lamda)
+        print(qp)
+
+        # roots = sp.solve(qp, lamda)
+        # for root in roots:
+        #     pprint(root.evalf().expand())
+        # pprint(roots)
+        # for root in roots:
+        #     pprint(sp.simplify(interval_condition.subs(state.g, root)))
+        # valid_roots = [
+        #     root
+        #     for root in roots
+        #     if sp.simplify(interval_condition.subs(state.g, root))
+        # ]
+        # pprint(valid_roots)
+
+        # pprint(roots)
+
+        # Find the roots of the characteristic polynomial
+
+        # pprint(p.nroots(domain="R"))
+        # pprint(H.eigenvals(simplify=True, multiple=True))
+
+    # predicate = sp.And(sp.Ge(state.g, -1), sp.Le(state.g, 1))
+
+    # pprint(H.eigenvals(simplify=True, multiple=True))
+"""
 if __name__ == "__main__":
     state = State()
     hamiltonian = state.setup_hamiltonian()
@@ -212,3 +257,4 @@ if __name__ == "__main__":
     plt.tight_layout()
     plt.savefig("../figures/ground_state_energy.pdf")
     plt.show()
+"""
