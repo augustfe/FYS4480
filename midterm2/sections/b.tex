@@ -248,34 +248,23 @@ From this, we can set up the Hamiltonian matrix for the system, ordered as $\ket
         0 & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & 10 - g
     \end{bmatrix}
 \end{align*}
-
-Plotted as a function of $g$, the ground state energy is shown in Fig.~\ref{fig:groundstate}.
+We diagonalize this matrix for varying values of $g \in [-1, 1]$ with NumPy, computed in the script \verb|b.py|.
+Plotted as a function of $g$, the eigenvalues are shown in Fig.~\ref{fig:b_eigenvalues}, while the ground state energy is shown in Fig.~\ref{fig:b_groundstate}.
+% TODO: Comment on the behavior of the ground state as a function of $g$.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/ground_state_energy.pdf}
+    \includegraphics{figures/b_eigenvalues_energy.pdf}
     \caption{
-        Ground state energy as a function of $g$ for the four-particle system with no broken pairs and total spin $S = 0$.
-        The energy is given in units of the unperturbed ground state energy.\label{fig:groundstate}
+        Eigenvalues of the Hamiltonian matrix for the four-particle system with no broken pairs and total spin $S = 0$, as a function of the pairing strength $g$.\label{fig:b_eigenvalues}
     }
 \end{figure}
 
-Performing the contractions, we have
+\begin{figure}[htbp]
+    \centering
+    \includegraphics{figures/b_ground_state_energy.pdf}
+    \caption{
+        Ground state energy of the Hamiltonian matrix for the four-particle system with no broken pairs and total spin $S = 0$, as a function of the pairing strength $g$.\label{fig:b_groundstate}
+    }
+\end{figure}
 
-groundstate -- groundstate:
-\begin{align*}
-    \langle \Phi_0 | \hat{H}_0 | \Phi_0 \rangle
-    &= \langle \Phi_0 | \sum_{p\sigma} (p - 1) a_{p\sigma}^\dagger a_{p\sigma} | \Phi_0 \rangle \\
-    &= \sum_{p\sigma} (p - 1) \langle \Phi_0 | a_{p\sigma}^\dagger a_{p\sigma} | \Phi_0 \rangle \\
-    &= \sum_{i = 1}^2 \sum_{\sigma = \pm} (i - 1) \\
-    &= 0 + 0 + 1 + 1 = 2.
-\end{align*}
-\begin{align*}
-    \langle \Phi_0 | \hat{V} | \Phi_0 \rangle
-    &= \langle \Phi_0 | -\frac{1}{2} g \sum_{pq} \hat{P}_p^+ \hat{P}_q^- | \Phi_0 \rangle \\
-    &= -\frac{1}{2} g \sum_{pq} \langle \Phi_0 | \hat{P}_p^+ \hat{P}_q^- | \Phi_0 \rangle \\
-    &= -\frac{1}{2} g \sum_{p} \langle \Phi_0 | \hat{P}_p^+ \hat{P}_p^- | \Phi_0 \rangle \\
-    &= -\frac{1}{2} g \sum_{p=1}^2 \langle \Phi_0 | \Phi_0 \rangle \\
-    &= -\frac{1}{2} g \cdot 2 = -g.
-\end{align*}
-In order to get a contribution, we then require that

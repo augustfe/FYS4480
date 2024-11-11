@@ -1,21 +1,20 @@
 import numpy as np
 
 
-def get_states():
+def get_states(max_level: int = 4):
     states = []
-    for i in range(1, 5):
-        for j in range(i + 1, 5):
+    for i in range(1, max_level + 1):
+        for j in range(i + 1, max_level + 1):
             states.append((i, j))
 
     return states
 
 
-def create_matrix(g: float):
+def create_matrix(g: float, states: list[tuple[int, int]]) -> np.ndarray:
     def v(bra: tuple[int, int], ket: tuple[int, int]) -> float:
         alpha, beta = bra
-        gamma, delta = ket
 
-        if alpha == gamma and beta == delta:
+        if bra == ket:
             return -g
 
         if alpha in ket or beta in ket:
@@ -25,14 +24,12 @@ def create_matrix(g: float):
 
     def h0(bra: tuple[int, int], ket: tuple[int, int]) -> float:
         alpha, beta = bra
-        gamma, delta = ket
 
-        if alpha == gamma and beta == delta:
+        if bra == ket:
             return 2 * (alpha + beta - 2)
 
         return 0
 
-    states = get_states()
     num_states = len(states)
     matrix = np.zeros((num_states, num_states))
 
@@ -44,21 +41,25 @@ def create_matrix(g: float):
     return matrix
 
 
-def get_energies(g: float) -> np.ndarray:
-    matrix = create_matrix(g)
+def get_all_energies_below(g: float, max_level: int = 4) -> np.ndarray:
+    states = get_states(max_level)
+    matrix = create_matrix(g, states)
     return np.linalg.eigvalsh(matrix)
 
 
 if __name__ == "__main__":
-    g_values = np.linspace(0, 1, 100)
-    energies = np.zeros((len(g_values), 6))
+    g_values = np.linspace(-1, 1, 100)
+
+    max_level = 4
+    num_states = max_level * (max_level - 1) // 2
+    energies = np.zeros((len(g_values), num_states))
 
     for i, g in enumerate(g_values):
-        energies[i] = get_energies(g)
+        energies[i] = get_all_energies_below(g, max_level)
 
     import matplotlib.pyplot as plt
 
-    for i in range(6):
+    for i in range(num_states):
         plt.plot(g_values, energies[:, i], label=f"Energy level {i}")
 
     plt.xlabel("g")
