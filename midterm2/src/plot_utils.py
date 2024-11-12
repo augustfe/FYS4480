@@ -3,7 +3,11 @@ import numpy as np
 
 from pathlib import Path
 
-from b import get_all_energies_below, get_energy_from_states, get_states
+from midterm2.src.exact_energy import (
+    get_all_energies_below,
+    get_energy_from_states,
+    get_states,
+)
 
 dir_path = Path(__file__).parents[1]
 plt.style.use(dir_path / "src" / "latex.mplstyle")

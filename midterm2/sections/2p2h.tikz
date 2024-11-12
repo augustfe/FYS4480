@@ -23,11 +23,11 @@
         \coordinate (upright) at (3, 2) {};
         \coordinate (downright) at (3, 0) {};
 
-        \draw[postaction={decorate}]   (downleft) node[left] {\large$p_+$} -- (midleft);
-        \draw[postaction={decorate}]   (midleft) -- (upleft) node[left] {\large$q_+$};
+        \draw[postaction={decorate}]   (downleft) node[left] {\large$q_+$} -- (midleft);
+        \draw[postaction={decorate}]   (midleft) -- (upleft) node[left] {\large$p_+$};
         \draw[dashed] (midleft) -- (midright);
-        \draw[postaction={decorate}]   (downright) node[right] {\large$p_-$} -- (midright) ;
-        \draw[postaction={decorate}]   (midright) -- (upright) node[right] {\large$q_-$};
+        \draw[postaction={decorate}]   (downright) node[right] {\large$q_-$} -- (midright) ;
+        \draw[postaction={decorate}]   (midright) -- (upright) node[right] {\large$p_-$};
 
     \end{scope}
 
@@ -36,6 +36,7 @@
                 mark=at position 0.55 with {\arrow{>}}
             }
         ]
+        \node at (-1, 1) {\huge$+$};
         \coordinate (upleft) at (0, 2) {};
         \coordinate (downleft) at (0, 0) {};
         \coordinate (upright) at (1, 2) {};
