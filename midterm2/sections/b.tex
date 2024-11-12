@@ -190,7 +190,7 @@ The possible contractions are then
         \c2 {\hat{P}_\gamma^+}
         \c1 {\hat{P}_\delta^+}
         \right\vert 0 \right\rangle
-    } &= -\delta_{\beta \gamma} \delta_{\alpha p} \delta_{q \delta} \\[0.5em]
+    } &= \delta_{\beta \gamma} \delta_{\alpha p} \delta_{q \delta} \\[0.5em]
     (3) \quad \wick[offset=1.2em,sep=0.3em]{
         \left\langle 0 \left\vert
         \c1 {\hat{P}_\beta^-}
@@ -210,8 +210,11 @@ The possible contractions are then
         \c1 {\hat{P}_\gamma^+}
         \c2 {\hat{P}_\delta^+}
         \right\vert 0 \right\rangle
-    } &= -\delta_{\beta p} \delta_{\alpha \delta} \delta_{q \gamma}
+    } &= \delta_{\beta p} \delta_{\alpha \delta} \delta_{q \gamma}
 \end{align*}
+Note the positive sign in the Wick contractions, as all contraction lines are actually between pairs of operators.
+This means that all labeled lines actually correspond to two lines, such that all crossings labeled actually contain four crossings, and thus a positive sign.
+
 From this, we can then calculate the matrix elements of the Hamiltonian matrix based on the number of matched pairs.
 When two pairs match, i.e.~along the diagonal, we get contributions from $(1)$ and $(3)$.
 When one pair matches and the other differs, we get contributions from \textit{either} $(2)$ or $(4)$.
