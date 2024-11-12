@@ -33,7 +33,7 @@
 
     \begin{scope}[xshift=5cm,very thick,decoration={
                 markings,
-                mark=at position 0.6 with {\arrow{>}}
+                mark=at position 0.55 with {\arrow{>}}
             }
         ]
         \coordinate (upleft) at (0, 2) {};

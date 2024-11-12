@@ -71,12 +71,25 @@ where
 
 We begin by defining the single-particle operator $\hat{f}$, which in the general case is given by
 \begin{equation*}
-    \langle p \vert \hat{f} \vert q \rangle = \langle p \vert \hat{H}_0 \vert q \rangle + \sum_{j} \langle p j \vert \hat{V} \vert q j \rangle.
+    \langle p \vert \hat{f} \vert q \rangle = \langle p \vert \hat{H}_0 \vert q \rangle + \sum_{j} \langle p j \vert \hat{V} \vert q j \rangle_{AS}.
 \end{equation*}
-For our case, we have that
-\begin{align*}
-    \langle p \vert \hat{f} \vert q \rangle &= (p-1) \delta_{pq} - \frac{1}{2} g \sum_{j} \langle p j \vert \hat{V} \vert q j \rangle \\
-    &= (p-1) \delta_{pq} - \frac{1}{2} g \sum_{j} \langle p j \vert \hat{V} \vert q j \rangle \\
-    &= (p-1) \delta_{pq} - \frac{1}{2} g \sum_{j} \langle p j \vert \hat{V} \vert q j \rangle.
-\end{align*}
+Due to the nature of our Hamiltonian, we have that $\langle p \vert \hat{f} \vert q \rangle = 0$ for $p \neq q$.
+In second quantization, we then have that the operator becomes
+\begin{equation*}
+    \hat{F}
+    = \sum_{pq} \langle p \vert \hat{f} \vert q \rangle a_p^\dagger a_q
+    = \sum_{p} \langle p \vert \hat{f} \vert p \rangle a_p^\dagger a_p
+\end{equation*}
+In writing the operator in normal order, we have
+\begin{equation*}
+    \wick{\c a_p^\dagger \c a_p} = \{ a_p^\dagger a_p \} + \delta_{pq} n_p,
+\end{equation*}
+and thus
+\begin{equation*}
+    \hat{F} = \sum_{p} \langle p \vert \hat{f} \vert p \rangle \{ a_p^\dagger a_p \} + \sum_{i} \langle i \vert \hat{f} \vert i \rangle.
+\end{equation*}
 
+The canonical Hartree-Fock equations are then given by
+\begin{equation*}
+    \hat{f} \ket{p} = \sum_{q} \epsilon_{qp} \ket{q}.
+\end{equation*}
