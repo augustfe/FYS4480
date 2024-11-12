@@ -1,0 +1,82 @@
+We switch now to approximative methods, in our case Hartree-Fock theory and many-body perturbation theory.
+Hereafter we will define our model space to consist of the single-particle levels $p = 1, 2$.
+The remaining levels $p = 3, 4$ define our excluded space.
+This means that our ground state Slater determinant consists of four particles which can be placed in the doubly degenerate orbits $p = 1$ and $p = 2$.
+Our first step is to perform a Hartree-Fock calculation with the pairing Hamiltonian.
+Write first the normal-ordered Hamiltonian with respect to the above reference state given by four spin $1/2$ fermions in the single-particle levels $p = 1, 2$.
+Write down the normal-ordered Hamiltonian and set up the standard Hartree-Fock equations for the above system (often called restricted Hartree-Fock due to the fact that  we have an equal number of spin-orbitals).
+These equations are sometimes also called the canonical Hartree-Fock equations.
+They are the same as those that we discussed earlier.
+This means that we have a Hartree-Fock Hamiltonian $\hat{h}^{\mathrm{HF}} \vert p \rangle = \epsilon^{\mathrm{HF}} \vert p \rangle$, where $p$ are both hole and particle states.
+
+\subsection{}
+We begin by writing the normal-ordered form of the single-particle term of the Hamiltonian with respect to the reference state $\ket{\Phi_0}$,
+\begin{equation*}
+    \hat{H}_0 = \sum_{p\sigma} (p-1) a_{p\sigma}^\dagger a_{p\sigma}.
+\end{equation*}
+We have that
+\begin{align*}
+    \hat{H}_0 &= \langle \Phi_0 | \hat{H}_0 | \Phi_0 \rangle + \hat{H}_0^N \\
+    \sum_{p\sigma} (p-1) a_{p\sigma}^\dagger a_{p\sigma} &= \langle \Phi_0 | \hat{H}_0 | \Phi_0 \rangle + \sum_{p\sigma} (p-1) \{ a_{p\sigma}^\dagger a_{p\sigma} \}.
+\end{align*}
+Next, we have the two-body term of the Hamiltonian,
+\begin{equation*}
+    \hat{V} = -\frac{1}{2} g \sum_{pq} a^{\dagger}_{p+} a^{\dagger}_{p-} a_{q-} a_{q+}.
+\end{equation*}
+
+For the annihilation and creation operators in the two-body term, we have the possible contractions
+\begin{align*}
+    \wick{
+        \c1 a_{p+}^\dagger
+        a_{p-}^\dagger
+        a_{q-}
+        \c1 a_{q+}
+    } & = \delta_{pq} n_{p+} a_{p-}^\dagger a_{q-}, \\%[0.5em]
+    \wick{
+        a_{p+}^\dagger
+        \c1 a_{p-}^\dagger
+        \c1 a_{q-}
+        a_{q+}
+    } & = \delta_{pq} n_{p-} a_{p+}^\dagger a_{q+}, \\%[0.5em]
+    \wick{
+        \c2 a_{p+}^\dagger
+        \c1 a_{p-}^\dagger
+        \c1 a_{q-}
+        \c2 a_{q+}
+    } & = \delta_{pq} n_{p+} n_{p-} a_{p+}^\dagger a_{q+} a_{p-}^\dagger a_{q-},
+\end{align*}
+where $n_{p\sigma} = 1$ if $p = 1, 2$ and $n_{p\sigma} = 0$ otherwise.
+Note that as we have terms $n_{p\pm} a_{p\mp}^\dagger a_{p\mp}$, we only get contributions when both spins at a given level is occupied, i.e., from unbroken pairs.
+
+We switch now to particle-hole formalism, where we denote states below the Fermi level as $i, j, \ldots \in \{1, 2\}$, states above the Fermi level as $a, b, \ldots \in \{3, 4\}$, and unrestricted indices as $p, q, \ldots$.
+The normal-ordered form of the two-body term is then
+\begin{align*}
+    \hat{V} =& -\frac{1}{2} g \sum_{pq} \{ a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+} \}
+    -\frac{1}{2} g \sum_{i} \left[ a_{p-}^\dagger a_{p-} + a_{p+}^\dagger a_{p+} \right] \\
+    &- \frac{1}{2} g \sum_{i} 1 \\
+    =& -\frac{1}{2} g \sum_{pq} \{ a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+} \}
+    -\frac{1}{2} g \sum_{i \sigma} a_{i\sigma}^\dagger a_{i\sigma}- g.
+\end{align*}
+
+Grouping the terms of parts involving no particles, one particle, and two particles respectively, we have the normal-ordered Hamiltonian as
+\begin{equation*}
+    \hat{H} = E_0^{\text{Ref}} + \hat{H}_0^N + \hat{V}^N,
+\end{equation*}
+where
+\begin{align*}
+    E_0^{\text{Ref}} &= 2 - g \\
+    \hat{H}_0^N &= \sum_{p\sigma} (p-1) \{ a_{p\sigma}^\dagger a_{p\sigma} \} - \frac{1}{2} g \sum_{i \sigma} \{ a_{i\sigma}^\dagger a_{i\sigma} \} \\
+    \hat{V}^N &= -\frac{1}{2} g \sum_{pq} \{ a_{p+}^\dagger a_{p-}^\dagger a_{q-} a_{q+} \}.
+\end{align*}
+
+We begin by defining the single-particle operator $\hat{f}$, which in the general case is given by
+\begin{equation*}
+    \langle p \vert \hat{f} \vert q \rangle = \langle p \vert \hat{H}_0 \vert q \rangle + \sum_{j} \langle p j \vert \hat{V} \vert q j \rangle.
+\end{equation*}
+For our case, we have that
+\begin{align*}
+    \langle p \vert \hat{f} \vert q \rangle &= (p-1) \delta_{pq} - \frac{1}{2} g \sum_{j} \langle p j \vert \hat{V} \vert q j \rangle \\
+    &= (p-1) \delta_{pq} - \frac{1}{2} g \sum_{j} \langle p j \vert \hat{V} \vert q j \rangle \\
+    &= (p-1) \delta_{pq} - \frac{1}{2} g \sum_{j} \langle p j \vert \hat{V} \vert q j \rangle.
+\end{align*}
+

@@ -25,14 +25,15 @@
     urlcolor={blue!80!black},
 }
 
-\usepackage[offset=1.2em,sep=0.3em]{simpler-wick}
+% \usepackage[offset=1.2em,sep=0.3em]{simpler-wick}
+\usepackage{simpler-wick}
 
 \usepackage{enumerate}
 \usepackage[shortlabels]{enumitem}
 \usepackage{booktabs}
 \usepackage{tikz}
 
-\renewcommand\thesection{Exercise \alph{section})}  % chktex 9 % chktex 10 % tex-fmt: skip
+\renewcommand\thesection{Exercise \arabic{section})}  % chktex 9 % chktex 10 % tex-fmt: skip
 \renewcommand\thesubsection{Solution} % tex-fmt: skip
 \renewcommand\thesubsubsection{\arabic{subsection}.\arabic{subsubsection})} % chktex 9 % chktex 10 % tex-fmt: skip
 
@@ -195,5 +196,9 @@ In a realistic system like an atom or the atomic nucleus this is not the case.
 \newpage
 \section{}
 \input{sections/c.tex}
+
+\newpage
+\section{}
+\input{sections/d.tex}
 
 \end{document} % chktex 17

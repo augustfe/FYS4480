@@ -1,0 +1,49 @@
+\usetikzlibrary{decorations.markings}
+
+\begin{tikzpicture}[
+        cross/.style={
+            cross out,
+            draw=black,
+            minimum size=2*(#1-\pgflinewidth),
+            inner sep=0pt,
+            outer sep=0pt
+        }, %default radius will be 1pt.
+        cross/.default={1pt}
+    ]
+
+    \begin{scope}[very thick,decoration={
+                markings,
+                mark=at position 0.6 with {\arrow{>}}
+            }
+        ]
+        \coordinate (upleft) at (0, 2) {};
+        \coordinate (downleft) at (0, 0) {};
+        \coordinate (midleft) at (1, 1) {};
+        \coordinate (midright) at (2, 1) {};
+        \coordinate (upright) at (3, 2) {};
+        \coordinate (downright) at (3, 0) {};
+
+        \draw[postaction={decorate}]   (downleft) node[left] {\large$p_+$} -- (midleft);
+        \draw[postaction={decorate}]   (midleft) -- (upleft) node[left] {\large$q_+$};
+        \draw[dashed] (midleft) -- (midright);
+        \draw[postaction={decorate}]   (downright) node[right] {\large$p_-$} -- (midright) ;
+        \draw[postaction={decorate}]   (midright) -- (upright) node[right] {\large$q_-$};
+
+    \end{scope}
+
+    \begin{scope}[xshift=5cm,very thick,decoration={
+                markings,
+                mark=at position 0.6 with {\arrow{>}}
+            }
+        ]
+        \coordinate (upleft) at (0, 2) {};
+        \coordinate (downleft) at (0, 0) {};
+        \coordinate (upright) at (1, 2) {};
+        \coordinate (downright) at (1, 0) {};
+
+        \draw[postaction={decorate}]   (downleft) node[below] {\large$p_+$} -- (upleft) node[above] {\large$p_+$};
+        \draw[postaction={decorate}]   (downright) node[below] {\large$p_-$} -- (upright) node[above] {\large$p_-$};
+    \end{scope}
+\end{tikzpicture}
+
+% \end{document}
