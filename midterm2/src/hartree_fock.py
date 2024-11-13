@@ -4,6 +4,27 @@ num_orbitals = 4
 spin_degen = 2
 
 
+def foo(rho: np.ndarray) -> np.ndarray:
+    (
+        np.flip(
+            rho.reshape((num_orbitals, spin_degen, num_orbitals, spin_degen))
+            .swapaxes(1, 2)
+            .reshape(num_orbitals, num_orbitals, spin_degen * spin_degen),
+            axis=-1,
+        )
+        .reshape((num_orbitals, num_orbitals, spin_degen, spin_degen))
+        .swapaxes(1, 2)
+        .reshape((num_orbitals * spin_degen, num_orbitals * spin_degen))
+    )
+    return (
+        rho.reshape((num_orbitals, spin_degen, num_orbitals, spin_degen))
+        .swapaxes(1, 2)
+        .swapaxes(-2, -1)
+        .swapaxes(1, 2)
+        .reshape((num_orbitals * spin_degen, num_orbitals * spin_degen))
+    )
+
+
 def swap_spins(rho: np.ndarray) -> np.ndarray:
     new_rho = rho.reshape(
         (num_orbitals, spin_degen, num_orbitals, spin_degen)
@@ -26,7 +47,7 @@ def get_rho(coeffs: np.ndarray) -> np.ndarray:
 def run(g: float, max_iter: int = 100, tol: float = 1e-14):
 
     particles = np.arange(1, num_orbitals + 1).repeat(spin_degen)
-    h = np.diag(2 * particles - 1)
+    h = np.diag(particles - 1)
 
     coeffs = np.eye(num_orbitals * spin_degen, dtype=complex)
 
@@ -60,4 +81,4 @@ def get_grounstate_energy(g: float, coeffs: np.ndarray) -> float:
 
 
 if __name__ == "__main__":
-    run(1)
+    run(-1)
