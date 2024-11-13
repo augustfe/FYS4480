@@ -73,7 +73,7 @@ As the coefficients are the identity matrix, we have that
 
 We consider now Rayleigh-Schr\"odinger perturbation theory.
 For a diagram to be considered possible, we require that no pairs are broken.
-We can thus eliminate all diagrams but 1, 4, 5, 8 and 9.
+We can thus eliminate all diagrams but 1, 4, 5, and 8. % and 9.
 
 As equations, the first diagram contains $n_h = 2$ hole lines, $n_l = 2$ loops, and $n_{ep} = 2$ equivalent pairs.
 We thus get a factor of
@@ -183,32 +183,32 @@ This gives the expression
     }{(i - a)^2}
 \end{align*}
 
-Diagram 9 has $n_h = 2$, $n_l = 3$ and $n_{ep} = 1$, which by the same method as with for diagram 8, gives the expression
-\begin{align*}
-    & -\frac{1}{2} \sum_{\substack{abcd \\ ij}} \frac{
-        \langle ij \vert V \vert db \rangle
-        \langle cd \vert V \vert ca \rangle
-        \langle ab \vert V \vert ij \rangle
-    }{
-        (
-            \varepsilon_i + \varepsilon_j - \varepsilon_a - \varepsilon_b
-        )(
-            \varepsilon_i + \varepsilon_j - \varepsilon_d - \varepsilon_b
-        )
-    } \\
-    &= -\frac{1}{2} \sum_{ai} \frac{
-        \langle i\bar{i} \vert V \vert a\bar{a} \rangle % chktex 7
-        \langle \bar{a}a \vert V \vert \bar{a}a \rangle
-        \langle a\bar{a} \vert V \vert i\bar{i} \rangle % chktex 7
-    }{
-        4(
-            \varepsilon_i - \varepsilon_a
-        )(
-            \varepsilon_i - \varepsilon_a
-        )
-    } \\
-    &= \frac{1}{64} \sum_{ai} \frac{g^3}{(i - a)^2}.
-\end{align*}
+% Diagram 9 has $n_h = 2$, $n_l = 3$ and $n_{ep} = 1$, which by the same method as with for diagram 8, gives the expression
+% \begin{align*}
+%     & -\frac{1}{2} \sum_{\substack{abcd \\ ij}} \frac{
+%         \langle ij \vert V \vert db \rangle
+%         \langle cd \vert V \vert ca \rangle
+%         \langle ab \vert V \vert ij \rangle
+%     }{
+%         (
+%             \varepsilon_i + \varepsilon_j - \varepsilon_a - \varepsilon_b
+%         )(
+%             \varepsilon_i + \varepsilon_j - \varepsilon_d - \varepsilon_b
+%         )
+%     } \\
+%     &= -\frac{1}{2} \sum_{ai} \frac{
+%         \langle i\bar{i} \vert V \vert a\bar{a} \rangle % chktex 7
+%         \langle \bar{a}a \vert V \vert \bar{a}a \rangle
+%         \langle a\bar{a} \vert V \vert i\bar{i} \rangle % chktex 7
+%     }{
+%         4(
+%             \varepsilon_i - \varepsilon_a
+%         )(
+%             \varepsilon_i - \varepsilon_a
+%         )
+%     } \\
+%     &= \frac{1}{64} \sum_{ai} \frac{g^3}{(i - a)^2}.
+% \end{align*}
 
 Note that in these sums we sum over all possible quantum numbers $a$ and $i$, not simply the energy levels, but also the spins.
 In finding the final expressions for the energy, we now resolve the sums of the spins.
@@ -218,8 +218,8 @@ The final expressions for the energy, per diagram, are then
     & (1) & \frac{2^2}{32} \sum_{ai} \frac{g^2}{i - a} &= \frac{1}{8} \sum_{ai} \frac{g^2}{i - a} \\
     & (4) & -\frac{2^3}{256} \sum_{aci} \frac{g^3}{(i-a)(i-c)} &= -\frac{1}{32} \sum_{aci} \frac{g^3}{(i-a)(i-c)} \\
     & (5) & -\frac{2^3}{256} \sum_{aik} \frac{g^3}{(i-a)(k-a)} &= -\frac{1}{32} \sum_{aik} \frac{g^3}{(i-a)(k-a)} \\
-    & (8) & \frac{2^2}{64} \sum_{ai} \frac{g^3}{(i - a)^2} &= \frac{1}{16} \sum_{ai} \frac{g^3}{(i - a)^2} \\
-    & (9) & \frac{2^2}{64} \sum_{ai} \frac{g^3}{(i - a)^2} &= \frac{1}{16} \sum_{ai} \frac{g^3}{(i - a)^2}.
+    & (8) & \frac{2^2}{64} \sum_{ai} \frac{g^3}{(i - a)^2} &= \frac{1}{16} \sum_{ai} \frac{g^3}{(i - a)^2} %\\
+    % & (9) & \frac{2^2}{64} \sum_{ai} \frac{g^3}{(i - a)^2} &= \frac{1}{16} \sum_{ai} \frac{g^3}{(i - a)^2}.
 \end{align*}
 
 Our total estimate for the Energy with Rayleigh-Schr\"odinger perturbation theory to third order of interactions, with
@@ -228,11 +228,7 @@ Our total estimate for the Energy with Rayleigh-Schr\"odinger perturbation theor
 \end{equation*}
 is then
 \begin{align*}
-    E_{RS}^{(3)} = 2 - g + \frac{1}{8} \sum_{ai} \Bigg[
-        & \frac{g^2}{i - a} + \frac{g^3}{(i - a)^2} \\
-        & - \frac{1}{4} \sum_{c} \frac{g^3}{(i - a)(i - c)}
-        - \frac{1}{4} \sum_{k} \frac{g^3}{(i - a)(k - a)}
-    \Bigg].
+    E_{RS}^{(3)} = 2 - g + (1) + (4) + (5) + (8)
 \end{align*}
 Simplifying the expression, we find
 \begin{align*}
