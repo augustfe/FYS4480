@@ -230,13 +230,14 @@ is then
 \begin{align*}
     E_{RS}^{(3)} = 2 - g + (1) + (4) + (5) + (8)
 \end{align*}
-Simplifying the expression, we find
-\begin{align*}
-    E_{RS}^{(3)} = 2 - g + \sum_{ai} \frac{g^2}{8(i-a)} \left[
-        1 + \frac{g}{i-a} - \frac{1}{4} \left[ \sum_c \frac{g}{i-c} + \sum_k \frac{g}{k-a} \right]
-    \right]
-\end{align*}
+% Simplifying the expression, we find
+% \begin{align*}
+%     E_{RS}^{(3)} = 2 - g + \sum_{ai} \frac{g^2}{8(i-a)} \left[
+%         1 + \frac{g}{i-a} - \frac{1}{4} \left[ \sum_c \frac{g}{i-c} + \sum_k \frac{g}{k-a} \right]
+%     \right]
+% \end{align*}
 Evaluating the sums for $a,c \in \{3, 4\}$ and $i,k \in \{1, 2\}$, we find
 \begin{equation*}
-    E_{RS}^{(3)} = 2 - g + \frac{(5g - 84)g^2}{288}.
+    E_{RS}^{(3)} % = -(2*g**3 + 7*g**2 + 24*g - 48)/24
+    = 2 - g - \frac{7}{24} g^2 - \frac{1}{12} g^3.
 \end{equation*}

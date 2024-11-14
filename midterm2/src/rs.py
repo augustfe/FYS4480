@@ -38,6 +38,13 @@ for i in I:
 
 total += eight / 16
 
+nine = 0
+for i in I:
+    for a in A:
+        nine += g**3 / ((i - a) ** 2)
+
+# total += nine / 16
+
 print(total.factor())
 
 g_func = sp.lambdify(g, total)
