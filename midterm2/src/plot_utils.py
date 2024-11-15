@@ -4,8 +4,8 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
-from exact_energy import CI_energies, FCI_energies
-from rayleigh_s import compute_RS
+from exact_energy import CI_coeffs, CI_energies, FCI_energies
+from rayleigh_s import RS_coeffs, compute_RS
 
 g_values = np.linspace(-1, 1, 100)
 
@@ -56,7 +56,7 @@ class Plotter:
         """
         ax.plot(self.g_values, energy, label=label, linestyle=linestyle)
 
-    def add_all_fci(self, ax: plt.Axes, energies: np.ndarray) -> None:
+    def add_all_FCI(self, ax: plt.Axes, energies: np.ndarray) -> None:  # noqa: N802
         """Add all FCI energy plots to the given axes.
 
         Args:
@@ -179,11 +179,6 @@ class Plotter:
 
         self.save(fig, "e_groundstate_energy_diff_RS.pdf")
 
-        self.hf_plots()
-        self.HF_plots()
-
-        self.RS_plots()
-
     def exercise_5(self) -> None:
         """Generate and save plots for exercise 5."""
         self.HF_plots()
@@ -208,6 +203,25 @@ class Plotter:
         self.add_energy(ax, CI_gs - self.RS2)
 
         self.save(fig, "f_groundstate_energy_diff.pdf")
+
+        fig, axs = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(8, 6))
+        CI_coeffs_ = CI_coeffs()  # noqa: N806
+        RS2_coeffs = RS_coeffs()  # noqa: N806
+
+        for i in range(4):
+            ax = axs[i // 2, i % 2]
+            ax.plot(self.g_values, CI_coeffs_[:, i], label="CI")
+            ax.plot(self.g_values, RS2_coeffs[:, i], label="RS2")
+            ax.set_title(rf"$\vert \Phi_{{{i + 1}}} \rangle$")
+            ax.set_ylabel(r"Coefficient")
+            ax.legend()
+
+        fig.suptitle(r"CI vs RS2 coefficients")
+        # ax.set_title(r"CI vs RS2 coefficients")
+        ax.set_ylabel(r"Coefficient")
+        ax.legend()
+
+        self.save(fig, "f_coefficients.pdf")
 
     def exercise_7(self) -> None:
         """Generate and save plots for exercise 7."""

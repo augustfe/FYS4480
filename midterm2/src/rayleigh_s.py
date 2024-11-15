@@ -219,6 +219,28 @@ def compute_RS(order: int = 2) -> np.ndarray:  # noqa: N802
     return sp.lambdify(g, func, "numpy")(g_values)
 
 
+def RS_coeffs() -> np.ndarray:  # noqa: N802
+    """Compute the Rayleigh-Schrödinger perturbation series coefficients.
+
+    This refers to the coefficients from second-order.
+
+    Returns:
+        np.ndarray: The coefficients of the perturbation series.
+
+    """
+    g_values = np.linspace(-1, 1, 100)
+    coeffs = np.zeros((len(g_values), 4))
+    counter = 0
+    for i in holes:
+        for a in particles:
+            coeffs[:, counter] += g_values / (i - a)
+            counter += 1
+
+    coeffs /= -4
+
+    return coeffs
+
+
 def RS4_vs_FCI() -> None:  # noqa: N802
     """Plot the comparison between RS4 and FCI energies and their difference."""
     g_values = np.linspace(-1, 1, 100)

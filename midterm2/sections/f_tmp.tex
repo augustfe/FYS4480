@@ -10,8 +10,23 @@ For a second-order contribution to the energy, we get a contribution from the fi
     = \frac{\hat{Q}}{\mathcal{E}_0 - \hat{H}_0} \hat{V} \vert \Phi_0 \rangle
     &= \frac{1}{4} \sum_{\substack{ab \\ ij}} \frac{\langle ab \vert V \vert ij \rangle}{\varepsilon_i + \varepsilon_j - \varepsilon_a - \varepsilon_b} \vert \Phi_{ij}^{ab} \rangle \\
     &= \frac{1}{8} \sum_{ai} \frac{\langle i\bar{i} \vert V \vert a\bar{a} \rangle}{i - a} \vert \Phi_{i\bar{i}}^{a\bar{a}} \rangle \\ % chktex 7
-    &= -\frac{1}{16} \sum_{ai} \frac{g}{i - a} \vert \Phi_{i\bar{i}}^{a\bar{a}} \rangle. % chktex 7
+    &= -\frac{1}{4} \sum_{ai} \frac{g}{i - a} \vert \Phi_{i\bar{i}}^{a\bar{a}} \rangle, % chktex 7
 \end{align*}
+where we've again reduced the sum to just sum over the energy levels, and introduced a factor of 2 per spin state.
+Here we are interested in each coefficient
+\begin{equation*}
+    \frac{g}{4(i - a)} \vert \Phi_{i\bar{i}}^{a\bar{a}} \rangle,
+\end{equation*}
+which we can compare with those found from the CI calculations.
+The coefficients of the wave operator $\Psi^{(1)}$ are shown in Fig.~\ref{fig:f_coefficients}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{figures/f_coefficients.pdf}
+    \caption{
+        Coefficients of the wave operator $\Psi^{(1)}$ as a function of $g$, compared with those from the CI calculations.\label{fig:f_coefficients}
+    }
+\end{figure}
 
 \begin{figure}[htbp]
     \centering

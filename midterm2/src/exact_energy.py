@@ -78,6 +78,21 @@ def get_energy_from_states(g: float, states: list[tuple[int, int]]) -> float:
     return np.linalg.eigvalsh(matrix)
 
 
+def get_coeffs_from_states(g: float, states: list[tuple[int, int]]) -> np.ndarray:
+    """Compute the coefficients from the given interaction strength and states.
+
+    Args:
+        g (float): Interaction strength.
+        states (list[tuple[int, int]]): List of states.
+
+    Returns:
+        np.ndarray: Coefficients for the given states.
+
+    """
+    matrix = create_matrix(g, states)
+    return np.linalg.eigh(matrix)[1][:, 0]
+
+
 def get_all_energies_below(g: float, max_level: int = 4) -> np.ndarray:
     """Calculate all energies below a certain level for a given interaction strength.
 
@@ -124,7 +139,28 @@ def CI_energies() -> np.ndarray:  # noqa: N802
     return energies
 
 
+def CI_coeffs() -> np.ndarray:  # noqa: N802
+    r"""Calculate the Configuration Interaction (CI) coefficients.
+
+    This refers to the coefficients
+        C_0^i | \Phi_i >
+    for 2p-2h states | \Phi_i >.
+
+    Returns:
+        np.ndarray: Array of CI coefficients for different interaction strengths.
+
+    """
+    g_values = np.linspace(-1, 1, 100)
+    coeffs = np.zeros((len(g_values), 5))
+    states = get_states(4)[:-1]
+    for i, g in enumerate(g_values):
+        coeffs[i] = get_coeffs_from_states(g, states)
+
+    return coeffs[:, 1:]
+
+
 if __name__ == "__main__":
+    """
     g_values = np.linspace(-1, 1, 100)
 
     max_level = 4
@@ -141,5 +177,20 @@ if __name__ == "__main__":
 
     plt.xlabel("g")
     plt.ylabel("Energy")
+    plt.legend()
+    plt.show()
+    """
+
+    import matplotlib.pyplot as plt
+
+    states = get_states(4)[:-1]
+    g_values = np.linspace(-1, 1, 100)
+    coeffs = np.zeros((len(g_values), len(states)))
+    for i, g in enumerate(g_values):
+        coeffs[i] = get_coeffs_from_states(g, states)
+
+    for i in range(len(states)):
+        plt.plot(g_values, coeffs[:, i], label=f"Coefficient {i}")
+
     plt.legend()
     plt.show()
