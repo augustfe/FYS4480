@@ -1,16 +1,38 @@
+from __future__ import annotations  # noqa: CPY001, D100, INP001
+
 import numpy as np
 
 
-def get_states(max_level: int = 4):
+def get_states(max_level: int = 4) -> list[tuple[int, int]]:
+    """Generate a list of states represented as tuples of integers.
+
+    Args:
+        max_level (int): The maximum level to consider for generating states.
+
+    Returns:
+        list[tuple[int, int]]: A list of states represented as tuples of integers.
+
+    """
     states = []
     for i in range(1, max_level + 1):
         for j in range(i + 1, max_level + 1):
-            states.append((i, j))
+            states.extend([(i, j)])
 
     return states
 
 
 def create_matrix(g: float, states: list[tuple[int, int]]) -> np.ndarray:
+    """Create the Hamiltonian matrix for the given interaction strength and states.
+
+    Args:
+        g (float): Interaction strength.
+        states (list[tuple[int, int]]): List of states.
+
+    Returns:
+        np.ndarray: The Hamiltonian matrix.
+
+    """
+
     def v(bra: tuple[int, int], ket: tuple[int, int]) -> float:
         alpha, beta = bra
 
@@ -42,13 +64,64 @@ def create_matrix(g: float, states: list[tuple[int, int]]) -> np.ndarray:
 
 
 def get_energy_from_states(g: float, states: list[tuple[int, int]]) -> float:
+    """Calculate the energy from the given interaction strength and states.
+
+    Args:
+        g (float): Interaction strength.
+        states (list[tuple[int, int]]): List of states.
+
+    Returns:
+        float: The calculated energy.
+
+    """
     matrix = create_matrix(g, states)
     return np.linalg.eigvalsh(matrix)
 
 
 def get_all_energies_below(g: float, max_level: int = 4) -> np.ndarray:
+    """Calculate all energies below a certain level for a given interaction strength.
+
+    Args:
+        g (float): Interaction strength.
+        max_level (int): The maximum level to consider for generating states.
+
+    Returns:
+        np.ndarray: Array of calculated energies.
+
+    """
     states = get_states(max_level)
     return get_energy_from_states(g, states)
+
+
+def FCI_energies() -> np.ndarray:  # noqa: N802
+    """Calculate the Full Configuration Interaction (FCI) energies.
+
+    Returns:
+        np.ndarray: Array of FCI energies for different interaction strengths.
+
+    """
+    g_values = np.linspace(-1, 1, 100)
+    energies = np.zeros((len(g_values), 6))
+    for i, g in enumerate(g_values):
+        energies[i] = get_all_energies_below(g, 4)
+
+    return energies
+
+
+def CI_energies() -> np.ndarray:  # noqa: N802
+    """Calculate the Configuration Interaction (CI) energies.
+
+    Returns:
+        np.ndarray: Array of CI energies for different interaction strengths.
+
+    """
+    g_values = np.linspace(-1, 1, 100)
+    energies = np.zeros((len(g_values), 5))
+    states = get_states(4)[:-1]
+    for i, g in enumerate(g_values):
+        energies[i] = get_energy_from_states(g, states)
+
+    return energies
 
 
 if __name__ == "__main__":

@@ -110,17 +110,17 @@ The other Slater determinants are then
 \end{align*}
 Equivalently, we can write these relative to the ground state as
 \begin{align*}
-    \ket{\Phi_1} &= \hat{P}_3^+ \hat{P}_2^- \ket{\Phi_0}, \\
-    \ket{\Phi_2} &= \hat{P}_4^+ \hat{P}_2^- \ket{\Phi_0}, &
-    \ket{\Phi_3} &= \hat{P}_3^+ \hat{P}_1^- \ket{\Phi_0}, \\
-    \ket{\Phi_4} &= \hat{P}_4^+ \hat{P}_1^- \ket{\Phi_0}, &
+    \ket{\Phi_1} &= \hat{P}_3^+ \hat{P}_2^- \ket{\Phi_0}, &
+    \ket{\Phi_2} &= \hat{P}_4^+ \hat{P}_2^- \ket{\Phi_0}, \\
+    \ket{\Phi_3} &= \hat{P}_3^+ \hat{P}_1^- \ket{\Phi_0}, &
+    \ket{\Phi_4} &= \hat{P}_4^+ \hat{P}_1^- \ket{\Phi_0}, \\
     \ket{\Phi_5} &= \hat{P}_4^+ \hat{P}_3^+ \hat{P}_1^- \hat{P}_2^- \ket{\Phi_0}.
 \end{align*}
 Note that as the pair creation and annihilation operators commute, the order of the operators in the Slater determinants is not important.
 
-We define an arbitrary four-particle state $\ket{\Phi}_{\alpha, \beta}$, with $\alpha < \beta$, as
+We define an arbitrary four-particle state $\ket{\Phi_{\alpha, \beta}}$, with $\alpha < \beta$, as
 \begin{equation*}
-    \ket{\Phi}_{\alpha, \beta} = \hat{P}_\alpha^+ \hat{P}_\beta^+ \ket{0}
+    \ket{\Phi_{\alpha, \beta}} = \hat{P}_\alpha^+ \hat{P}_\beta^+ \ket{0}
 \end{equation*}
 in order to simplify the computation for the Hamiltonian matrix.
 For $\langle \Phi_{\alpha, \beta} | \hat{H}_0 | \Phi_{\gamma, \delta} \rangle$, we only need to consider the terms where $(\alpha, \beta) = (\gamma, \delta)$, as the other terms vanish due to the orthogonality of the Slater determinants.
@@ -251,23 +251,33 @@ From this, we can set up the Hamiltonian matrix for the system, ordered as $\ket
         0 & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & - \frac{g}{2} & 10 - g
     \end{bmatrix}
 \end{align*}
-We diagonalize this matrix for varying values of $g \in [-1, 1]$ with NumPy, computed in the script \verb|b.py|.
+We diagonalize this matrix for varying values of $g \in [-1, 1]$ with NumPy, computed in the script \verb|exact_energy.py|.
 Plotted as a function of $g$, the eigenvalues are shown in Fig.~\ref{fig:b_eigenvalues}, while the ground state energy is shown in Fig.~\ref{fig:b_groundstate}.
-% TODO: Comment on the behavior of the ground state as a function of $g$.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics{figures/b_eigenvalues_energy.pdf}
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/b_eigenvalues_energy.pdf}
+        \caption{
+            Eigenvalues from FCI.\label{fig:b_eigenvalues}
+            % Eigenvalues of the Hamiltonian matrix for the four-particle system with no broken pairs and total spin $S = 0$, as a function of the pairing strength $g$.
+        }
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.46\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/b_groundstate_energy.pdf}
+        \caption{
+            Groundstate energy from FCI.\label{fig:b_groundstate}
+            % Groundstate energy of the Hamiltonian matrix for the four-particle system with no broken pairs and total spin $S = 0$, as a function of the pairing strength $g$.\label{fig:b_groundstate}
+        }
+    \end{subfigure}
     \caption{
-        Eigenvalues of the Hamiltonian matrix for the four-particle system with no broken pairs and total spin $S = 0$, as a function of the pairing strength $g$.\label{fig:b_eigenvalues}
+        Eigenvalues and ground state energy of the Hamiltonian matrix for the four-particle system with no broken pairs and total spin $S = 0$, as a function of the pairing strength $g$.
     }
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics{figures/b_ground_state_energy.pdf}
-    \caption{
-        Ground state energy of the Hamiltonian matrix for the four-particle system with no broken pairs and total spin $S = 0$, as a function of the pairing strength $g$.\label{fig:b_groundstate}
-    }
-\end{figure}
-
+As the strength of the interaction $g$ increases, the ground state energy decreases.
+When $g = 0$, we have the non-interaction case, where the ground state energy is simply $\langle \Phi_0 \vert \hat{H}_0 \vert \Phi_0 \rangle = 2$.
+As we are including all states possible states up to a given energy level, we are using FCI theory to solve the system.

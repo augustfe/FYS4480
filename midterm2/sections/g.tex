@@ -111,7 +111,7 @@ For diagram 36 we have $n_h = 4$, $n_l = 0$ and $n_{ep} = 4$, and then the expre
 \end{equation*}
 which simplifies to
 \begin{equation*}
-    (36) \quad \frac{1}{8} \sum_{\substack{ac\\ik}} \frac{
+    (36) \quad \frac{1}{128} \sum_{\substack{ac\\ik}} \frac{
         g^4
     }{
         (i - a)(i + k - a - c)(i - c)
@@ -119,9 +119,40 @@ which simplifies to
 \end{equation*}
 By symmetry, we have
 \begin{equation*}
-    (37) \quad \frac{1}{8} \sum_{\substack{ac\\ik}} \frac{
+    (37) \quad \frac{1}{128} \sum_{\substack{ac\\ik}} \frac{
         g^4
     }{
         (i - a)(i + k - a - c)(k - a)
     }.
 \end{equation*}
+
+Performing the summations, we get an additional contribution to the energy of
+\begin{equation*}
+    -\frac{2063}{13824} g^4 \approx -0.149 g^4.
+\end{equation*}
+For higher and higher powers, the additional contributions become smaller for values of $g$ further from $\pm 1$.
+As we see in Figs.~\ref{fig:rs4_energy} and~\ref{fig:rs4_diff}, the fourth-order RSPT seem to be a worse approximation, as compared with the third-order RSPT. % chktex 13
+This is not an entirely unexpected result, as pertubation theories give no guarantees of better convergence for each higher term included.
+Again, the approximate energy falls below the exact energy computed with FCI, as RSPT is not variational.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/g_groundstate_energy.pdf}
+        \caption{
+            Groundstate energy from RSPT.\label{fig:rs4_energy}
+        }
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/g_groundstate_energy_diff.pdf}
+        \caption{
+            Difference in energy from RSPT.\label{fig:rs4_diff}
+        }
+    \end{subfigure}
+    \caption{
+        Groundstate energy from the Rayleigh-Schr\"odinger perturbation theory to fourth-order, compared with the FCI results, as a function of $g$.
+    }
+\end{figure}

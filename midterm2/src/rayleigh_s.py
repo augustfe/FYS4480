@@ -1,8 +1,9 @@
-import sympy as sp
-import numpy as np
-import matplotlib.pyplot as plt
+from typing import Literal  # noqa: CPY001, D100, INP001
 
-from exact_energy import get_all_energies_below, get_states, get_energy_from_states
+import matplotlib.pyplot as plt
+import numpy as np
+import sympy as sp
+from exact_energy import get_all_energies_below
 
 g = sp.Symbol("g")
 
@@ -10,15 +11,33 @@ holes = (1, 2)
 particles = (3, 4)
 
 
-def zeroth_RS():
+def zeroth_RS() -> Literal[2]:  # noqa: N802
+    """Return the zeroth order Rayleigh-Schrödinger perturbation term.
+
+    Returns:
+        Literal[2]: The zeroth order perturbation term.
+
+    """
     return 2
 
 
-def first_RS():
+def first_RS() -> sp.Expr:  # noqa: N802
+    """Return the first order Rayleigh-Schrödinger perturbation term.
+
+    Returns:
+        sp.Expr: The first order perturbation term.
+
+    """
     return -g
 
 
-def second_RS():
+def second_RS() -> sp.Expr:  # noqa: N802
+    """Return the second order Rayleigh-Schrödinger perturbation term.
+
+    Returns:
+        sp.Expr: The second order perturbation term.
+
+    """
     total = 0
     for i in holes:
         for a in particles:
@@ -28,8 +47,17 @@ def second_RS():
     return total
 
 
-def third_RS():
-    def four():
+def third_RS() -> sp.Expr:  # noqa: C901, N802
+    """Return the third order Rayleigh-Schrödinger perturbation term.
+
+    Each diagram is implemented as a separate function.
+
+    Returns:
+        sp.Expr: The third order perturbation term.
+
+    """
+
+    def four() -> sp.Expr:
         total = 0
         for i in holes:
             for a in particles:
@@ -39,7 +67,7 @@ def third_RS():
         total /= -32
         return total
 
-    def five():
+    def five() -> sp.Expr:
         total = 0
         for i in holes:
             for k in holes:
@@ -49,7 +77,7 @@ def third_RS():
         total /= -32
         return total
 
-    def eight():
+    def eight() -> sp.Expr:
         total = 0
         for i in holes:
             for a in particles:
@@ -58,12 +86,20 @@ def third_RS():
         total /= 16
         return total
 
-    total = four() + five() + eight()
-    return total
+    return four() + five() + eight()
 
 
-def fourth_RS():
-    def five():
+def fourth_RS() -> sp.Expr:  # noqa: C901, N802
+    """Return the fourth order Rayleigh-Schrödinger perturbation term.
+
+    Each diagram is implemented as a separate function.
+
+    Returns:
+        sp.Expr: The fourth order perturbation term.
+
+    """
+
+    def five() -> sp.Expr:
         total = 0
         for i in holes:
             for k in holes:
@@ -74,7 +110,7 @@ def fourth_RS():
         total /= 128
         return total
 
-    def six():
+    def six() -> sp.Expr:
         total = 0
         for i in holes:
             for k in holes:
@@ -85,7 +121,7 @@ def fourth_RS():
         total /= 128
         return total
 
-    def fourteen():
+    def fourteen() -> sp.Expr:
         total = 0
         for i in holes:
             for a in particles:
@@ -96,7 +132,7 @@ def fourth_RS():
         total /= 128
         return total
 
-    def fifteen():
+    def fifteen() -> sp.Expr:
         total = 0
         for i in holes:
             for k in holes:
@@ -107,31 +143,23 @@ def fourth_RS():
         total /= 128
         return total
 
-    def thirtysix():
+    def thirtysix() -> sp.Expr:
         total = 0
         for i in holes:
             for k in holes:
-                # if i == k:
-                #     continue
                 for a in particles:
                     for c in particles:
-                        # if a == c:
-                        #     continue
                         total += g**4 / ((i - a) * (i + k - a - c) * (i - c))
 
         total /= 128
         return total
 
-    def thirtyseven():
+    def thirtyseven() -> sp.Expr:
         total = 0
         for i in holes:
             for k in holes:
-                # if i == k:
-                #     continue
                 for a in particles:
                     for c in particles:
-                        # if a == c:
-                        #     continue
                         total += g**4 / ((i - a) * (i + k - a - c) * (k - a))
 
         total /= 128
@@ -152,7 +180,16 @@ def fourth_RS():
     return total
 
 
-def compute_RS(order: int = 2):
+def compute_RS_func(order: int = 2) -> sp.Expr:  # noqa: N802
+    """Compute the Rayleigh-Schrödinger perturbation series up to a given order.
+
+    Args:
+        order (int): The order of the perturbation series to compute.
+
+    Returns:
+        sp.Expr: The symbolic expression of the perturbation series.
+
+    """
     funcs = (
         zeroth_RS,
         first_RS,
@@ -162,17 +199,32 @@ def compute_RS(order: int = 2):
     )[: order + 1]
     total = 0
     for func in funcs:
-        print(func.__name__)
         total += func()
 
     return total
 
 
-def RS4_vs_FCI():
+def compute_RS(order: int = 2) -> np.ndarray:  # noqa: N802
+    """Compute the Rayleigh-Schrödinger perturbation series values for a range of g.
+
+    Args:
+        order (int): The order of the perturbation series to compute.
+
+    Returns:
+        np.ndarray: The computed values of the perturbation series for a range of g.
+
+    """
     g_values = np.linspace(-1, 1, 100)
-    RS4 = compute_RS(4)
-    RS4 = sp.lambdify(g, RS4, "numpy")(g_values)
-    FCI_energies = np.zeros(100)
+    func = compute_RS_func(order)
+    return sp.lambdify(g, func, "numpy")(g_values)
+
+
+def RS4_vs_FCI() -> None:  # noqa: N802
+    """Plot the comparison between RS4 and FCI energies and their difference."""
+    g_values = np.linspace(-1, 1, 100)
+    RS4 = compute_RS_func(4)  # noqa: N806
+    RS4 = sp.lambdify(g, RS4, "numpy")(g_values)  # noqa: N806
+    FCI_energies = np.zeros(100)  # noqa: N806
     for i, g_value in enumerate(g_values):
         FCI_energies[i] = get_all_energies_below(g_value, 4)[0]
 
@@ -191,15 +243,4 @@ def RS4_vs_FCI():
 
 
 if __name__ == "__main__":
-    g_values = np.linspace(-1, 1, 100)
-    for order in (2, 3, 4):
-        energy_func = sp.lambdify(g, compute_RS(order), "numpy")
-        energy_values = energy_func(g_values)
-        plt.plot(g_values, energy_values, label=f"Order {order}")
-
-    plt.xlabel("$g$")
-    plt.ylabel("Energy")
-    plt.legend()
-    # plt.show()
-
-    RS4_vs_FCI()
+    print(compute_RS_func(4).simplify())  # noqa: T201

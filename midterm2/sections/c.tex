@@ -5,35 +5,39 @@ Can you set up which diagrams this approximation corresponds to?
 
 \subsection{}
 From Fig.~\ref{fig:SDs} we see that all states except $\ket{\Phi_5}$, has states with at most one pair of electrons above the $p=2$.
+This corresponds with Configuration Interaction (CI) calculations with at most two-particle-two-hole excitations.
 Our new approximation of the ground state is then shown in Fig.~\ref{fig:c_groundstate}.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics{figures/c_ground_state_energy.pdf}
+    \begin{subfigure}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/c_groundstate_energy.pdf}
+        \caption{
+            Groundstate energy from CI.\label{fig:c_groundstate}
+        }
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.5\linewidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/c_groundstate_energy_diff.pdf}
+        \caption{
+            Difference in energy from CI.\label{fig:c_diff_groundstate}
+        }
+    \end{subfigure}
     \caption{
-        Ground state energy of the Hamiltonian matrix for the four-particle system with no broken pairs and total spin $S = 0$, as a function of the pairing strength $g$.
-        Truncated to only include at most two-particle-two-hole excitations.\label{fig:c_groundstate}
+        Groundstate energy from the CI calculations with at most two-particle-two-hole excitations, compared with the FCI results, as a function of $g$.
     }
 \end{figure}
 
 As the figure shows, the approximate energies are very close, regardless of whether we include the four-particle state $\ket{\Phi_5}$ or not.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics{figures/c_diff_ground_state_energy.pdf}
-    \caption{
-        Difference in ground state energy of the Hamiltonian with all states below $p=4$ and the Hamiltonian with $\ket{\Phi_5}$ removed, as a function of the pairing strength $g$.
-        Truncated to only include at most two-particle-two-hole excitations.\label{fig:c_diff_groundstate}
-    }
-\end{figure}
-
-% TODO: Comment on differences
-
-% \textcolor{red}{TODO:\@ MAKE DIAGRAMS}
+The difference is shown in Fig.~\ref{fig:c_diff_groundstate}, showing that the difference is more substantial for higher values of $g$.
+As we are working with variational methods, the energy from the CI calculations will always be higher than the exact energy, as the CI calculations are based on a subset of the full space.
+The contributing diagrams in this case are shown in Fig.~\ref{fig:2p2h}.
 
 \begin{figure}
     \centering
-    \input{sections/2p2h.tikz}
+    \input{sections/2p2h.tex}
     \caption{
         Diagrams corresponding to the approximation of the ground state with at most two-particle-two-hole excitations.\label{fig:2p2h}
     }

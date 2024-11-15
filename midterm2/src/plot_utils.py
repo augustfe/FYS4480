@@ -1,133 +1,251 @@
-import matplotlib.pyplot as plt
-import numpy as np
+from __future__ import annotations  # noqa: CPY001, D100, INP001
 
 from pathlib import Path
 
-from midterm2.src.exact_energy import (
-    get_all_energies_below,
-    get_energy_from_states,
-    get_states,
-)
+import matplotlib.pyplot as plt
+import numpy as np
+from exact_energy import CI_energies, FCI_energies
+from rayleigh_s import compute_RS
 
-dir_path = Path(__file__).parents[1]
-plt.style.use(dir_path / "src" / "latex.mplstyle")
+g_values = np.linspace(-1, 1, 100)
 
 
-def b_plot_eigenvalues(save: bool = True) -> None:
-    g_values = np.linspace(-1, 1, 100)
-    max_level = 4
-    energies = np.zeros((len(g_values), 6))
-    for i, g in enumerate(g_values):
-        energies[i] = get_all_energies_below(g, max_level)
+class Plotter:
+    """A class used to create various plots for energy calculations."""
 
-    plt.figure(figsize=(4, 3))
-    labels = [rf"$\varepsilon_{i}$" for i in range(6)]
-    for i in range(6):
-        linestyle = "-" if i != 3 else "--"
-        plt.plot(g_values, energies[:, i], label=labels[i], linestyle=linestyle)
+    def __init__(self) -> None:
+        """Initialize the Plotter class with default values and settings."""
+        self.dir_path = Path(__file__).parents[1]
+        plt.style.use(self.dir_path / "src" / "latex.mplstyle")
+        self.g_values = np.linspace(-1, 1, 100)
 
-    plt.xlabel(r"$g$")
-    plt.ylabel(r"Energy")
-    plt.title(r"Eigenvalues as a function of $g$")
+        self.FCI = FCI_energies()
+        self.CI = CI_energies()
+        self.RS2 = compute_RS(2)
+        self.RS3 = compute_RS(3)
+        self.RS4 = compute_RS(4)
 
-    plt.legend()
-    # plt.tight_layout()
-    if save:
-        plt.savefig(
-            dir_path / "figures" / "b_eigenvalues_energy.pdf", bbox_inches="tight"
-        )
+    @staticmethod
+    def setup_figure() -> tuple[plt.Figure, plt.Axes]:
+        """Set up a matplotlib figure and axes with default settings.
+
+        Returns:
+            tuple[plt.Figure, plt.Axes]: A tuple containing the figure and axes.
+
+        """
+        fig = plt.figure(figsize=(4, 3))
+        ax = plt.gca()
+        ax.set_xlabel(r"$g$")
+        return fig, ax
+
+    def add_energy(
+        self,
+        ax: plt.Axes,
+        energy: np.ndarray,
+        label: str | None = None,
+        linestyle: str = "-",
+    ) -> None:
+        """Add an energy plot to the given axes.
+
+        Args:
+            ax (plt.Axes): The axes to plot on.
+            energy (np.ndarray): The energy values to plot.
+            label (str | None, optional): The label for the plot. Defaults to None.
+            linestyle (str, optional): The line style for the plot. Defaults to "-".
+
+        """
+        ax.plot(self.g_values, energy, label=label, linestyle=linestyle)
+
+    def add_all_fci(self, ax: plt.Axes, energies: np.ndarray) -> None:
+        """Add all FCI energy plots to the given axes.
+
+        Args:
+            ax (plt.Axes): The axes to plot on.
+            energies (np.ndarray): The energy values to plot.
+
+        """
+        linestyles = ["-"] * 3 + [":"] + ["-"] * 2
+        labels = [rf"$\varepsilon_{i}$" for i in range(6)]
+
+        for energy, linestyle, label in zip(energies.T, linestyles, labels):
+            self.add_energy(ax, energy, label, linestyle)
+
+    def plot_diff(
+        self,
+        energy1: np.ndarray,
+        energy2: np.ndarray,
+        label1: str,
+        label2: str,
+    ) -> None:
+        """Plot the difference between two energy arrays.
+
+        Args:
+            energy1 (np.ndarray): The first energy array.
+            energy2 (np.ndarray): The second energy array.
+            label1 (str): The label for the first energy array.
+            label2 (str): The label for the second energy array.
+
+        Returns:
+            plt.Figure: The matplotlib figure object.
+
+        """
+        fig, ax = self.setup_figure()
+        self.add_energy(ax, energy1 - energy2)
+        ax.set_ylabel(rf"$E_{{{label1}}} - E_{{{label2}}}$")
+        ax.set_title(f"Difference between {label1} and {label2} groundstate energy")
+
+        return fig
+
+    def exercise_2(self) -> None:
+        """Generate and save plots for exercise 2."""
+        save_name = "b_eigenvalues_energy.pdf"
+        fig, ax = self.setup_figure()
+
+        self.add_all_FCI(ax, self.FCI)
+        ax.set_ylabel(r"Energy")
+        ax.set_title(r"Eigenvalues (FCI)")
+        ax.legend()
+
+        self.save(fig, save_name)
+
+        save_name = "b_groundstate_energy.pdf"
+        fig, ax = self.setup_figure()
+        self.add_energy(ax, self.FCI[:, 0])
+        ax.set_ylabel(r"Energy")
+        ax.set_title(r"Groundstate energy (FCI)")
+
+        self.save(fig, save_name)
+
+    def exercise_3(self) -> None:
+        """Generate and save plots for exercise 3."""
+        FCI_gs = self.FCI[:, 0]  # noqa: N806
+        CI_gs = self.CI[:, 0]  # noqa: N806
+        save_name = "c_groundstate_energy.pdf"
+        fig, ax = self.setup_figure()
+
+        self.add_energy(ax, FCI_gs, "FCI")
+        self.add_energy(ax, CI_gs, "CI")
+        ax.set_ylabel(r"Energy")
+        ax.set_title(r"Groundstate energy (FCI vs CI)")
+        ax.legend()
+
+        self.save(fig, save_name)
+
+        fig = self.plot_diff(FCI_gs, CI_gs, "FCI", "CI")
+        self.save(fig, "c_groundstate_energy_diff.pdf")
+
+    def HF_plots(self) -> None:  # noqa: N802
+        """Generate and save plots for Hartree-Fock (HF) calculations."""
+        FCI_gs = self.FCI[:, 0]  # noqa: N806
+        HF_gs = 2 - self.g_values  # noqa: N806
+
+        fig, ax = self.setup_figure()
+        ax.set_ylabel(r"Energy")
+        ax.set_title(r"Groundstate energy (FCI vs HF)")
+
+        self.add_energy(ax, FCI_gs, "FCI")
+        self.add_energy(ax, HF_gs, "HF")
+        ax.legend()
+
+        self.save(fig, "e_groundstate_energy.pdf")
+
+        fig = self.plot_diff(FCI_gs, HF_gs, "FCI", "HF")
+        self.save(fig, "e_groundstate_energy_diff.pdf")
+
+    def RS_plots(self) -> None:  # noqa: N802
+        """Generate and save plots for RSPT calculations."""
+        FCI_gs = self.FCI[:, 0]  # noqa: N806
+        CI_gs = self.CI[:, 0]  # noqa: N806
+
+        fig, ax = self.setup_figure()
+        ax.set_ylabel(r"Energy")
+        ax.set_title(r"Groundstate energy ((F)CI vs RS3)")
+
+        self.add_energy(ax, FCI_gs, "FCI")
+        self.add_energy(ax, CI_gs, "CI")
+        self.add_energy(ax, self.RS3, "RS3")
+
+        ax.legend()
+
+        self.save(fig, "e_groundstate_energy_RS.pdf")
+
+        fig, ax = self.setup_figure()
+        ax.set_ylabel(r"$\Delta$ Energy")
+        ax.set_title(r"Difference in groundstate energy ((F)CI vs RS3)")
+
+        self.add_energy(ax, FCI_gs - self.RS3, r"$E_{FCI} - E_{RS}^{(3)}$")
+        self.add_energy(ax, CI_gs - self.RS3, r"$E_{CI} - E_{RS}^{(3)}$")
+        ax.legend()
+
+        self.save(fig, "e_groundstate_energy_diff_RS.pdf")
+
+        self.hf_plots()
+        self.HF_plots()
+
+        self.RS_plots()
+
+    def exercise_5(self) -> None:
+        """Generate and save plots for exercise 5."""
+        self.HF_plots()
+        self.RS_plots()
+
+    def exercise_6(self) -> None:
+        """Generate and save plots for exercise 6."""
+        fig, ax = self.setup_figure()
+        CI_gs = self.CI[:, 0]  # noqa: N806
+        RS2 = self.RS2  # noqa: N806
+        self.add_energy(ax, CI_gs, "CI")
+        self.add_energy(ax, RS2, "RS2")
+
+        ax.legend()
+        ax.set_title(r"Groundstate energy (CI vs RS2)")
+        ax.set_ylabel(r"Energy")
+        self.save(fig, "f_groundstate_energy.pdf")
+
+        fig, ax = self.setup_figure()
+        ax.set_title(r"Difference in groundstate energy (CI vs RS2)")
+        ax.set_ylabel(r"$E_{CI} - E_{RS}^{(2)}$")
+        self.add_energy(ax, CI_gs - self.RS2)
+
+        self.save(fig, "f_groundstate_energy_diff.pdf")
+
+    def exercise_7(self) -> None:
+        """Generate and save plots for exercise 7."""
+        fig, ax = self.setup_figure()
+        FCI_gs = self.FCI[:, 0]  # noqa: N806
+        RS4 = self.RS4  # noqa: N806
+
+        self.add_energy(ax, FCI_gs, "FCI")
+        self.add_energy(ax, RS4, "RS4")
+
+        ax.legend()
+        ax.set_title(r"Groundstate energy (FCI vs RS4)")
+        ax.set_ylabel(r"Energy")
+        self.save(fig, "g_groundstate_energy.pdf")
+
+        fig, ax = self.setup_figure()
+        ax.set_title(r"Difference in groundstate energy (FCI vs RS4)")
+        ax.set_ylabel(r"$E_{FCI} - E_{RS}^{(4)}$")
+        self.add_energy(ax, FCI_gs - RS4)
+
+        self.save(fig, "g_groundstate_energy_diff.pdf")
+
+    def save(self, fig: plt.Figure, filename: str) -> None:
+        """Save the figure to a file.
+
+        Args:
+            fig (plt.Figure): The figure to save.
+            filename (str): The name of the file to save the figure as.
+
+        """
+        fig.savefig(self.dir_path / "figures" / filename, bbox_inches="tight")
         plt.clf()
-    else:
-        plt.show()
-
-
-def b_plot_groundstate(save: bool = True) -> None:
-    g_values = np.linspace(-1, 1, 100)
-    max_level = 4
-    energies = np.zeros((len(g_values), 6))
-    for i, g in enumerate(g_values):
-        energies[i] = get_all_energies_below(g, max_level)
-
-    plt.figure(figsize=(4, 3))
-
-    plt.plot(g_values, energies[:, 0], label="Ground state")
-
-    plt.xlabel(r"$g$")
-    plt.ylabel(r"Energy")
-    plt.title(r"Groundstate energy as a function of $g$")
-
-    plt.legend()
-    # plt.tight_layout()
-    if save:
-        plt.savefig(
-            dir_path / "figures" / "b_ground_state_energy.pdf", bbox_inches="tight"
-        )
-        plt.clf()
-    else:
-        plt.show()
-
-
-def c_plot_groundstate(save: bool = True) -> None:
-    max_level = 4
-    # Remove Phi_5
-    states = get_states(max_level)[:-1]
-    g_values = np.linspace(-1, 1, 100)
-    energies = np.zeros((len(g_values), 5))
-    for i, g in enumerate(g_values):
-        energies[i] = get_energy_from_states(g, states)
-
-    plt.figure(figsize=(4, 3))
-
-    plt.plot(g_values, energies[:, 0], label="Ground state")
-
-    plt.xlabel(r"$g$")
-    plt.ylabel(r"Energy")
-    plt.title(r"Groundstate energy as a function of $g$")
-
-    plt.legend()
-    # plt.tight_layout()
-    if save:
-        plt.savefig(
-            dir_path / "figures" / "c_ground_state_energy.pdf", bbox_inches="tight"
-        )
-        plt.clf()
-    else:
-        plt.show()
-
-
-def c_plot_diff(save: bool = True) -> None:
-    max_level = 4
-    b_states = get_states(max_level)
-    c_states = b_states[:-1]
-
-    g_values = np.linspace(-1, 1, 100)
-    energies = np.zeros(len(g_values))
-
-    for i, g in enumerate(g_values):
-        b_energy = get_energy_from_states(g, b_states)
-        c_energy = get_energy_from_states(g, c_states)
-        energies[i] = b_energy[0] - c_energy[0]
-
-    plt.figure(figsize=(4, 3))
-
-    plt.plot(g_values, energies)
-
-    plt.xlabel(r"$g$")
-    plt.ylabel(r"$\Delta$ Energy")
-    plt.title(r"Difference in groundstate energy as a function of $g$")
-
-    # plt.tight_layout()
-    if save:
-        plt.savefig(
-            dir_path / "figures" / "c_diff_ground_state_energy.pdf", bbox_inches="tight"
-        )
-        plt.clf()
-    else:
-        plt.show()
 
 
 if __name__ == "__main__":
-    b_plot_eigenvalues()
-    b_plot_groundstate()
-    c_plot_groundstate()
-    c_plot_diff()
+    plotter = Plotter()
+    plotter.exercise_2()
+    plotter.exercise_3()
+    plotter.exercise_5()
+    plotter.exercise_6()
+    plotter.exercise_7()

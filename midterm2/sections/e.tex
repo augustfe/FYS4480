@@ -27,6 +27,7 @@ Comment your results.
 Compare these results with those you obtained in 2) and 3). % chktex 9 % chktex 10 % tex-fmt: skip
 
 \subsection{}
+\subsubsection*{Hartree-Fock}
 In the previous midterm, we found that the Hartree-Fock equations by way of varying coefficients are
 \begin{equation*}
     \sum_{\gamma} h_{\alpha\gamma}^\HF C_{p\gamma} = \varepsilon_p C_{p\alpha},
@@ -55,7 +56,7 @@ We then solve the Hartree-Fock equations for $g \in [-1, 1]$.
 
 Because of our initial guess for the coefficients, we have that the density matrix is
 \begin{equation*}
-    \rho = C^\dagger C = I^\dagger I = I.
+    \rho = C^* C^T = I^* I^T = I.
 \end{equation*}
 This means that the Hartree-Fock matrix is initially entirely diagonal, with diagonal elements $\alpha - 1 - \frac{1}{2} g$.
 As the matrix is diagonal, the eigenvalue problem is already solved, with
@@ -69,8 +70,48 @@ As the coefficients are the identity matrix, we have that
 \begin{equation*}
     E[\Phi^\HF] = E[\Phi_0] = 2 - g.
 \end{equation*}
-% plotted in Fig.~\ref{fig:hartree_fock_g}.
+As we see in Figs.~\ref{fig:hf_energy} and~\ref{fig:hf_diff}, the Hartree-Fock approximation serves as a poor approximation to the exact solution, with the difference in energy increasing as $|g|$ increases.
+However, as it is also a variational method, the energy from the Hartree-Fock calculations will always be higher than the exact energy.
+The diagrams in Fig.~\ref{fig:diagrams} that can be affected in the canonical Hartree-Fock case are diagrams 1, 3, 4, and 5.
 
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/e_groundstate_energy.pdf}
+        \caption{
+            Groundstate energy from HF.\label{fig:hf_energy}
+        }
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/e_groundstate_energy_diff.pdf}
+        \caption{
+            Difference in energy from HF.\label{fig:hf_diff}
+        }
+    \end{subfigure}
+    \caption{
+        Groundstate energy from the Hartree-Fock calculations, compared with the FCI results, as a function of $g$.
+    }
+\end{figure}
+% \begin{figure}
+%     \centering
+%     \includegraphics{figures/e_groundstate_energy.pdf}
+%     \caption{
+%         Groundstate energy from the Hartree-Fock calculations, compared with the FCI results, as a function of $g$.\label{fig:hf_energy}
+%     }
+% \end{figure}
+
+% \begin{figure}
+%     \centering
+%     \includegraphics{figures/e_groundstate_energy_diff.pdf}
+%     \caption{
+%         Difference in groundstate energies of $E_{FCI}$ and $E_{HF}$, as a function of $g$.\label{fig:hf_diff}
+%     }
+% \end{figure}
+
+\subsubsection*{Rayleigh-Schr\"odinger Perturbation Theory}
 We consider now Rayleigh-Schr\"odinger perturbation theory.
 For a diagram to be considered possible, we require that no pairs are broken.
 We can thus eliminate all diagrams but 1, 4, 5, and 8. % and 9.
@@ -241,3 +282,28 @@ Evaluating the sums for $a,c \in \{3, 4\}$ and $i,k \in \{1, 2\}$, we find
     E_{RS}^{(3)} % = -(2*g**3 + 7*g**2 + 24*g - 48)/24
     = 2 - g - \frac{7}{24} g^2 - \frac{1}{12} g^3.
 \end{equation*}
+
+Comparing the results from the Rayleigh-Schr\"odinger perturbation theory to third order with the exact solution, we see in Figs.~\ref{fig:rs_energy} and~\ref{fig:rs_diff} that the perturbation theory serves as a good approximation to the exact solution.
+Note however that the perturbation theory is not variational, and the energy will not necessarily be higher than the exact energy.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/e_groundstate_energy_RS.pdf}
+        \caption{
+            Groundstate energy from RSPT.\label{fig:rs_energy}
+        }
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/e_groundstate_energy_diff_RS.pdf}
+        \caption{
+            Difference in energy from RSPT.\label{fig:rs_diff}
+        }
+    \end{subfigure}
+    \caption{
+        Groundstate energy from the Rayleigh-Schr\"odinger perturbation theory to third-order, compared with the FCI \& CI results, as a function of $g$.
+    }
+\end{figure}
