@@ -43,7 +43,7 @@ As computed previously, we have that
     \expval{\alpha}{\hat{h}_0}{\gamma} = \delta_{\alpha\gamma} (\alpha - 1).
 \end{equation*}
 Next, we need to compute the matrix elements of the two-body operator $V$.
-We require that the energy levels of bra and ket states match within, and that the spins of $\alpha$ and $\beta$ match those of $\gamma$ and $\delta$ respectively.
+We require that the energy levels of bra and ket states match within, and that the spins differ.
 
 Writing $\bar{\alpha}$ as the quantum number with the same energy level as $\alpha$ but with opposite spin, we have that
 \begin{align*}
@@ -64,7 +64,7 @@ As the matrix is diagonal, the eigenvalue problem is already solved, with
     \varepsilon_p = p - 1 - \frac{1}{2} g,
 \end{equation*}
 where $p$ denotes the energy level, regardless of spin.
-We realized this after having implemented a solver, in the file \verb|src/hartree_fock.py|.
+We realized this after having implemented a solver, in the file \verb|hartree_fock.py|.
 
 As the coefficients are the identity matrix, we have that
 \begin{equation*}
@@ -284,7 +284,7 @@ Evaluating the sums for $a,c \in \{3, 4\}$ and $i,k \in \{1, 2\}$, we find
 \end{equation*}
 
 Comparing the results from the Rayleigh-Schr\"odinger perturbation theory to third order with the exact solution, we see in Figs.~\ref{fig:rs_energy} and~\ref{fig:rs_diff} that the perturbation theory serves as a good approximation to the exact solution.
-Note however that the perturbation theory is not variational, and the energy will not necessarily be higher than the exact energy.
+Note however that the perturbation theory is not variational, and the energy will not necessarily be bounded from below by the exact energy.
 
 \begin{figure}[htbp]
     \centering
