@@ -3,6 +3,7 @@
 \usepackage{babel, textcomp}
 \usepackage{arevtext}
 \usepackage{microtype}
+\usepackage{appendixnumberbeamer}
 
 \usepackage{tikz}
 
@@ -21,11 +22,13 @@
 \usetheme[
     uiostandard,
     font=none,
-    % sectionsep=uiogreen2,
+    sectionsep=uiogreen1,
 ]{UiO}
 \usefonttheme{professionalfonts}
 \usefonttheme[onlymath]{serif}
 \urlstyle{sf}
+
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
 
 \title{FYS4480 Oral Exam}
 \subtitle{Quantum mechanics for many-particle systems}
@@ -62,7 +65,7 @@
     The complexity arises from the fact that the exact solution cannot typically be found for systems with more than a few particles, and we must resort to approximations.
 \end{frame}
 
-\section{Full configuration interaction theory}
+\section{Full configuration interaction}
 
 \begin{frame}{Full configuration interaction theory}
     In full configuration interaction (FCI) theory, we seek to write the wave function as a linear combination of all possible Slater determinants, that is, all possible configurations of the system, truncated at some level.
@@ -128,28 +131,122 @@
 %     \end{equation*}
 % \end{frame}
 
-\section{Hatree-Fock theory}
+\section{Hartree-Fock}
 
-\begin{frame}{Hatree-Fock theory}
-    In Hatree-Fock theory, we seek to write the wave function as a single Slater determinant, that is, a single configuration of the system.
-
-    \bigskip
-
-    The wave function is then written as
-    \begin{equation}
-        \lvert \Psi_0 \rangle = \lvert \Phi_0 \rangle,
-    \end{equation}
-    where $\lvert \Phi_0 \rangle$ is the Slater determinant that minimizes the energy.
-
-    \bigskip
-
-    The Hatree-Fock method is a variational method, and the energy is minimized by varying the coefficients in the Slater determinant.
+\begin{frame}{Hartree-Fock theory}
+    In Hatree-Fock (HF) theory, assume that the system can be approximated by a single Slater determinant, that is, a single configuration.
 \end{frame}
 
-\section{Many-body pertubation theory}
-\subsection{Brillouin-Wigner pertubation theory}
-\subsection{Rayleigh-Schrödinger pertubation theory}
+\section{Many-body pertubation}
+\subsection{Brillouin-Wigner pertubation}
+\subsection{Rayleigh-Schrödinger pertubation}
 
 \section{Coupled-Clusted theory}
+
+\appendix
+\section{Derivation of the HF equations}
+
+\begin{frame}{Derivation of the HF equations}
+    In the original basis $\alpha$ we have the energy functional
+    \begin{equation}
+        E[\Phi]
+        = \left\langle \Phi \vert \hat{H} \vert \Phi \right\rangle
+        = \sum_{\alpha} \langle \alpha \vert \hat{h}_0 \vert \alpha \rangle
+        + \frac{1}{2} \sum_{\alpha\beta} \langle \alpha\beta \vert V \vert \alpha \beta \rangle_{AS}.
+    \end{equation}
+    The HF equations are found by introducing the new basis $p$ defined by the unitary transformation
+    \begin{equation}
+        \psi_p = \sum_{\alpha} C_{p\alpha} \phi_\alpha,
+    \end{equation}
+    and minimizing the energy functional
+    \begin{equation}\label{eq:PhiHF}
+        E[\Phi^\mathrm{HF}]
+        = \left\langle \Phi^\mathrm{HF} \vert \hat{H} \vert \Phi^\mathrm{HF} \right\rangle
+        = \sum_{i} \langle i \vert \hat{h}_0 \vert i \rangle + \frac{1}{2} \sum_{ij} \langle ij \vert V \vert ij \rangle_{AS}
+    \end{equation}
+    with respect to the coefficients $C_{p\alpha}$. Eq.~\eqref{eq:PhiHF}
+\end{frame}
+
+\begin{frame}{Introducing Lagrange multipliers}
+    Defining the functional in Eq.~\eqref{eq:PhiHF} as a functional of the coefficients $C_{p\alpha}$, we have
+    \begin{equation}%\label{eq:E0}
+        E_0[C]
+        = \sum_{i} \sum_{\alpha\beta} {
+            C_{i \alpha}^*
+            C_{i \beta}
+            \langle \alpha \vert \hat{h}_0 \vert \beta \rangle
+        }
+        + \frac{1}{2} \sum_{ij} \sum_{\alpha\beta\gamma\delta} {
+            C_{i \alpha}^*
+            C_{j \beta}^*
+            C_{i \gamma}
+            C_{j \delta}
+            \langle \alpha\beta \vert V \vert \gamma\delta \rangle_{AS}
+        }.
+    \end{equation}
+    As we have orthonormal basis functions, we have
+    \begin{equation}
+        \langle i \vert j \rangle
+        = \delta_{ij} = \sum_{\alpha\beta} C_{i\alpha}^* C_{i\beta} \langle \alpha \vert \beta \rangle = \sum_{\alpha} C_{i\alpha}^* C_{i\alpha},
+    \end{equation}
+    so we introduce the functional
+    \begin{equation}
+        F[C] = E_0[C] - \sum_{i} \lambda_i \sum_{\alpha} C_{i\alpha}^* C_{i\alpha},
+    \end{equation}
+    where $\lambda_i$ are the Lagrange multipliers enforcing orthonormality.
+\end{frame}
+
+\begin{frame}{Minimizing $F$}
+    Minimizing $F$ with respect to $C^*_{i\alpha}$, we wish to solve
+    \begin{equation}
+        \frac{\diff F}{\diff C^*_{i\alpha}}[C] = \frac{\diff}{\diff C_{i \alpha}^*} \left[ E_0[C] - \sum_j \lambda_j \sum_{\alpha} C_{j \alpha}^* C_{j \alpha} \right] = 0.
+    \end{equation}
+
+    Term by term we have
+    \begin{align}
+        \frac{\diff}{\diff C_{i \alpha}^*} \sum_{i} \sum_{\alpha\beta} C_{i \alpha}^* C_{i \beta}
+        \langle \alpha \vert \hat{h}_0 \vert \beta \rangle
+        &= \sum_{\beta} C_{i \beta}
+        \langle \alpha \vert \hat{h}_0 \vert \beta \rangle \\
+        \frac{\diff}{\diff C_{i \alpha}^*}
+        \frac{1}{2} \sum_{ij} \sum_{\alpha\beta\gamma\delta} C_{i \alpha}^* C_{j \beta}^* C_{i \gamma} C_{j \delta}
+        \langle \alpha\beta \vert V \vert \gamma\delta \rangle_{AS}
+        &= \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma} C_{j \delta} \langle \alpha\beta \vert V \vert \gamma\delta \rangle_{AS},
+    \end{align}
+\end{frame}
+
+\begin{frame}{Minimizing $F$, cont.}
+    and finally
+    \begin{equation}
+        \frac{\diff}{\diff C_{i \alpha}^*} \sum_{i} \lambda_i \sum_{\alpha} C_{i \alpha}^* C_{i \alpha} = \lambda_i C_{i \alpha}.
+    \end{equation}
+
+    \bigskip
+
+    Combining these terms, we have
+    \begin{equation}
+        \sum_{\beta} C_{i \beta}
+        \langle \alpha \vert \hat{h}_0 \vert \beta \rangle
+        + \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma} C_{j \delta} \langle \alpha\beta \vert V \vert \gamma\delta \rangle_{AS}
+        - \lambda_i C_{i \alpha} = 0.
+    \end{equation}
+
+    Recognizing $\lambda_i$ as the eigenvalues $\varepsilon_i^\mathrm{HF}$, we can write this as
+    \begin{equation}
+        \sum_{\gamma} \left[
+            \langle \alpha \vert \hat{h}_0 \vert \gamma \rangle
+            + \sum_j \sum_{\beta\delta} C_{j \beta}^*  C_{j \delta}
+            \langle \alpha\beta \vert V \vert \gamma\delta \rangle_{AS}
+        \right] C_{p \gamma}
+        = \varepsilon_p^\mathrm{HF} C_{p \alpha}.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Hartree-Fock equations found}
+    This finally results in the HF equations
+    \begin{equation}
+        \sum_{\gamma} h_{\alpha\gamma}^\mathrm{HF} C_{p \gamma} = \varepsilon_p^\mathrm{HF} C_{p \alpha}.
+    \end{equation}
+\end{frame}
 
 \end{document}
