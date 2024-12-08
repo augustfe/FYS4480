@@ -1,7 +1,7 @@
 \documentclass[UKenglish,aspectratio=169]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{babel, textcomp}
-\usepackage{arevtext}
+% \usepackage{arevtext}
 \usepackage{microtype}
 \usepackage{appendixnumberbeamer}
 
@@ -13,16 +13,17 @@
 \usepackage{hyperref}
 \usepackage{xcolor}
 % \hypersetup{ % this is just my personal choice, feel free to change things
-%     colorlinks,
-%     linkcolor={red!50!black},
+%     % colorlinks,
+%     % linkcolor={red!50!black},
 %     citecolor={blue!50!black},
 %     urlcolor={blue!80!black},
 % }
 
 \usetheme[
     uiostandard,
-    font=none,
-    sectionsep=uiogreen1,
+    toc,
+    font=arial,
+    % sectionsep=uiogreen2,
 ]{UiO}
 \usefonttheme{professionalfonts}
 \usefonttheme[onlymath]{serif}
@@ -72,9 +73,13 @@
 
     \bigskip
 
-    That is, we with to write the wave function as
+    That is, we wish to write the wave function as
     \begin{equation}
-        \lvert \Psi_0 \rangle = C_0 \lvert \Phi_0 \rangle + \sum_{ia} C_i^a \lvert \Phi_i^a \rangle + \sum_{ijab} C_{ij}^{ab} \lvert \Phi_{ij}^{ab} \rangle + \ldots,
+        \lvert \Psi_0 \rangle
+        = C_0 \lvert \Phi_0 \rangle
+        + \sum_{ia} C_i^a \lvert \Phi_i^a \rangle
+        + \sum_{ijab} C_{ij}^{ab} \lvert \Phi_{ij}^{ab} \rangle
+        + \ldots,
     \end{equation}
     where the coefficients $C$ are determined by solving the eigenvalue problem.
 \end{frame}
@@ -103,38 +108,53 @@
     Approximative methods are therefore required.
 \end{frame}
 
-% \begin{frame}
-%     The method consists of the following steps:
-%     \begin{enumerate}
-%         \item Choose a basis set $\lvert \psi_i \rangle$.
-%         \item Construct the Hamiltonian matrix.
-%         \item Diagonalize the Hamiltonian matrix.
-%         \item Calculate the expectation value of the energy.
-%     \end{enumerate}
-
-%     \bigskip
-
-%     The method is exact as it includes all possible configurations of the system, but it is computationally expensive.
-
-%     \begin{equation*}
-%         -\frac{1}{2} \sum_{\substack{ab \\ ijkl}} \frac{
-%             \langle li \vert V \vert lk \rangle
-%             \langle kj \vert V \vert ab \rangle
-%             \langle ab \vert V \vert ij \rangle
-%         }{
-%             (
-%                 \varepsilon_i + \varepsilon_j - \varepsilon_a - \varepsilon_b
-%             )(
-%                 \varepsilon_k + \varepsilon_j - \varepsilon_a - \varepsilon_b
-%             )
-%         }
-%     \end{equation*}
-% \end{frame}
-
 \section{Hartree-Fock}
 
 \begin{frame}{Hartree-Fock theory}
-    In Hatree-Fock (HF) theory, assume that the system can be approximated by a single Slater determinant, that is, a single configuration.
+    In Hatree-Fock (HF) theory, we assume that the system can be approximated by a single Slater determinant $\Phi$, and we seek to find the wavefunctions $\lvert \psi_\alpha \rangle$ that minimize the energy
+    \begin{equation}
+        E_0 = \left\langle \Phi \vert \hat{H} \vert \Phi \right\rangle.
+    \end{equation}
+    This gives rise to the HF equations
+    \begin{equation}\label{eq:HF_equations}
+        \hat{h}^\mathrm{HF} \lvert \psi_\alpha \rangle = \varepsilon_\alpha \lvert \psi_\alpha \rangle,
+    \end{equation}
+    where $\hat{h}^\mathrm{HF} = \hat{t} + \hat{u}_{\mathrm{ext}} + \hat{u}^\mathrm{HF}$, called the Fock operator, is an effective one-body operator.
+    Here, $\hat{u}^\mathrm{HF}$ is the mean potential from the other particles, of the form
+    \begin{equation}\label{eq:HFpotential}
+        \langle p \vert \hat{u}^\mathrm{HF} \vert q \rangle = \sum_{i} \langle pi \vert V \vert qi \rangle_{AS}.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Varying the wave functions}
+    As Eq.~\eqref{eq:HFpotential} depends on the eigenfunctions, Eq.~\eqref{eq:HF_equations} is nonlinear.
+    We therefore solve it iteratively, until convergence is reached\footnote{If it converges at all.}.
+    Varying the wave functions directly lead to a set of coupled integro-differential equations, wherein the integrals need to be computed at each iteration.
+
+    \bigskip
+
+    Another, more computationally efficient approach, is to expand the wave functions in a basis of known functions, and vary the coefficients of the expansion.
+    We do this by a unitary transformation to a new basis $p$,
+    \begin{equation}
+        \psi_p = \sum_{\alpha} C_{p\alpha} \phi_\alpha,
+    \end{equation}
+    where we now vary the coefficients $C_{p\alpha}$.
+\end{frame}
+
+\begin{frame}{The HF equations}
+    Varying the coefficients, we find
+    \begin{equation}\label{eq:HF_equations_C}
+        \sum_{\gamma} h_{\alpha\gamma}^{\mathrm{HF}} C_{p \gamma} = \varepsilon_p^{\mathrm{HF}} C_{p \alpha},
+    \end{equation}
+    where
+    \begin{equation}\label{eq:HF_hamiltonian_element}
+        h_{\alpha \gamma}^\mathrm{HF}
+        = \langle \alpha \vert \hat{h}_0 \vert \gamma \rangle
+        + \sum_{\beta\delta} \rho_{\beta\delta} \langle \alpha\beta \vert V \vert \gamma\delta \rangle_{AS}.
+    \end{equation}
+    Here, $\rho_{\beta\delta}$ is the density matrix, defined as $\rho_{\beta\delta} = \sum_{i} \langle \beta \vert i \rangle \langle i \vert \delta \rangle = \sum_{i} C_{i\beta} C_{i\delta}^*$.
+    Eq.~\eqref{eq:HF_equations_C} is in effect nothing more than an eigenvalue problem, and the HF equations are solved by diagonalizing the matrix $h^\mathrm{HF}$ repeatedly.
+    The efficiency comes from the fact that the integrals in Eq.~\eqref{eq:HF_hamiltonian_element} need only be computed once, and the density matrix is updated at each iteration from the eigenvectors.
 \end{frame}
 
 \section{Many-body pertubation}
@@ -154,7 +174,7 @@
         = \sum_{\alpha} \langle \alpha \vert \hat{h}_0 \vert \alpha \rangle
         + \frac{1}{2} \sum_{\alpha\beta} \langle \alpha\beta \vert V \vert \alpha \beta \rangle_{AS}.
     \end{equation}
-    The HF equations are found by introducing the new basis $p$ defined by the unitary transformation
+    By way of varying the coefficients, the HF equations are found by introducing the new basis $p$ defined by the unitary transformation
     \begin{equation}
         \psi_p = \sum_{\alpha} C_{p\alpha} \phi_\alpha,
     \end{equation}
@@ -164,7 +184,7 @@
         = \left\langle \Phi^\mathrm{HF} \vert \hat{H} \vert \Phi^\mathrm{HF} \right\rangle
         = \sum_{i} \langle i \vert \hat{h}_0 \vert i \rangle + \frac{1}{2} \sum_{ij} \langle ij \vert V \vert ij \rangle_{AS}
     \end{equation}
-    with respect to the coefficients $C_{p\alpha}$. Eq.~\eqref{eq:PhiHF}
+    with respect to the coefficients $C_{p\alpha}$.
 \end{frame}
 
 \begin{frame}{Introducing Lagrange multipliers}
