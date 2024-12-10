@@ -45,31 +45,44 @@
 
 \section{Introduction}
 \begin{frame}{Notation}
-    Here, we follow the notation of having states $ijk\ldots$ refer to occupied states, and $abc\ldots$ refer to unoccupied states, typically below and above the Fermi level, respectively.
-    From a reference state $\lvert \Phi_0 \rangle$ with $N$ particles, we write a 1-particle-1-hole (1p1h) excitation as
+    Here, we follow the notation of having states $ijk\ldots$ refer
+    to occupied states, and $abc\ldots$ refer to unoccupied states,
+    typically below and above the Fermi level, respectively.
+    From a reference state $\lvert \Phi_0 \rangle$ with $N$
+    particles, we write a 1-particle-1-hole (1p1h) excitation as
     \begin{equation}
         \lvert \Phi_{i}^{a} \rangle
         = a_{a}^\dagger a_{i} \lvert \Phi_0 \rangle,
     \end{equation}
     and similarly for 2p2h, 3p3h, etc.
+
+    % TODO: Add something about Slater Determinants
 \end{frame}
 
 \begin{frame}{Motivation}
-    We are, in essence, interested in finding the ground state energy of a many-body system, that is, solving the eigenvalue problem
+    We are, in essence, interested in finding the ground state energy
+    of a many-body system, that is, solving the eigenvalue problem
     \begin{equation}
         \hat{H} \lvert \Psi_0 \rangle = E_0 \lvert \Psi_0 \rangle,
     \end{equation}
-    where $\hat{H}$ is the Hamiltonian operator and $\lvert \Psi_0 \rangle$ is the ground state wave function, such that the ground state energy $E_0$ is minimized.
+    where $\hat{H}$ is the Hamiltonian operator and $\lvert \Psi_0
+    \rangle$ is the ground state wave function, such that the ground
+    state energy $E_0$ is minimized.
 
     \bigskip
 
-    The complexity arises from the fact that the exact solution cannot typically be found for systems with more than a few particles, and we must resort to approximations.
+    The complexity arises from the fact that the exact solution
+    cannot typically be found for systems with more than a few
+    particles, and we must resort to approximations.
 \end{frame}
 
 \section{Full configuration interaction}
 
 \begin{frame}{Full configuration interaction theory}
-    In full configuration interaction (FCI) theory, we seek to write the wave function as a linear combination of all possible Slater determinants, that is, all possible configurations of the system, truncated at some level.
+    In full configuration interaction (FCI) theory, we seek to write
+    the wave function as a linear combination of all possible Slater
+    determinants, that is, all possible configurations of the system,
+    truncated at some level.
 
     \bigskip
 
@@ -89,51 +102,72 @@
         \centering
         \input{FCI_states.tex}
         \caption{
-            Schematic representation of the six possible Slater determinants for a system with four particles, under the constraint of no broken pairs, total spin $S = 0$, considering only the four lowest levels $p = 1, 2, 3, 4$.\label{fig:SDs}
+            Schematic representation of the six possible Slater
+            determinants for a system with four particles, under the
+            constraint of no broken pairs, total spin $S = 0$,
+            considering only the four lowest levels $p = 1, 2, 3,
+            4$.\label{fig:SDs}
         }
     \end{figure}
 \end{frame}
 
 \begin{frame}{Solving the problem}
-    In solving the system, one first has to set up the Hamiltonian matrix, with elements
+    In solving the system, one first has to set up the Hamiltonian
+    matrix, with elements
     \begin{equation}
         H_{i, j} = \langle \Phi_i \lvert \hat{H} \rvert \Phi_j \rangle,
     \end{equation}
     and then diagonalize the matrix to find the eigenvalues and eigenvectors.
-    The ground state energy can then be found as the lowest eigenvalue, with the corresponding eigenvector giving the coefficients $C$.
+    The ground state energy can then be found as the lowest
+    eigenvalue, with the corresponding eigenvector giving the coefficients $C$.
 
     \bigskip
 
-    FCI is exact, but computationally expensive, as the number of configurations grows factorially with the number of energy levels included.
+    FCI is exact, but computationally expensive, as the number of
+    configurations grows factorially with the number of energy levels included.
     Approximative methods are therefore required.
 \end{frame}
 
 \section{Hartree-Fock}
 
 \begin{frame}{Hartree-Fock theory}
-    In Hatree-Fock (HF) theory, we assume that the system can be approximated by a single Slater determinant $\Phi$, and we seek to find the wavefunctions $\lvert \psi_\alpha \rangle$ that minimize the energy
+    In Hatree-Fock (HF) theory, we assume that the system can be
+    approximated by a single Slater determinant $\Phi$, and we seek
+    to find the wavefunctions $\lvert \psi_\alpha \rangle$ that
+    minimize the energy
     \begin{equation}
         E_0 = \left\langle \Phi \vert \hat{H} \vert \Phi \right\rangle.
     \end{equation}
     This gives rise to the HF equations
     \begin{equation}\label{eq:HF_equations}
-        \hat{h}^\mathrm{HF} \lvert \psi_\alpha \rangle = \varepsilon_\alpha \lvert \psi_\alpha \rangle,
+        \hat{h}^\mathrm{HF} \lvert \psi_\alpha \rangle =
+        \varepsilon_\alpha \lvert \psi_\alpha \rangle,
     \end{equation}
-    where $\hat{h}^\mathrm{HF} = \hat{t} + \hat{u}_{\mathrm{ext}} + \hat{u}^\mathrm{HF}$, called the Fock operator, is an effective one-body operator.
-    Here, $\hat{u}^\mathrm{HF}$ is the mean potential from the other particles, of the form
+    where $\hat{h}^\mathrm{HF} = \hat{t} + \hat{u}_{\mathrm{ext}} +
+    \hat{u}^\mathrm{HF}$, called the Fock operator, is an effective
+    one-body operator.
+    Here, $\hat{u}^\mathrm{HF}$ is the mean potential from the other
+    particles, of the form
     \begin{equation}\label{eq:HFpotential}
-        \langle p \vert \hat{u}^\mathrm{HF} \vert q \rangle = \sum_{i} \langle pi \vert V \vert qi \rangle_{AS}.
+        \langle p \vert \hat{u}^\mathrm{HF} \vert q \rangle =
+        \sum_{i} \langle pi \vert V \vert qi \rangle_{AS}.
     \end{equation}
 \end{frame}
 
 \begin{frame}{Varying the wave functions}
-    As Eq.~\eqref{eq:HFpotential} depends on the eigenfunctions, Eq.~\eqref{eq:HF_equations} is nonlinear.
-    We therefore solve it iteratively, until convergence is reached\footnote{If it converges at all.}.
-    Varying the wave functions directly lead to a set of coupled integro-differential equations, wherein the integrals need to be computed at each iteration.
+    As Eq.~\eqref{eq:HFpotential} depends on the eigenfunctions,
+    Eq.~\eqref{eq:HF_equations} is nonlinear.
+    We therefore solve it iteratively, until convergence is
+    reached\footnote{If it converges at all.}.
+    Varying the wave functions directly lead to a set of coupled
+    integro-differential equations, wherein the integrals need to be
+    computed at each iteration.
 
     \bigskip
 
-    Another, more computationally efficient approach, is to expand the wave functions in a basis of known functions, and vary the coefficients of the expansion.
+    Another, more computationally efficient approach, is to expand
+    the wave functions in a basis of known functions, and vary the
+    coefficients of the expansion.
     We do this by a unitary transformation to a new basis $p$,
     \begin{equation}
         \psi_p = \sum_{\alpha} C_{p\alpha} \phi_\alpha,
@@ -144,7 +178,8 @@
 \begin{frame}{The HF equations}
     Varying the coefficients, we find
     \begin{equation}\label{eq:HF_equations_C}
-        \sum_{\gamma} h_{\alpha\gamma}^{\mathrm{HF}} C_{p \gamma} = \varepsilon_p^{\mathrm{HF}} C_{p \alpha},
+        \sum_{\gamma} h_{\alpha\gamma}^{\mathrm{HF}} C_{p \gamma}
+        = \varepsilon_p^{\mathrm{HF}} C_{p \alpha},
     \end{equation}
     where
     \begin{equation}\label{eq:HF_hamiltonian_element}
@@ -152,14 +187,89 @@
         = \langle \alpha \vert \hat{h}_0 \vert \gamma \rangle
         + \sum_{\beta\delta} \rho_{\beta\delta} \langle \alpha\beta \vert V \vert \gamma\delta \rangle_{AS}.
     \end{equation}
-    Here, $\rho_{\beta\delta}$ is the density matrix, defined as $\rho_{\beta\delta} = \sum_{i} \langle \beta \vert i \rangle \langle i \vert \delta \rangle = \sum_{i} C_{i\beta} C_{i\delta}^*$.
-    Eq.~\eqref{eq:HF_equations_C} is in effect nothing more than an eigenvalue problem, and the HF equations are solved by diagonalizing the matrix $h^\mathrm{HF}$ repeatedly.
-    The efficiency comes from the fact that the integrals in Eq.~\eqref{eq:HF_hamiltonian_element} need only be computed once, and the density matrix is updated at each iteration from the eigenvectors.
+    Here, $\rho_{\beta\delta}$ is the density matrix, defined as
+    $\rho_{\beta\delta} = \sum_{i} \langle \beta \vert i \rangle
+    \langle i \vert \delta \rangle = \sum_{i} C_{i\beta} C_{i\delta}^*$.
+    Eq.~\eqref{eq:HF_equations_C} is in effect nothing more than an
+    eigenvalue problem, and the HF equations are solved by
+    diagonalizing the matrix $h^\mathrm{HF}$ repeatedly.
+    The efficiency comes from the fact that the integrals in
+    Eq.~\eqref{eq:HF_hamiltonian_element} need only be computed once,
+    and the density matrix is updated at each iteration from the eigenvectors.
 \end{frame}
 
-\section{Many-body pertubation}
-\subsection{Brillouin-Wigner pertubation}
-\subsection{Rayleigh-Schrödinger pertubation}
+\section{Many-body pertubation theory}
+
+\begin{frame}{Many-body pertubation theory}
+    In many-body pertubation theory (MBPT), we seek to find the
+    ground state energy by expanding the wave function in a series of
+    pertubations to the Hamiltonian.
+    We assume that the exact solution can be written as
+    \begin{equation}
+        \lvert \Psi_0 \rangle
+        = \lvert \Phi_0 \rangle + \sum_{m = 1}^\infty C_m \lvert \Phi_m \rangle,
+    \end{equation}
+    and that the ground state is dominated by the reference state
+    \begin{equation}
+        \hat{H}_0 \lvert \Phi_0 \rangle = W_0 \lvert \Phi_0 \rangle.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Correlation energy}
+    The Schrödinger equation is then
+    \begin{equation}
+        \hat{H} \lvert \Psi_0 \rangle = E \lvert \Psi_0 \rangle,
+    \end{equation}
+    which gives
+    \begin{equation}
+        \left\langle \Phi_0 \vert \hat{H} \vert \Psi_0 \right\rangle = E.
+    \end{equation}
+    % \begin{align}
+    %     \hat{H} \lvert \Psi_0 \rangle = E \lvert \Psi_0 \rangle,
+    %     \quad \text{which gives} \quad
+    %     \left\langle \Phi_0 \vert \hat{H} \vert \Psi_0 \right\rangle = E.
+    % \end{align}
+    Combining this with
+    \begin{equation}
+        \left\langle \Psi_0 \vert \hat{H}_0 \vert \Phi_0 \right\rangle = W_0,
+    \end{equation}
+    and using the fact that $\hat{H}, \hat{H}_0$ are Hermitian, we find
+    \begin{equation}\label{eq:corr_energy_original}
+        \left\langle \Phi_0 \vert \hat{H}_I \vert \Psi_0 \right\rangle
+        = E - W_0
+        = \Delta E,
+    \end{equation}
+    where $\Delta E$ is the correlation energy.
+\end{frame}
+
+\begin{frame}{Perturbed expression}
+    Introducing the energy variable $\omega$, we can derive
+    \begin{equation}\label{eq:corr_energy}
+        \Delta E = \sum_{i = 0}^\infty \Big\langle \Phi_0 \big\vert \hat{H}_I \left\{
+            \frac{\hat{Q}}{\omega - \hat{H}_0} \left( \omega - E + \hat{H}_I \right)
+        \right\}^{i} \big\lvert \Phi_0 \Big\rangle.
+    \end{equation}
+    This is in reality nothing more than a rewrite of Eq.~\eqref{eq:corr_energy_original}, but serves as a starting point for the pertubation expansion.
+    It contains the unknown energy $E$, as well as the variable $\omega$, and hence we need further assumptions to solve it.
+\end{frame}
+
+\subsection{Brillouin-Wigner}
+
+\begin{frame}{Brillouin-Wigner pertubation theory}
+    In Brillouin-Wigner pertubation theory (BWPT), we assume that $\omega = E$ in Eq.~\eqref{eq:corr_energy}, and we find
+    \begin{equation}
+        \begin{split}
+            \Delta E &= \sum_{i = 0}^\infty \Big\langle \Phi_0 \big\vert \hat{H}_I \left\{
+                \frac{\hat{Q}}{E - \hat{H}_0} \hat{H}_I
+            \right\}^{i} \big\lvert \Phi_0 \Big\rangle \\
+            &= \Big\langle \Phi_0 \vert \left( \hat{H}_I + \hat{H}_I \frac{\hat{Q}}{E - \hat{H}_0} \hat{H}_I + \hat{H}_I \frac{\hat{Q}}{E - \hat{H}_0} \hat{H}_I \frac{\hat{Q}}{E - \hat{H}_0} \hat{H}_I + \ldots \right) \big\lvert \Phi_0 \Big\rangle.
+        \end{split}
+    \end{equation}
+    The equations then become rather simple, as compared with Eq.~\eqref{eq:corr_energy}, with the exception on the unknown energy $E$.
+    It can however be solved iteratively, for an initial guess of $E$.
+\end{frame}
+
+\subsection{Rayleigh-Schrödinger}
 
 \section{Coupled-Clusted theory}
 
@@ -172,23 +282,28 @@
         E[\Phi]
         = \left\langle \Phi \vert \hat{H} \vert \Phi \right\rangle
         = \sum_{\alpha} \langle \alpha \vert \hat{h}_0 \vert \alpha \rangle
-        + \frac{1}{2} \sum_{\alpha\beta} \langle \alpha\beta \vert V \vert \alpha \beta \rangle_{AS}.
+        + \frac{1}{2} \sum_{\alpha\beta} \langle \alpha\beta \vert V
+        \vert \alpha \beta \rangle_{AS}.
     \end{equation}
-    By way of varying the coefficients, the HF equations are found by introducing the new basis $p$ defined by the unitary transformation
+    By way of varying the coefficients, the HF equations are found by
+    introducing the new basis $p$ defined by the unitary transformation
     \begin{equation}
         \psi_p = \sum_{\alpha} C_{p\alpha} \phi_\alpha,
     \end{equation}
     and minimizing the energy functional
     \begin{equation}\label{eq:PhiHF}
         E[\Phi^\mathrm{HF}]
-        = \left\langle \Phi^\mathrm{HF} \vert \hat{H} \vert \Phi^\mathrm{HF} \right\rangle
-        = \sum_{i} \langle i \vert \hat{h}_0 \vert i \rangle + \frac{1}{2} \sum_{ij} \langle ij \vert V \vert ij \rangle_{AS}
+        = \left\langle \Phi^\mathrm{HF} \vert \hat{H} \vert
+        \Phi^\mathrm{HF} \right\rangle
+        = \sum_{i} \langle i \vert \hat{h}_0 \vert i \rangle +
+        \frac{1}{2} \sum_{ij} \langle ij \vert V \vert ij \rangle_{AS}
     \end{equation}
     with respect to the coefficients $C_{p\alpha}$.
 \end{frame}
 
 \begin{frame}{Introducing Lagrange multipliers}
-    Defining the functional in Eq.~\eqref{eq:PhiHF} as a functional of the coefficients $C_{p\alpha}$, we have
+    Defining the functional in Eq.~\eqref{eq:PhiHF} as a functional
+    of the coefficients $C_{p\alpha}$, we have
     \begin{equation}%\label{eq:E0}
         E_0[C]
         = \sum_{i} \sum_{\alpha\beta} {
@@ -207,11 +322,15 @@
     As we have orthonormal basis functions, we have
     \begin{equation}
         \langle i \vert j \rangle
-        = \delta_{ij} = \sum_{\alpha\beta} C_{i\alpha}^* C_{i\beta} \langle \alpha \vert \beta \rangle = \sum_{\alpha} C_{i\alpha}^* C_{i\alpha},
+        = \delta_{ij}
+        = \sum_{\alpha\beta} C_{i\alpha}^* C_{i\beta}
+        \langle \alpha \vert \beta \rangle
+        = \sum_{\alpha} C_{i\alpha}^* C_{i\alpha},
     \end{equation}
     so we introduce the functional
     \begin{equation}
-        F[C] = E_0[C] - \sum_{i} \lambda_i \sum_{\alpha} C_{i\alpha}^* C_{i\alpha},
+        F[C] = E_0[C] - \sum_{i} \lambda_i \sum_{\alpha}
+        C_{i\alpha}^* C_{i\alpha},
     \end{equation}
     where $\lambda_i$ are the Lagrange multipliers enforcing orthonormality.
 \end{frame}
@@ -219,26 +338,33 @@
 \begin{frame}{Minimizing $F$}
     Minimizing $F$ with respect to $C^*_{i\alpha}$, we wish to solve
     \begin{equation}
-        \frac{\diff F}{\diff C^*_{i\alpha}}[C] = \frac{\diff}{\diff C_{i \alpha}^*} \left[ E_0[C] - \sum_j \lambda_j \sum_{\alpha} C_{j \alpha}^* C_{j \alpha} \right] = 0.
+        \frac{\diff F}{\diff C^*_{i\alpha}}[C] = \frac{\diff}{\diff
+        C_{i \alpha}^*} \left[ E_0[C] - \sum_j \lambda_j
+        \sum_{\alpha} C_{j \alpha}^* C_{j \alpha} \right] = 0.
     \end{equation}
 
     Term by term we have
     \begin{align}
-        \frac{\diff}{\diff C_{i \alpha}^*} \sum_{i} \sum_{\alpha\beta} C_{i \alpha}^* C_{i \beta}
+        \frac{\diff}{\diff C_{i \alpha}^*} \sum_{i}
+        \sum_{\alpha\beta} C_{i \alpha}^* C_{i \beta}
         \langle \alpha \vert \hat{h}_0 \vert \beta \rangle
         &= \sum_{\beta} C_{i \beta}
         \langle \alpha \vert \hat{h}_0 \vert \beta \rangle \\
         \frac{\diff}{\diff C_{i \alpha}^*}
-        \frac{1}{2} \sum_{ij} \sum_{\alpha\beta\gamma\delta} C_{i \alpha}^* C_{j \beta}^* C_{i \gamma} C_{j \delta}
+        \frac{1}{2} \sum_{ij} \sum_{\alpha\beta\gamma\delta} C_{i
+        \alpha}^* C_{j \beta}^* C_{i \gamma} C_{j \delta}
         \langle \alpha\beta \vert V \vert \gamma\delta \rangle_{AS}
-        &= \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma} C_{j \delta} \langle \alpha\beta \vert V \vert \gamma\delta \rangle_{AS},
+        &= \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma}
+        C_{j \delta} \langle \alpha\beta \vert V \vert \gamma\delta
+        \rangle_{AS},
     \end{align}
 \end{frame}
 
 \begin{frame}{Minimizing $F$, cont.}
     and finally
     \begin{equation}
-        \frac{\diff}{\diff C_{i \alpha}^*} \sum_{i} \lambda_i \sum_{\alpha} C_{i \alpha}^* C_{i \alpha} = \lambda_i C_{i \alpha}.
+        \frac{\diff}{\diff C_{i \alpha}^*} \sum_{i} \lambda_i
+        \sum_{\alpha} C_{i \alpha}^* C_{i \alpha} = \lambda_i C_{i \alpha}.
     \end{equation}
 
     \bigskip
@@ -247,11 +373,13 @@
     \begin{equation}
         \sum_{\beta} C_{i \beta}
         \langle \alpha \vert \hat{h}_0 \vert \beta \rangle
-        + \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma} C_{j \delta} \langle \alpha\beta \vert V \vert \gamma\delta \rangle_{AS}
+        + \sum_j \sum_{\beta\gamma\delta} C_{j \beta}^* C_{i \gamma}
+        C_{j \delta} \langle \alpha\beta \vert V \vert \gamma\delta \rangle_{AS}
         - \lambda_i C_{i \alpha} = 0.
     \end{equation}
 
-    Recognizing $\lambda_i$ as the eigenvalues $\varepsilon_i^\mathrm{HF}$, we can write this as
+    Recognizing $\lambda_i$ as the eigenvalues
+    $\varepsilon_i^\mathrm{HF}$, we can write this as
     \begin{equation}
         \sum_{\gamma} \left[
             \langle \alpha \vert \hat{h}_0 \vert \gamma \rangle
@@ -265,7 +393,49 @@
 \begin{frame}{Hartree-Fock equations found}
     This finally results in the HF equations
     \begin{equation}
-        \sum_{\gamma} h_{\alpha\gamma}^\mathrm{HF} C_{p \gamma} = \varepsilon_p^\mathrm{HF} C_{p \alpha}.
+        \sum_{\gamma} h_{\alpha\gamma}^\mathrm{HF} C_{p \gamma} =
+        \varepsilon_p^\mathrm{HF} C_{p \alpha}.
+    \end{equation}
+\end{frame}
+
+% TODO: Add something about Pauli Exclusion Principle in Appendix
+\section{Derivation of MBPT}
+\begin{frame}{Derivation of many-body pertubation expansion}
+    We have
+    \begin{align}
+        \hat{H} \lvert \Psi_0 \rangle &= E \lvert \Psi_0 \rangle \\
+        \left( \hat{H}_0 + \hat{H}_I \right) \lvert \Psi_0 \rangle &= E \lvert \Psi_0 \rangle \\
+        -\hat{H}_0 \lvert \Psi_0 \rangle &= \left( - E + \hat{H}_I \right) \lvert \Psi_0 \rangle \\
+        \left( \omega - \hat{H}_0 \right) \lvert \Psi_0 \rangle &= \left(\omega - E + \hat{H}_I \right) \lvert \Psi_0 \rangle,
+    \end{align}
+    where $\omega$ is an energy variable dependent on the expansion method.
+    Assuming the resolvent of $\left( \omega - \hat{H}_0 \right)$ exists, we can then rewrite the Schrödinger equation as
+    \begin{equation}
+        \lvert \Psi_0 \rangle = \frac{1}{\omega - \hat{H}_0} \left( \omega - E + \hat{H}_I \right) \lvert \Psi_0 \rangle.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Combining with projection operators}
+    With the projection operators
+    \begin{equation}
+        \hat{P} = \lvert \Phi_0 \rangle \langle \Phi_0 \rvert,
+        \quad \text{and} \quad
+        \hat{Q} = \sum_{m = 1}^\infty \lvert \Phi_m \rangle \langle \Phi_m \rvert,
+    \end{equation}
+    we can then write
+    \begin{equation}
+        \begin{split}
+            \lvert \Psi_0 \rangle
+            &= \left( \hat{P} + \hat{Q} \right) \lvert \Psi_0 \rangle
+            = \vert \Phi_0 \rangle + \hat{Q} \lvert \Psi_0 \rangle \\
+            &= \vert \Phi_0 \rangle + \frac{\hat{Q}}{\omega - \hat{H}_0} \left( \omega - E + \hat{H}_I \right) \lvert \Psi_0 \rangle.
+        \end{split}
+    \end{equation}
+    Solving this in an iterative fashion, with an initial guess for $\lvert \Psi_0 \rangle = \lvert \Phi_0 \rangle$, we have
+    \begin{equation}
+        \vert \Psi_0 \rangle = \sum_{i = 0}^\infty \left\{
+            \frac{\hat{Q}}{\omega - \hat{H}_0} \left( \omega - E + \hat{H}_I \right)
+        \right\}^{i} \lvert \Phi_0 \rangle
     \end{equation}
 \end{frame}
 
