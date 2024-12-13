@@ -7,6 +7,8 @@ from exact_energy import get_all_energies_below
 
 g = sp.Symbol("g")
 
+default_g = np.linspace(-1, 1, 101)
+
 holes = (1, 2)
 particles = (3, 4)
 
@@ -204,7 +206,7 @@ def compute_RS_func(order: int = 2) -> sp.Expr:  # noqa: N802
     return total
 
 
-def compute_RS(order: int = 2) -> np.ndarray:  # noqa: N802
+def compute_RS(order: int = 2, g_values: np.ndarray | None = None) -> np.ndarray:  # noqa: N802
     """Compute the Rayleigh-Schrödinger perturbation series values for a range of g.
 
     Args:
@@ -214,12 +216,13 @@ def compute_RS(order: int = 2) -> np.ndarray:  # noqa: N802
         np.ndarray: The computed values of the perturbation series for a range of g.
 
     """
-    g_values = np.linspace(-1, 1, 100)
+    if g_values is None:
+        g_values = default_g
     func = compute_RS_func(order)
     return sp.lambdify(g, func, "numpy")(g_values)
 
 
-def RS_coeffs() -> np.ndarray:  # noqa: N802
+def RS_coeffs(g_values: np.ndarray | None = None) -> np.ndarray:  # noqa: N802
     """Compute the Rayleigh-Schrödinger perturbation series coefficients.
 
     This refers to the coefficients from second-order.
@@ -228,7 +231,8 @@ def RS_coeffs() -> np.ndarray:  # noqa: N802
         np.ndarray: The coefficients of the perturbation series.
 
     """
-    g_values = np.linspace(-1, 1, 100)
+    if g_values is None:
+        g_values = default_g
     coeffs = np.zeros((len(g_values), 4))
     counter = 0
     for i in holes:

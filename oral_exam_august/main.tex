@@ -4,6 +4,7 @@
 % \usepackage{arevtext}
 \usepackage{microtype}
 \usepackage{appendixnumberbeamer}
+\usepackage{graphicx}
 
 \usepackage{tikz}
 
@@ -23,7 +24,7 @@
     uiostandard,
     toc,
     font=arial,
-    % sectionsep=uiogreen2,
+    sectionsep=uiogreen2,
 ]{UiO}
 \usefonttheme{professionalfonts}
 \usefonttheme[onlymath]{serif}
@@ -49,12 +50,24 @@
     to occupied states, and $abc\ldots$ refer to unoccupied states,
     typically below and above the Fermi level, respectively.
     From a reference state $\lvert \Phi_0 \rangle$ with $N$
-    particles, we write a 1-particle-1-hole (1p1h) excitation as
+    particles, we write a 1-particle-1-hole ($1p$--$1h$) excitation as
     \begin{equation}
         \lvert \Phi_{i}^{a} \rangle
         = a_{a}^\dagger a_{i} \lvert \Phi_0 \rangle,
     \end{equation}
-    and similarly for 2p2h, 3p3h, etc.
+    and similarly for $2p$--$2h$, $3p$--$3h$, etc.
+
+    We write a state $\Phi$ as a Slater determinant
+    \begin{equation}
+        \Phi(x_1, x_2, \ldots, x_N, \alpha, \beta, \ldots, \gamma) =
+        \begin{bmatrix}
+            \psi_{\alpha}(x_1) & \psi_{\beta}(x_1) & \cdots & \psi_{\gamma}(x_1) \\
+            \psi_{\alpha}(x_2) & \psi_{\beta}(x_2) & \cdots & \psi_{\gamma}(x_2) \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \psi_{\alpha}(x_N) & \psi_{\beta}(x_N) & \cdots & \psi_{\gamma}(x_N)
+        \end{bmatrix}
+    \end{equation}
+    for a set of single-particle functions $\{\psi_{\alpha}\}$.
 
     % TODO: Add something about Slater Determinants
 \end{frame}
@@ -256,7 +269,7 @@
 \subsection{Brillouin-Wigner}
 
 \begin{frame}{Brillouin-Wigner pertubation theory}
-    In Brillouin-Wigner pertubation theory (BWPT), we assume that $\omega = E$ in Eq.~\eqref{eq:corr_energy}, and we find
+    In Brillouin-Wigner pertubation theory (BWPT), we set $\omega = E$ in Eq.~\eqref{eq:corr_energy}, and we find
     \begin{equation}
         \begin{split}
             \Delta E &= \sum_{i = 0}^\infty \Big\langle \Phi_0 \big\vert \hat{H}_I \left\{
@@ -271,7 +284,123 @@
 
 \subsection{Rayleigh-Schrödinger}
 
-\section{Coupled-Clusted theory}
+\begin{frame}{Rayleigh-Schrödinger pertubation theory}
+    In Rayleigh-Schrödinger pertubation theory (RSPT), we set $\omega = W_0$ in Eq.~\eqref{eq:corr_energy}, and we find
+    \begin{equation}
+        \begin{split}
+            \Delta E &= \sum_{i = 0}^\infty \Big\langle \Phi_0 \big\vert \hat{H}_I \left\{
+                \frac{\hat{Q}}{W_0 - \hat{H}_0} \left( W_0 - E + \hat{H}_I \right)
+            \right\}^{i} \big\lvert \Phi_0 \Big\rangle \\
+            &= \sum_{i = 0}^\infty \Big\langle \Phi_0 \big\vert \hat{H}_I \left\{
+                \frac{\hat{Q}}{W_0 - \hat{H}_0} \left( \hat{H}_I - \Delta E \right)
+            \right\}^{i} \big\lvert \Phi_0 \Big\rangle.
+        \end{split}
+    \end{equation}
+    As $\hat{Q} \Delta E \vert \Phi_0 \rangle = 0$, we can write
+    \begin{equation}\label{eq:RSPT}
+        \Delta E = \Big\langle \Phi_0 \big\vert
+        \hat{H}_I
+        + \hat{H}_I \frac{\hat{Q}}{W_0 - \hat{H}_0} \hat{H}_I
+        + \hat{H}_I \frac{\hat{Q}}{W_0 - \hat{H}_0} \left( \hat{H}_I - \Delta E \right) \frac{\hat{Q}}{W_0 - \hat{H}_0} \hat{H}_I
+        + \ldots
+        \big\vert \Phi_0 \Big\rangle.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Order by order contributions}
+    Eq.~\eqref{eq:RSPT} allows us to define the recursive formula
+    \begin{equation}
+        \Delta E = \sum_{i = 1}^\infty \Delta E^{(i)},
+    \end{equation}
+    where the first few terms are, writing $\langle \hat{A} \rangle = \langle \Phi_0 \vert \hat{A} \vert \Phi_0 \rangle$,
+    \begin{align}
+        \Delta E^{(1)} &= \Big\langle \hat{H}_I \Big\rangle \\
+        \Delta E^{(2)} &= \Big\langle \hat{H}_I \frac{\hat{Q}}{W_0 - \hat{H}_0} \hat{H}_I \Big\rangle \\
+        \Delta E^{(3)} &=
+        \Big\langle
+        \hat{H}_I \frac{\hat{Q}}{W_0 - \hat{H}_0}
+        \hat{H}_I \frac{\hat{Q}}{W_0 - \hat{H}_0}
+        \hat{H}_I
+        \Big\rangle
+        - \Big\langle
+        \hat{H}_I \frac{\hat{Q}}{W_0 - \hat{H}_0}
+        \Big\langle \hat{H}_I \Big\rangle
+        \frac{\hat{Q}}{W_0 - \hat{H}_0} \hat{H}_I
+        \Big\rangle.
+    \end{align}
+\end{frame}
+
+\begin{frame}{Order by order contributions}
+    With the previous formula, we can find the correlation energy up to a given order of contributions.
+    This method is however not without its drawbacks.
+    For one, there is no guarantee that the series will converge, and the method is not variational.
+    This entails that we will not necessarily get an improved estimate from including more terms in the series.
+\end{frame}
+
+\section{Coupled-Cluster theory}
+
+\begin{frame}{Coupled-Cluster theory}
+    In coupled-cluster (CC) theory, we seek to write the wave function as
+    \begin{equation}
+        \lvert \Psi_0 \rangle = e^{\hat{T}} \lvert \Phi_0 \rangle,
+    \end{equation}
+    where $\hat{T}$ is the cluster operator, defined as
+    \begin{equation}
+        \hat{T} = \hat{T}_1 + \hat{T}_2 + \hat{T}_3 + \ldots,
+    \end{equation}
+    with $\hat{T}_n$ being the $n$-body cluster operator.
+    The first two such operators are
+    \begin{equation}
+        \hat{T}_1 = \frac{1}{(1!)^2}\sum_{ai} t_i^a a_a^\dagger a_i,
+        \quad \text{and} \quad
+        \hat{T}_2 = \frac{1}{(2!)^2} \sum_{abij} t_{ij}^{ab} a_a^\dagger a_b^\dagger a_j a_i.
+    \end{equation}
+    With this, we also define the similarity transformed Hamiltonian $\overline{H_N} = e^{-\hat{T}} \hat{H} e^{\hat{T}}$.
+\end{frame}
+
+\begin{frame}{Determining the cluster amplitudes}
+    We determine the cluster amplitudes $t_{i_1 \ldots i_n}^{a_1 \ldots a_n}$ by solving the equations
+    \begin{equation}
+        \Big\langle \Phi_{i_1 \ldots i_n}^{a_1 \ldots a_n} \vert \overline{H_N} \vert \Phi_0 \Big\rangle = 0,
+    \end{equation}
+    which is derived from the equations
+    \begin{equation}
+        \Big\langle \Phi_{i_1 \ldots i_n}^{a_1 \ldots a_n} \vert \hat{H}  e^{\hat{T}} \vert \Phi_0 \Big\rangle = E_0 \Big\langle \Phi_{i_1 \ldots i_n}^{a_1 \ldots a_n} \vert e^{\hat{T}} \vert \Phi_0 \Big\rangle.
+    \end{equation}
+    If we were to solve this exactly without truncations, i.e.\ by including up to $np$--$nh$ excitations, we would have the same complexity as FCI. % chktex 13
+    We therefore need to truncate the series, and the most common truncation is at CCSD, where we include up to $2p$--$2h$ excitations.
+\end{frame}
+
+\begin{frame}{Truncated Couple-Cluster}
+    In order to make the method computationally feasible, we truncate the series at some level.
+    By doing this, the method is non-variational.
+
+    \bigskip
+
+    We solve the equations iteratively, and in this case we need an initial guess for the cluster amplitudes.
+    A common choice in CCD is then to use the first order wave operator from MPBT, setting
+    \begin{equation}
+        (t_{ij}^{ab})^{(0)} = \frac{
+            \langle ab \vert V \vert ij \rangle
+        }{
+            \varepsilon_i + \varepsilon_j - \varepsilon_a - \varepsilon_b
+        }.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{CCD results for the pairing model}
+    \begin{columns}
+        \begin{column}{.49\textwidth}
+            Returning to the pairing model, we have the ground state energy difference for the CCD method, as a function of the interaction strength $g$.
+        \end{column}
+
+        \begin{column}{.49\textwidth}
+            \includegraphics[width=\textwidth]{../midterm2/figures/ccd_groundstate_energy_diff.pdf}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\uiofullpageimage{../midterm2/figures/absolute_differences.pdf}
 
 \appendix
 \section{Derivation of the HF equations}
@@ -398,7 +527,6 @@
     \end{equation}
 \end{frame}
 
-% TODO: Add something about Pauli Exclusion Principle in Appendix
 \section{Derivation of MBPT}
 \begin{frame}{Derivation of many-body pertubation expansion}
     We have
@@ -418,7 +546,7 @@
 \begin{frame}{Combining with projection operators}
     With the projection operators
     \begin{equation}
-        \hat{P} = \lvert \Phi_0 \rangle \langle \Phi_0 \rvert,
+        \hat{P} = \lvert \Phi_0 \rangle \langle \Phi_0 \rvert
         \quad \text{and} \quad
         \hat{Q} = \sum_{m = 1}^\infty \lvert \Phi_m \rangle \langle \Phi_m \rvert,
     \end{equation}
@@ -435,8 +563,10 @@
     \begin{equation}
         \vert \Psi_0 \rangle = \sum_{i = 0}^\infty \left\{
             \frac{\hat{Q}}{\omega - \hat{H}_0} \left( \omega - E + \hat{H}_I \right)
-        \right\}^{i} \lvert \Phi_0 \rangle
+        \right\}^{i} \lvert \Phi_0 \rangle.
     \end{equation}
 \end{frame}
+
+% TODO: Add something about Pauli Exclusion Principle in Appendix
 
 \end{document}

@@ -2,6 +2,8 @@ from __future__ import annotations  # noqa: CPY001, D100, INP001
 
 import numpy as np
 
+default_g = np.linspace(-1, 1, 101)
+
 
 def get_states(max_level: int = 4) -> list[tuple[int, int]]:
     """Generate a list of states represented as tuples of integers.
@@ -108,14 +110,15 @@ def get_all_energies_below(g: float, max_level: int = 4) -> np.ndarray:
     return get_energy_from_states(g, states)
 
 
-def FCI_energies() -> np.ndarray:  # noqa: N802
+def FCI_energies(g_values: np.ndarray | None = None) -> np.ndarray:  # noqa: N802
     """Calculate the Full Configuration Interaction (FCI) energies.
 
     Returns:
         np.ndarray: Array of FCI energies for different interaction strengths.
 
     """
-    g_values = np.linspace(-1, 1, 100)
+    if g_values is None:
+        g_values = default_g
     energies = np.zeros((len(g_values), 6))
     for i, g in enumerate(g_values):
         energies[i] = get_all_energies_below(g, 4)
@@ -123,14 +126,15 @@ def FCI_energies() -> np.ndarray:  # noqa: N802
     return energies
 
 
-def CI_energies() -> np.ndarray:  # noqa: N802
+def CI_energies(g_values: np.ndarray | None = None) -> np.ndarray:  # noqa: N802
     """Calculate the Configuration Interaction (CI) energies.
 
     Returns:
         np.ndarray: Array of CI energies for different interaction strengths.
 
     """
-    g_values = np.linspace(-1, 1, 100)
+    if g_values is None:
+        g_values = default_g
     energies = np.zeros((len(g_values), 5))
     states = get_states(4)[:-1]
     for i, g in enumerate(g_values):
@@ -139,7 +143,7 @@ def CI_energies() -> np.ndarray:  # noqa: N802
     return energies
 
 
-def CI_coeffs() -> np.ndarray:  # noqa: N802
+def CI_coeffs(g_values: np.ndarray | None = None) -> np.ndarray:  # noqa: N802
     r"""Calculate the Configuration Interaction (CI) coefficients.
 
     This refers to the coefficients
@@ -150,7 +154,8 @@ def CI_coeffs() -> np.ndarray:  # noqa: N802
         np.ndarray: Array of CI coefficients for different interaction strengths.
 
     """
-    g_values = np.linspace(-1, 1, 100)
+    if g_values is None:
+        g_values = default_g
     coeffs = np.zeros((len(g_values), 5))
     states = get_states(4)[:-1]
     for i, g in enumerate(g_values):

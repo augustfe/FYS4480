@@ -4,10 +4,12 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+
+from coupled_cluster import CCD_energies
 from exact_energy import CI_coeffs, CI_energies, FCI_energies
 from rayleigh_s import RS_coeffs, compute_RS
 
-g_values = np.linspace(-1, 1, 100)
+# g_values = np.linspace(-1, 1, 100)
 
 
 class Plotter:
@@ -17,23 +19,24 @@ class Plotter:
         """Initialize the Plotter class with default values and settings."""
         self.dir_path = Path(__file__).parents[1]
         plt.style.use(self.dir_path / "src" / "latex.mplstyle")
-        self.g_values = np.linspace(-1, 1, 100)
+        self.g_values = np.linspace(-1, 1, 101)
 
-        self.FCI = FCI_energies()
-        self.CI = CI_energies()
-        self.RS2 = compute_RS(2)
-        self.RS3 = compute_RS(3)
-        self.RS4 = compute_RS(4)
+        self.FCI = FCI_energies(self.g_values)
+        self.CI = CI_energies(self.g_values)
+        self.CCD = CCD_energies(self.g_values)
+        self.RS2 = compute_RS(2, self.g_values)
+        self.RS3 = compute_RS(3, self.g_values)
+        self.RS4 = compute_RS(4, self.g_values)
 
     @staticmethod
-    def setup_figure() -> tuple[plt.Figure, plt.Axes]:
+    def setup_figure(figsize: tuple[int, int] = (4, 3)) -> tuple[plt.Figure, plt.Axes]:
         """Set up a matplotlib figure and axes with default settings.
 
         Returns:
             tuple[plt.Figure, plt.Axes]: A tuple containing the figure and axes.
 
         """
-        fig = plt.figure(figsize=(4, 3))
+        fig = plt.figure(figsize=figsize)
         ax = plt.gca()
         ax.set_xlabel(r"$g$")
         return fig, ax
@@ -205,8 +208,8 @@ class Plotter:
         self.save(fig, "f_groundstate_energy_diff.pdf")
 
         fig, axs = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(8, 6))
-        CI_coeffs_ = CI_coeffs()  # noqa: N806
-        RS2_coeffs = RS_coeffs()  # noqa: N806
+        CI_coeffs_ = CI_coeffs(self.g_values)  # noqa: N806
+        RS2_coeffs = RS_coeffs(self.g_values)  # noqa: N806
 
         for i in range(4):
             ax = axs[i // 2, i % 2]
@@ -255,11 +258,100 @@ class Plotter:
         fig.savefig(self.dir_path / "figures" / filename, bbox_inches="tight")
         plt.clf()
 
+    def CCD_plots(self) -> None:
+        """Generate and save plots for CCD calculations."""
+        fig, ax = self.setup_figure()
+        FCI_gs = self.FCI[:, 0]
+        CCD = self.CCD
 
-if __name__ == "__main__":
+        self.add_energy(ax, FCI_gs, "FCI")
+        self.add_energy(ax, CCD, "CCD")
+
+        ax.legend()
+        ax.set_title(r"Groundstate energy (FCI vs CCD)")
+        ax.set_ylabel(r"Energy")
+        self.save(fig, "ccd_groundstate_energy.pdf")
+
+        fig, ax = self.setup_figure()
+        ax.set_title(r"Difference in groundstate energy (FCI vs CCD)")
+        ax.set_ylabel(r"$E_{FCI} - E_{CCD}$")
+        self.add_energy(ax, FCI_gs - CCD)
+
+        self.save(fig, "ccd_groundstate_energy_diff.pdf")
+
+    def diff_plots(self) -> None:
+        """Generate difference plots for the different methods."""
+
+        fig, ax = self.setup_figure()
+        FCI_gs = self.FCI[:, 0]
+        CI_gs = self.CI[:, 0]
+        HF = 2 - self.g_values
+        RS2 = self.RS2
+        RS3 = self.RS3
+        RS4 = self.RS4
+        CCD = self.CCD
+
+        def add_diff(energy: np.ndarray, suffix: str, abs: bool = False) -> None:
+            diff = FCI_gs - energy
+            if abs:
+                diff = np.abs(diff)
+            label = f"$E_{suffix}$"
+            self.add_energy(ax, diff, label)
+
+        energies = [
+            (CI_gs, r"{CI}"),
+            # (HF, "HF"),
+            (RS2, r"{RS}^{(2)}"),
+            (RS3, r"{RS}^{(3)}"),
+            # (RS4, r"{RS}^{(4)}"),
+            (CCD, r"{CCD}"),
+        ]
+
+        for energy, suffix in energies:
+            add_diff(energy, suffix)
+
+        ax.legend()
+        ax.set_title(r"Difference in groundstate energy (FCI vs other methods)")
+        ax.set_ylabel(r"$E_{FCI} - E_*$")
+        self.save(fig, "differences.pdf")
+
+        fig, ax = self.setup_figure((4, 9 / 4))
+        ax.set_title(r"Absolute difference in groundstate energy")
+        ax.set_ylabel(r"$|E_{FCI} - E_*|$")
+
+        energies = [
+            (CI_gs, r"{CI}"),
+            (RS2, r"{RS}^{(2)}"),
+            (RS3, r"{RS}^{(3)}"),
+            (CCD, r"{CCD}"),
+            (HF, r"{HF}"),
+            (RS4, r"{RS}^{(4)}"),
+        ]
+
+        for energy, suffix in energies:
+            add_diff(energy, suffix, abs=True)
+
+        ax.set_yscale("log")
+        ax.legend()
+        self.save(fig, "absolute_differences.pdf")
+
+
+def midterm2_plots() -> None:
+    """Generate and save plots for the midterm 2."""
     plotter = Plotter()
     plotter.exercise_2()
     plotter.exercise_3()
     plotter.exercise_5()
     plotter.exercise_6()
     plotter.exercise_7()
+
+
+def exam_plots() -> None:
+    plotter = Plotter()
+    plotter.CCD_plots()
+    plotter.diff_plots()
+
+
+if __name__ == "__main__":
+    midterm2_plots()
+    exam_plots()
