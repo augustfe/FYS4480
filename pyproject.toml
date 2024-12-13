@@ -1,0 +1,17 @@
+[project]
+name = "fys4480"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel>=6.29.5",
+    "ipython>=8.30.0",
+    "jax>=0.4.37",
+    "line-profiler>=4.2.0",
+    "matplotlib>=3.9.3",
+    "numpy>=2.2.0",
+    "pip>=24.3.1",
+    "seaborn>=0.13.2",
+    "sympy>=1.13.3",
+]
