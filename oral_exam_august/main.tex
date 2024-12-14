@@ -13,6 +13,7 @@
 
 \usepackage{hyperref}
 \usepackage{xcolor}
+\setbeamertemplate{caption}[numbered]
 % \hypersetup{ % this is just my personal choice, feel free to change things
 %     % colorlinks,
 %     % linkcolor={red!50!black},
@@ -60,16 +61,15 @@
     We write a state $\Phi$ as a Slater determinant
     \begin{equation}
         \Phi(x_1, x_2, \ldots, x_N, \alpha, \beta, \ldots, \gamma) =
-        \begin{bmatrix}
+        \frac{1}{\sqrt{N!}}
+        \begin{vmatrix}
             \psi_{\alpha}(x_1) & \psi_{\beta}(x_1) & \cdots & \psi_{\gamma}(x_1) \\
             \psi_{\alpha}(x_2) & \psi_{\beta}(x_2) & \cdots & \psi_{\gamma}(x_2) \\
             \vdots & \vdots & \ddots & \vdots \\
             \psi_{\alpha}(x_N) & \psi_{\beta}(x_N) & \cdots & \psi_{\gamma}(x_N)
-        \end{bmatrix}
+        \end{vmatrix}
     \end{equation}
     for a set of single-particle functions $\{\psi_{\alpha}\}$.
-
-    % TODO: Add something about Slater Determinants
 \end{frame}
 
 \begin{frame}{Motivation}
@@ -89,25 +89,15 @@
     particles, and we must resort to approximations.
 \end{frame}
 
-\section{Full configuration interaction}
-
-\begin{frame}{Full configuration interaction theory}
-    In full configuration interaction (FCI) theory, we seek to write
-    the wave function as a linear combination of all possible Slater
-    determinants, that is, all possible configurations of the system,
-    truncated at some level.
-
-    \bigskip
-
-    That is, we wish to write the wave function as
+\begin{frame}{The pairing model}
+    As an illustration of the various methods, we consider the pairing model, defined by the Hamiltonian
     \begin{equation}
-        \lvert \Psi_0 \rangle
-        = C_0 \lvert \Phi_0 \rangle
-        + \sum_{ia} C_i^a \lvert \Phi_i^a \rangle
-        + \sum_{ijab} C_{ij}^{ab} \lvert \Phi_{ij}^{ab} \rangle
-        + \ldots,
+        \hat{H}
+        = \hat{H}_0 + \hat{V}
+        = \xi \sum_{p\sigma} (p - 1) a^\dagger_{p\sigma} a_{p\sigma} - \frac{1}{2} g \sum_{pq} a^\dagger_{p+} a^\dagger_{p-} a_{q-} a_{q+}.
     \end{equation}
-    where the coefficients $C$ are determined by solving the eigenvalue problem.
+    $\xi$ denotes the spacing between the single-particle levels, and we set $\xi = 1$.
+    $\hat{V}$ only allows for pairing, with a constant strength $g$.
 \end{frame}
 
 \begin{frame}{Slater determinants for pairing model}
@@ -122,6 +112,27 @@
             4$.\label{fig:SDs}
         }
     \end{figure}
+\end{frame}
+
+\section{Full configuration interaction}
+
+\begin{frame}{Full configuration interaction theory}
+    In full configuration interaction (FCI) theory, we seek to write
+    the wave function as a linear combination of all possible Slater
+    determinants, that is, all possible configurations of the system,
+    truncated at some level.
+
+    \bigskip
+
+    That is, we wish to write the wave function as
+    \begin{equation}\label{eq:FCI_wavefunction}
+        \lvert \Psi_0 \rangle
+        = C_0 \lvert \Phi_0 \rangle
+        + \sum_{ia} C_i^a \lvert \Phi_i^a \rangle
+        + \sum_{ijab} C_{ij}^{ab} \lvert \Phi_{ij}^{ab} \rangle
+        + \ldots,
+    \end{equation}
+    where the coefficients $C$ are determined by solving the eigenvalue problem.
 \end{frame}
 
 \begin{frame}{Solving the problem}
@@ -139,6 +150,27 @@
     FCI is exact, but computationally expensive, as the number of
     configurations grows factorially with the number of energy levels included.
     Approximative methods are therefore required.
+\end{frame}
+
+\subsection{Configuration interaction}
+
+\begin{frame}{Configuration interaction in the pairing model}
+    \begin{columns}
+        \begin{column}{.49\textwidth}
+            A first approximative method is configuration interaction (CI) theory.
+            Here, we limit the types of excitations included in Eq.~\eqref{eq:FCI_wavefunction} at some level.
+            For example, in the pairing model, we can limit the excitations to $2p$--$2h$ excitations, that is, we include all configurations except $\vert \Phi_5 \rangle$ in Fig.~\ref{fig:SDs}.
+
+            \medskip
+
+            CI has the benefit of being a variational method, but the number of configurations can still grow rapidly.
+        \end{column}
+
+        \begin{column}{.49\textwidth}
+            \includegraphics[width=\textwidth]{../midterm2/figures/c_groundstate_energy_diff.pdf}
+        \end{column}
+    \end{columns}
+
 \end{frame}
 
 \section{Hartree-Fock}
@@ -209,6 +241,19 @@
     The efficiency comes from the fact that the integrals in
     Eq.~\eqref{eq:HF_hamiltonian_element} need only be computed once,
     and the density matrix is updated at each iteration from the eigenvectors.
+\end{frame}
+
+\begin{frame}{Hartree-Fock with the pairing model}
+    \begin{columns}
+        \begin{column}{.49\textwidth}
+            Returning to the pairing model, we can derive the HF energy estimate as $E^{\mathrm{HF}} = 2 - g$.
+            As the HF method is variational, we know that $E^{\mathrm{HF}} \geq E_0$.
+        \end{column}
+
+        \begin{column}{.49\textwidth}
+            \includegraphics[width=\textwidth]{../midterm2/figures/e_groundstate_energy.pdf}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \section{Many-body pertubation theory}
@@ -337,6 +382,24 @@
     This entails that we will not necessarily get an improved estimate from including more terms in the series.
 \end{frame}
 
+\begin{frame}{RSPT results for the pairing model}
+    \begin{columns}
+        \begin{column}{.49\textwidth}
+            Returning again to the pairing model, we have the ground state energy difference for the RSPT method, as a function of the interaction strength $g$.
+
+            \medskip
+
+            As we see, the estimates diverge from the exact energy from both above and below, as the method is non-variational.
+            In addition, adding additional terms to the series does not guarantee a better estimate.
+        \end{column}
+
+        \begin{column}{.49\textwidth}
+            \includegraphics[width=\textwidth]{../midterm2/figures/rs_diff.pdf}
+        \end{column}
+    \end{columns}
+
+\end{frame}
+
 \section{Coupled-Cluster theory}
 
 \begin{frame}{Coupled-Cluster theory}
@@ -392,6 +455,10 @@
     \begin{columns}
         \begin{column}{.49\textwidth}
             Returning to the pairing model, we have the ground state energy difference for the CCD method, as a function of the interaction strength $g$.
+
+            \medskip
+
+            The pairing model is dominated by pairing correlations, and the CCD method is able to capture this.
         \end{column}
 
         \begin{column}{.49\textwidth}
@@ -567,6 +634,20 @@
     \end{equation}
 \end{frame}
 
-% TODO: Add something about Pauli Exclusion Principle in Appendix
+\section{Pauli Exclusion Principle}
+
+\begin{frame}{Pauli Exclusion Principle}
+    The Pauli principle states that no two fermions can be in the same place, and they cannot have the same quantum numbers.
+    This is achieved through representing the states $\Phi$ as Slater determinants, as if one of the requirements is violated, we would have linearly dependent rows or columns in the determinant respectively.
+    Thus the determinant would vanish.
+
+    \medskip
+
+    The Pauli principle is also enforced through the creation operators, by requiring that
+    \begin{equation}
+        \left\{ a_i^\dagger, a_j^\dagger \right\} = a_i^\dagger a_j^\dagger + a_j^\dagger a_i^\dagger = 0,
+    \end{equation}
+    as this gives us that $a_i^\dagger a_i^\dagger = 0$.
+\end{frame}
 
 \end{document}

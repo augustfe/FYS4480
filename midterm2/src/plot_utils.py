@@ -335,6 +335,32 @@ class Plotter:
         ax.legend()
         self.save(fig, "absolute_differences.pdf")
 
+    def RS_diff_plots(self) -> None:
+        """Generate and save plots for the difference with RS2, RS3 and RS4."""
+        fig, ax = self.setup_figure()
+        FCI_gs = self.FCI[:, 0]
+        energies = [
+            (self.RS2, r"{RS}^{(2)}"),
+            (self.RS3, r"{RS}^{(3)}"),
+            (self.RS4, r"{RS}^{(4)}"),
+        ]
+
+        def add_diff(energy: np.ndarray, suffix: str, abs: bool = False) -> None:
+            diff = FCI_gs - energy
+            if abs:
+                diff = np.abs(diff)
+            label = f"$E_{suffix}$"
+            self.add_energy(ax, diff, label)
+
+        for energy, suffix in energies:
+            add_diff(energy, suffix)
+
+        ax.legend()
+        ax.set_title(r"Difference in groundstate energy (FCI vs RS)")
+        ax.set_ylabel(r"$E_{FCI} - E_{RS}^{(*)}$")
+
+        self.save(fig, "rs_diff.pdf")
+
 
 def midterm2_plots() -> None:
     """Generate and save plots for the midterm 2."""
@@ -348,10 +374,11 @@ def midterm2_plots() -> None:
 
 def exam_plots() -> None:
     plotter = Plotter()
-    plotter.CCD_plots()
-    plotter.diff_plots()
+    # plotter.CCD_plots()
+    # plotter.diff_plots()
+    plotter.RS_diff_plots()
 
 
 if __name__ == "__main__":
-    midterm2_plots()
+    # midterm2_plots()
     exam_plots()
