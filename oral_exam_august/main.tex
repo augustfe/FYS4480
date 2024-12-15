@@ -9,6 +9,7 @@
 \usepackage{tikz}
 
 \usepackage{amsmath, amssymb}
+\usepackage{simpler-wick}
 % \usepackage{caption}
 
 \usepackage{hyperref}
@@ -89,7 +90,7 @@
     particles, and we must resort to approximations.
 \end{frame}
 
-\begin{frame}{The pairing model}
+\begin{frame}{The Pairing Model}
     As an illustration of the various methods, we consider the pairing model, defined by the Hamiltonian
     \begin{equation}
         \hat{H}
@@ -100,7 +101,7 @@
     $\hat{V}$ only allows for pairing, with a constant strength $g$.
 \end{frame}
 
-\begin{frame}{Slater determinants for pairing model}
+\begin{frame}{Slater Determinants for Pairing Model}
     \begin{figure}[htbp]
         \centering
         \input{FCI_states.tex}
@@ -114,9 +115,9 @@
     \end{figure}
 \end{frame}
 
-\section{Full configuration interaction}
+\section{Full Configuration Interaction}
 
-\begin{frame}{Full configuration interaction theory}
+\begin{frame}{Full Configuration Interaction Theory}
     In full configuration interaction (FCI) theory, we seek to write
     the wave function as a linear combination of all possible Slater
     determinants, that is, all possible configurations of the system,
@@ -135,7 +136,7 @@
     where the coefficients $C$ are determined by solving the eigenvalue problem.
 \end{frame}
 
-\begin{frame}{Solving the problem}
+\begin{frame}{Solving the Problem}
     In solving the system, one first has to set up the Hamiltonian
     matrix, with elements
     \begin{equation}
@@ -147,14 +148,13 @@
 
     \bigskip
 
-    FCI is exact, but computationally expensive, as the number of
-    configurations grows factorially with the number of energy levels included.
+    FCI is exact, but computationally expensive, as the number of possible configurations grows factorially as $\binom{n}{N}$.
     Approximative methods are therefore required.
 \end{frame}
 
-\subsection{Configuration interaction}
+\subsection{Configuration Interaction}
 
-\begin{frame}{Configuration interaction in the pairing model}
+\begin{frame}{Configuration Interaction in the Pairing Model}
     \begin{columns}
         \begin{column}{.49\textwidth}
             A first approximative method is configuration interaction (CI) theory.
@@ -175,7 +175,7 @@
 
 \section{Hartree-Fock}
 
-\begin{frame}{Hartree-Fock theory}
+\begin{frame}{Hartree-Fock Theory}
     In Hatree-Fock (HF) theory, we assume that the system can be
     approximated by a single Slater determinant $\Phi$, and we seek
     to find the wavefunctions $\lvert \psi_\alpha \rangle$ that
@@ -199,10 +199,10 @@
     \end{equation}
 \end{frame}
 
-\begin{frame}{Varying the wave functions}
+\begin{frame}{Varying the Wave Functions}
     As Eq.~\eqref{eq:HFpotential} depends on the eigenfunctions,
     Eq.~\eqref{eq:HF_equations} is nonlinear.
-    We therefore solve it iteratively, until convergence is
+    We can therefore solve it iteratively, until convergence is
     reached\footnote{If it converges at all.}.
     Varying the wave functions directly lead to a set of coupled
     integro-differential equations, wherein the integrals need to be
@@ -220,7 +220,7 @@
     where we now vary the coefficients $C_{p\alpha}$.
 \end{frame}
 
-\begin{frame}{The HF equations}
+\begin{frame}{The HF Equations}
     Varying the coefficients, we find
     \begin{equation}\label{eq:HF_equations_C}
         \sum_{\gamma} h_{\alpha\gamma}^{\mathrm{HF}} C_{p \gamma}
@@ -243,7 +243,7 @@
     and the density matrix is updated at each iteration from the eigenvectors.
 \end{frame}
 
-\begin{frame}{Hartree-Fock with the pairing model}
+\begin{frame}{Hartree-Fock with the Pairing Model}
     \begin{columns}
         \begin{column}{.49\textwidth}
             Returning to the pairing model, we can derive the HF energy estimate as $E^{\mathrm{HF}} = 2 - g$.
@@ -256,9 +256,9 @@
     \end{columns}
 \end{frame}
 
-\section{Many-body pertubation theory}
+\section{Many-Body Pertubation Theory}
 
-\begin{frame}{Many-body pertubation theory}
+\begin{frame}{Many-Body Pertubation Theory}
     In many-body pertubation theory (MBPT), we seek to find the
     ground state energy by expanding the wave function in a series of
     pertubations to the Hamiltonian.
@@ -267,13 +267,13 @@
         \lvert \Psi_0 \rangle
         = \lvert \Phi_0 \rangle + \sum_{m = 1}^\infty C_m \lvert \Phi_m \rangle,
     \end{equation}
-    and that the ground state is dominated by the reference state
+    and that the ground state is dominated by the unperturbed problem
     \begin{equation}
         \hat{H}_0 \lvert \Phi_0 \rangle = W_0 \lvert \Phi_0 \rangle.
     \end{equation}
 \end{frame}
 
-\begin{frame}{Correlation energy}
+\begin{frame}{Correlation Energy}
     The Schrödinger equation is then
     \begin{equation}
         \hat{H} \lvert \Psi_0 \rangle = E \lvert \Psi_0 \rangle,
@@ -300,7 +300,7 @@
     where $\Delta E$ is the correlation energy.
 \end{frame}
 
-\begin{frame}{Perturbed expression}
+\begin{frame}{Perturbed Expression}
     Introducing the energy variable $\omega$, we can derive
     \begin{equation}\label{eq:corr_energy}
         \Delta E = \sum_{i = 0}^\infty \Big\langle \Phi_0 \big\vert \hat{H}_I \left\{
@@ -313,7 +313,7 @@
 
 \subsection{Brillouin-Wigner}
 
-\begin{frame}{Brillouin-Wigner pertubation theory}
+\begin{frame}{Brillouin-Wigner Pertubation Theory}
     In Brillouin-Wigner pertubation theory (BWPT), we set $\omega = E$ in Eq.~\eqref{eq:corr_energy}, and we find
     \begin{equation}
         \begin{split}
@@ -329,7 +329,7 @@
 
 \subsection{Rayleigh-Schrödinger}
 
-\begin{frame}{Rayleigh-Schrödinger pertubation theory}
+\begin{frame}{Rayleigh-Schrödinger Pertubation Theory}
     In Rayleigh-Schrödinger pertubation theory (RSPT), we set $\omega = W_0$ in Eq.~\eqref{eq:corr_energy}, and we find
     \begin{equation}
         \begin{split}
@@ -352,7 +352,7 @@
     \end{equation}
 \end{frame}
 
-\begin{frame}{Order by order contributions}
+\begin{frame}{Order by Order Contributions}
     Eq.~\eqref{eq:RSPT} allows us to define the recursive formula
     \begin{equation}
         \Delta E = \sum_{i = 1}^\infty \Delta E^{(i)},
@@ -375,14 +375,14 @@
     \end{align}
 \end{frame}
 
-\begin{frame}{Order by order contributions}
+\begin{frame}{Order by Order Contributions}
     With the previous formula, we can find the correlation energy up to a given order of contributions.
     This method is however not without its drawbacks.
     For one, there is no guarantee that the series will converge, and the method is not variational.
     This entails that we will not necessarily get an improved estimate from including more terms in the series.
 \end{frame}
 
-\begin{frame}{RSPT results for the pairing model}
+\begin{frame}{RSPT Results for the Pairing Model}
     \begin{columns}
         \begin{column}{.49\textwidth}
             Returning again to the pairing model, we have the ground state energy difference for the RSPT method, as a function of the interaction strength $g$.
@@ -400,9 +400,9 @@
 
 \end{frame}
 
-\section{Coupled-Cluster theory}
+\section{Coupled-Cluster Theory}
 
-\begin{frame}{Coupled-Cluster theory}
+\begin{frame}{Coupled-Cluster Theory}
     In coupled-cluster (CC) theory, we seek to write the wave function as
     \begin{equation}
         \lvert \Psi_0 \rangle = e^{\hat{T}} \lvert \Phi_0 \rangle,
@@ -421,7 +421,7 @@
     With this, we also define the similarity transformed Hamiltonian $\overline{H_N} = e^{-\hat{T}} \hat{H} e^{\hat{T}}$.
 \end{frame}
 
-\begin{frame}{Determining the cluster amplitudes}
+\begin{frame}{Determining the Cluster Amplitudes}
     We determine the cluster amplitudes $t_{i_1 \ldots i_n}^{a_1 \ldots a_n}$ by solving the equations
     \begin{equation}
         \Big\langle \Phi_{i_1 \ldots i_n}^{a_1 \ldots a_n} \vert \overline{H_N} \vert \Phi_0 \Big\rangle = 0,
@@ -451,7 +451,7 @@
     \end{equation}
 \end{frame}
 
-\begin{frame}{CCD results for the pairing model}
+\begin{frame}{CCD Results for the Pairing Model}
     \begin{columns}
         \begin{column}{.49\textwidth}
             Returning to the pairing model, we have the ground state energy difference for the CCD method, as a function of the interaction strength $g$.
@@ -470,9 +470,9 @@
 \uiofullpageimage{../midterm2/figures/absolute_differences.pdf}
 
 \appendix
-\section{Derivation of the HF equations}
+\section{Derivation of the HF Equations}
 
-\begin{frame}{Derivation of the HF equations}
+\begin{frame}{Derivation of the HF Equations}
     In the original basis $\alpha$ we have the energy functional
     \begin{equation}
         E[\Phi]
@@ -497,7 +497,7 @@
     with respect to the coefficients $C_{p\alpha}$.
 \end{frame}
 
-\begin{frame}{Introducing Lagrange multipliers}
+\begin{frame}{Introducing Lagrange Multipliers}
     Defining the functional in Eq.~\eqref{eq:PhiHF} as a functional
     of the coefficients $C_{p\alpha}$, we have
     \begin{equation}%\label{eq:E0}
@@ -586,7 +586,7 @@
     \end{equation}
 \end{frame}
 
-\begin{frame}{Hartree-Fock equations found}
+\begin{frame}{Hartree-Fock Equations Found}
     This finally results in the HF equations
     \begin{equation}
         \sum_{\gamma} h_{\alpha\gamma}^\mathrm{HF} C_{p \gamma} =
@@ -595,7 +595,7 @@
 \end{frame}
 
 \section{Derivation of MBPT}
-\begin{frame}{Derivation of many-body pertubation expansion}
+\begin{frame}{Derivation of Many-Body Pertubation Expansion}
     We have
     \begin{align}
         \hat{H} \lvert \Psi_0 \rangle &= E \lvert \Psi_0 \rangle \\
@@ -610,7 +610,7 @@
     \end{equation}
 \end{frame}
 
-\begin{frame}{Combining with projection operators}
+\begin{frame}{Combining with Projection Operators}
     With the projection operators
     \begin{equation}
         \hat{P} = \lvert \Phi_0 \rangle \langle \Phi_0 \rvert
@@ -648,6 +648,78 @@
         \left\{ a_i^\dagger, a_j^\dagger \right\} = a_i^\dagger a_j^\dagger + a_j^\dagger a_i^\dagger = 0,
     \end{equation}
     as this gives us that $a_i^\dagger a_i^\dagger = 0$.
+\end{frame}
+
+\section{Wick's Theorem}
+
+\begin{frame}{Wick's Theorem}
+    Wick's theorem is based on two main principles, \textit{normal ordering} and \textit{contractions}.
+
+    \medskip
+
+    Normal ordering is the process of moving all creation operators to the left of all annihilation operators, specifically
+    \begin{equation}
+        \{ \hat{A} \hat{B} \cdots \hat{X} \hat{Y} \} = (-1)^P [ \text{creation operators} ] \cdot [ \text{annihilation operators} ],
+    \end{equation}
+    where $P$ is the number of permutations needed to move all creation operators to the left of all annihilation operators.
+
+    \medskip
+
+    A contraction is defined as the vaccuum expectation value of two operators, and is denoted by
+    \begin{equation}
+        \wick{
+            \c2 {\hat{A}}
+            \c2 {\hat{B}}
+        }
+        = \langle 0 \vert \hat{A} \hat{B} \vert 0 \rangle.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Wick's Theorem}
+    The theorem then states that any product of annhilation and creation operators can be written as a sum of normal ordered products, with all possible contractions.
+    For example, a string of $N$ operators can be written as
+    \begin{equation}
+        \begin{split}
+            \hat{A} \hat{B} \cdots \hat{X} \hat{Y} \hat{Z}
+            =& \ \{ \hat{A} \hat{B} \cdots \hat{X} \hat{Y} \hat{Z} \}
+            + \sum_{[1]} \{ \wick{\c2{\hat{A}} \c2{\hat{B}} \cdots \hat{X} \hat{Y} \hat{Z}} \} \\
+            &+ \sum_{[2]} \{ \wick{\c2{\hat{A}} \c3{\hat{B}} \cdots \c2{\hat{X}} \c3{\hat{Y}} \hat{Z}} \}
+            + \ldots
+            + \sum_{[\frac{N}{2}]} \{ \wick{\c2{\hat{A}} \c3{\hat{B}} \c4{\cdots} \c2{\hat{X}} \c3{\hat{Y}} \c4{\hat{Z}}} \}.
+        \end{split}
+    \end{equation}
+    This can then be utilized to reduce the number of terms which need to be computed, as a number of the terms typically vanish.
+\end{frame}
+
+\begin{frame}{Wick's Theorem}
+    This is especially the case when computing vaccuum expectation values, as a normal ordering of operators which is not fully contracted will vanish.
+    We are then simply left with
+    \begin{equation}
+        \langle 0 \vert \hat{A} \hat{B} \cdots \hat{X} \hat{Y} \hat{Z} \vert 0 \rangle
+        = \sum_{[\frac{N}{2}]} \langle 0 \lvert \{ \wick{\c2{\hat{A}} \c3{\hat{B}} \c4{\cdots} \c2{\hat{X}} \c3{\hat{Y}} \c4{\hat{Z}}} \} \rvert 0 \rangle
+        = \sum_{[\frac{N}{2}]} \wick{\c2{\hat{A}} \c3{\hat{B}} \c4{\cdots} \c2{\hat{X}} \c3{\hat{Y}} \c4{\hat{Z}}}.
+    \end{equation}
+    Then for instance, when there is an odd number of operators, or a different number of creation and annihilation operators, we can immediately read off the vaccuum expectation value as zero.
+\end{frame}
+
+\section{Thouless' Theorem}
+
+\begin{frame}{Thouless' Theorem}
+    Thouless' theorem states that any state $\lvert \Psi \rangle$ not orthogonal to a determinant $\lvert \Phi \rangle$ can be written as
+    \begin{equation}
+        \lvert \Psi \rangle = \exp\left\{ \sum_{ai} C_{ai} a_a^\dagger a_i \right\} \lvert \Phi \rangle.
+    \end{equation}
+    From this we derive
+    \begin{equation}
+        \lvert \Psi \rangle = \prod_i \left\{ 1 + \sum_a C_{ai} a_a^\dagger a_i + \left(\sum_a C_{ai} a_a^\dagger a_i \right)^2 + \ldots \right\} \lvert \Phi \rangle,
+    \end{equation}
+    and as the higher-order terms include operators of the form $(a_i)^n$, all but the first two terms vanish.
+    With $\lvert \Phi \rangle = a_{i_1}^\dagger a_{i_2}^\dagger \ldots a_{i_n}^\dagger \lvert 0 \rangle$, we can then derive
+    \begin{equation}
+        \lvert \Psi \rangle
+        = \prod_i \left\{ 1 + \sum_a C_{ai} a_a^\dagger a_i \right\} a_{i_1}^\dagger a_{i_2}^\dagger \ldots a_{i_n}^\dagger \lvert 0 \rangle
+        =\prod_i \left\{ a_i^\dagger + \sum_a C_{ai} a_a^\dagger \right\} \lvert 0 \rangle.
+    \end{equation}
 \end{frame}
 
 \end{document}
